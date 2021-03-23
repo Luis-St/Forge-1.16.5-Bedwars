@@ -21,8 +21,5 @@ public class ModBlockItems {
 	
 	public static final RegistryObject<BlockItem> GOLD_SPAWNER_ITEM = VANILLA_ITEMS.register("gold_block", 
 			() -> new BlockItem(ModBlocks.GOLD_SPAWNER.get(), new Item.Properties().group(Bedwars.BEDWARS)));
-	
-	public static final RegistryObject<BlockItem> DIAMOND_SPAWNER_ITEM = VANILLA_ITEMS.register("diamond_block", 
-			() -> new BlockItem(ModBlocks.DIAMOND_SPAWNER.get(), new Item.Properties().group(Bedwars.BEDWARS)));
 
 }

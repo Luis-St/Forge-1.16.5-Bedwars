@@ -1,6 +1,8 @@
 package net.luis.bedwars.common.tileentities;
 
 import net.luis.bedwars.common.base.block.ISpawnerBlock;
+import net.luis.bedwars.common.base.side.Side;
+import net.luis.bedwars.common.base.side.SideHelper;
 import net.luis.bedwars.init.ModTileEntityType;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.ItemEntity;
@@ -12,6 +14,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class SpawnBlockTileEntity extends TileEntity implements ITickableTileEntity {
+	
+	private boolean isSpawner;
 
 	public SpawnBlockTileEntity() {
 		
@@ -31,8 +35,12 @@ public class SpawnBlockTileEntity extends TileEntity implements ITickableTileEnt
 			
 			if (block instanceof ISpawnerBlock) {
 				
-				ISpawnerBlock spawnerBlock = (ISpawnerBlock) block;
-				this.spawnItem(world, pos, spawnerBlock.getSpawnItem(), spawnerBlock.getSpawnTime());
+				if (this.isSpawner()) {
+					
+					ISpawnerBlock spawnerBlock = (ISpawnerBlock) block;
+					this.spawnItem(world, pos, spawnerBlock.getSpawnItem(), spawnerBlock.getSpawnTime());
+					
+				}
 				
 			}
 			
@@ -46,13 +54,59 @@ public class SpawnBlockTileEntity extends TileEntity implements ITickableTileEnt
 			
 			if (world.getGameTime() % time == 0) {
 				
-				ItemEntity itemEntity = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.0, pos.getZ() + 0.5, new ItemStack(item));
+				SideHelper sideHelper = new SideHelper(world, pos);
+				Side side = sideHelper.getHorizontalOrRandomSide(sideHelper.getRandomAvailabledSide());
+				ItemEntity itemEntity = this.creatItem(side, world, pos, item, sideHelper.isOnSideCobweb(side));
 				itemEntity.setDefaultPickupDelay();
-				world.addEntity(itemEntity);
+				
+				if (side.canSpawn()) {
+					
+					world.addEntity(itemEntity);
+					
+				}
 				
 			}
 			
 		}
+		
+	}
+	
+	protected ItemEntity creatItem(Side side, World world, BlockPos pos, Item item , boolean cobweb) {
+		
+		int posX = pos.getX();
+		int posY = pos.getY();
+		int posZ = pos.getZ();
+		double sideX = side.getX();
+		double sideY = side.getY();
+		double sideZ = side.getZ();
+		
+		ItemEntity itemEntity = new ItemEntity(world, posX + sideX, posY + sideY, posZ + sideZ, new ItemStack(item));
+		
+		if (cobweb) {
+			
+			itemEntity.setMotion(0, 0, 0);
+			
+		}
+		
+		return itemEntity;
+		
+	}
+	
+	protected boolean disableItemMotion(SideHelper sideHelper, Side side) {
+		
+		return sideHelper.isOnSideCobweb(side);
+		
+	}
+
+	public boolean isSpawner() {
+		
+		return isSpawner;
+		
+	}
+
+	public void setSpawner(boolean isSpawner) {
+		
+		this.isSpawner = isSpawner;
 		
 	}
 	

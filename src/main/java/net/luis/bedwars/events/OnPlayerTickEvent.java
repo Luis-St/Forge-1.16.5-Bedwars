@@ -6,6 +6,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.TickEvent.Phase;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 
@@ -19,7 +20,7 @@ public class OnPlayerTickEvent {
 		
 		if (player.getEntityWorld().getGameTime() % 10 == 0) {
 			
-			if (event.phase == Phase.START) {
+			if (event.phase == Phase.START && event.side == LogicalSide.SERVER) {
 				
 				player.getCapability(ModCapability.BEDWARS, null).ifPresent(bedwarsHandler -> {
 					
