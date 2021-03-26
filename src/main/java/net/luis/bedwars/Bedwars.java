@@ -4,9 +4,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import net.luis.bedwars.common.base.capability.IBedwars;
+import net.luis.bedwars.common.base.capability.IGame;
 import net.luis.bedwars.init.ModBedwarsCapability;
 import net.luis.bedwars.init.ModBlockItems;
 import net.luis.bedwars.init.ModBlocks;
+import net.luis.bedwars.init.ModGameCapability;
 import net.luis.bedwars.init.ModItems;
 import net.luis.bedwars.init.ModTileEntityType;
 import net.minecraft.item.ItemGroup;
@@ -48,7 +50,8 @@ public class Bedwars {
 	
 	private void setup(FMLCommonSetupEvent event) {
 		
-		CapabilityManager.INSTANCE.register(IBedwars.class, new ModBedwarsCapability.BagpackStorage(), new ModBedwarsCapability.BagpackFactory());
+		CapabilityManager.INSTANCE.register(IBedwars.class, new ModBedwarsCapability.BedwarsStorage(), new ModBedwarsCapability.BedwarsFactory());
+		CapabilityManager.INSTANCE.register(IGame.class, new ModGameCapability.GameStorage(), new ModGameCapability.GameFactory());
 		
 	}
 	

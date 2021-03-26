@@ -3,6 +3,7 @@ package net.luis.bedwars.common.tileentities;
 import net.luis.bedwars.common.base.block.ISpawnerBlock;
 import net.luis.bedwars.common.base.side.Side;
 import net.luis.bedwars.common.base.side.SideHelper;
+import net.luis.bedwars.init.ModGameCapability;
 import net.luis.bedwars.init.ModTileEntityType;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.ItemEntity;
@@ -29,14 +30,22 @@ public class SpawnBlockTileEntity extends TileEntity implements ITickableTileEnt
 		
 		if (world != null) {
 			
-			Block block = world.getBlockState(pos).getBlock();
-			
-			if (block instanceof ISpawnerBlock) {
+			world.getCapability(ModGameCapability.GAME, null).ifPresent(gameHandler -> {
 				
-				ISpawnerBlock spawnerBlock = (ISpawnerBlock) block;
-				this.spawnItem(world, pos, spawnerBlock.getSpawnItem(), spawnerBlock.getSpawnTime());
+				if (gameHandler.isGameStarted()) {
+					
+					Block block = world.getBlockState(pos).getBlock();
+					
+					if (block instanceof ISpawnerBlock) {
+						
+						ISpawnerBlock spawnerBlock = (ISpawnerBlock) block;
+						this.spawnItem(world, pos, spawnerBlock.getSpawnItem(), spawnerBlock.getSpawnTime());
+						
+					}
+					
+				}
 				
-			}
+			});
 			
 		}
 		

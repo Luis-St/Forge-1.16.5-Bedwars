@@ -16,7 +16,7 @@ public class ModBedwarsCapability {
 	
 	public static Capability<IBedwars> BEDWARS = null;
 	
-	public static class BagpackStorage implements IStorage<IBedwars> {
+	public static class BedwarsStorage implements IStorage<IBedwars> {
 		@Override
 		public INBT writeNBT(Capability<IBedwars> capability, IBedwars instance, Direction side) {
 			return null;
@@ -26,19 +26,19 @@ public class ModBedwarsCapability {
 		}
 	}
 	
-	public static class BagpackFactory implements Callable<IBedwars> {
+	public static class BedwarsFactory implements Callable<IBedwars> {
 		@Override
 		public IBedwars call() throws Exception {
 			return null;
 		}
 	}
 	
-	public static class BagpackProvider implements ICapabilitySerializable<CompoundNBT> {
+	public static class BedwarsProvider implements ICapabilitySerializable<CompoundNBT> {
 		
 		private BedwarsHandler bedwarsHandler = new BedwarsHandler();
 		private LazyOptional<BedwarsHandler> bedwarsOptional = LazyOptional.of(() -> bedwarsHandler);
 		
-		public BagpackProvider() {
+		public BedwarsProvider() {
 			
 		}
 		

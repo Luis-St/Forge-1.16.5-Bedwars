@@ -1,7 +1,7 @@
 package net.luis.bedwars.common.item;
 
 import net.luis.bedwars.Bedwars;
-import net.luis.bedwars.init.ModCapability;
+import net.luis.bedwars.init.ModBedwarsCapability;
 import net.minecraft.block.AirBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -31,7 +31,7 @@ public class GunpowderItem extends Item {
 			
 			if (!(world.getBlockState(pos).getBlock() instanceof AirBlock)) {
 				
-				serverPlayer.getCapability(ModCapability.BEDWARS, null).ifPresent(bedwarsHandler -> {
+				serverPlayer.getCapability(ModBedwarsCapability.BEDWARS, null).ifPresent(bedwarsHandler -> {
 					
 					if (bedwarsHandler.getGunpowderCooldown() == 0) {
 						

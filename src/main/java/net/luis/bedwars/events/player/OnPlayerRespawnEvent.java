@@ -1,4 +1,4 @@
-package net.luis.bedwars.events;
+package net.luis.bedwars.events.player;
 
 import net.luis.bedwars.Bedwars;
 import net.luis.bedwars.init.ModBedwarsCapability;
@@ -25,6 +25,7 @@ public class OnPlayerRespawnEvent {
 				if (!bedwarsHandler.canRespawn()) {
 					
 					player.setGameType(GameType.SPECTATOR);
+					player.setPositionAndUpdate(bedwarsHandler.getRespawnPosX(), bedwarsHandler.getRespawnPosY(), bedwarsHandler.getRespawnPosZ());
 					
 				}
 				

@@ -1,4 +1,4 @@
-package net.luis.bedwars.events;
+package net.luis.bedwars.events.player;
 
 import net.luis.bedwars.Bedwars;
 import net.luis.bedwars.init.ModBedwarsCapability;
