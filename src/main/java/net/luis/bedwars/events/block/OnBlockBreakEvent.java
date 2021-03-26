@@ -1,11 +1,11 @@
 package net.luis.bedwars.events.block;
 
 import net.luis.bedwars.Bedwars;
+import net.luis.bedwars.init.ModBlocks;
 import net.minecraft.block.BedBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.GlassBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -18,78 +18,80 @@ public class OnBlockBreakEvent {
 	@SubscribeEvent
 	public static void BlockBreak(BlockEvent.BreakEvent event) {
 		
-		BlockState block = event.getState();
+		BlockState state = event.getState();
 		PlayerEntity player = event.getPlayer();
 		
 		if (!player.abilities.isCreativeMode) {
 			
-			event.setCanceled(!isBedwarsBlock(block.getBlock()));
+			isBedwarsBlock(event, state.getBlock());
 			
 		}
 		
 	}
 	
-	public static boolean isBedwarsBlock(Block block) {
+	public static void isBedwarsBlock(BlockEvent.BreakEvent event, Block block) {
 		
 		if (block == Blocks.CUT_SANDSTONE) {
 			
-			return true;
+			event.setCanceled(false);
 			
 		} else if (block == Blocks.PACKED_ICE) {
 			
-			return true;
-			
-		} else if (block instanceof GlassBlock) {
-			
-			return true;
+			event.setCanceled(false);
 			
 		} else if (block == Blocks.SANDSTONE_STAIRS) {
 			
-			return true;
+			event.setCanceled(false);
 			
 		} else if (block == Blocks.END_STONE) {
 			
-			return true;
+			event.setCanceled(false);
 			
 		} else if (block == Blocks.NETHERITE_BLOCK) {
 			
-			return true;
+			event.setCanceled(false);
 			
 		} else if (block == Blocks.LADDER) {
 			
-			return true;
+			event.setCanceled(false);
 			
 		} else if (block == Blocks.COBWEB) {
 			
-			return true;
+			event.setCanceled(false);
 			
 		} else if (block == Blocks.NETHERITE_BLOCK) {
 			
-			return true;
+			event.setCanceled(false);
 			
 		} else if (block == Blocks.SLIME_BLOCK) {
 			
-			return true;
+			event.setCanceled(false);
 			
 		} else if (block == Blocks.TNT) {
 			
-			return true;
+			event.setCanceled(false);
 			
 		} else if (block == Blocks.CHEST) {
 			
-			return true;
+			event.setCanceled(false);
 			
 		} else if (block == Blocks.ENDER_CHEST) {
 			
-			return true;
+			event.setCanceled(false);
 			
 		} else if (block instanceof BedBlock) {
 			
-			return true;
+			event.setCanceled(false);
+			
+		} else if (block == ModBlocks.BLOCK_OF_IRON.get()) {
+			
+			event.setCanceled(false);
+			
+		} else {
+			
+			event.setCanceled(true);
 			
 		}
-		
-		return false;
 		
 	}
 

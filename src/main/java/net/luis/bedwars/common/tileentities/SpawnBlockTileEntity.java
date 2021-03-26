@@ -14,8 +14,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class SpawnBlockTileEntity extends TileEntity implements ITickableTileEntity {
-	
-	private boolean isSpawner;
 
 	public SpawnBlockTileEntity() {
 		
@@ -35,12 +33,8 @@ public class SpawnBlockTileEntity extends TileEntity implements ITickableTileEnt
 			
 			if (block instanceof ISpawnerBlock) {
 				
-				if (this.isSpawner()) {
-					
-					ISpawnerBlock spawnerBlock = (ISpawnerBlock) block;
-					this.spawnItem(world, pos, spawnerBlock.getSpawnItem(), spawnerBlock.getSpawnTime());
-					
-				}
+				ISpawnerBlock spawnerBlock = (ISpawnerBlock) block;
+				this.spawnItem(world, pos, spawnerBlock.getSpawnItem(), spawnerBlock.getSpawnTime());
 				
 			}
 			
@@ -81,6 +75,7 @@ public class SpawnBlockTileEntity extends TileEntity implements ITickableTileEnt
 		double sideZ = side.getZ();
 		
 		ItemEntity itemEntity = new ItemEntity(world, posX + sideX, posY + sideY, posZ + sideZ, new ItemStack(item));
+		itemEntity.setNoDespawn();
 		
 		if (cobweb) {
 			
@@ -95,18 +90,6 @@ public class SpawnBlockTileEntity extends TileEntity implements ITickableTileEnt
 	protected boolean disableItemMotion(SideHelper sideHelper, Side side) {
 		
 		return sideHelper.isOnSideCobweb(side);
-		
-	}
-
-	public boolean isSpawner() {
-		
-		return isSpawner;
-		
-	}
-
-	public void setSpawner(boolean isSpawner) {
-		
-		this.isSpawner = isSpawner;
 		
 	}
 	

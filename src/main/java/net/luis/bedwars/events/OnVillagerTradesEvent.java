@@ -7,6 +7,7 @@ import net.luis.bedwars.Bedwars;
 import net.luis.bedwars.common.base.villager.Trade;
 import net.luis.bedwars.common.base.villager.VillagerTradeHelper;
 import net.luis.bedwars.init.ModBlockItems;
+import net.luis.bedwars.init.ModItems;
 import net.minecraft.entity.merchant.villager.VillagerProfession;
 import net.minecraft.entity.merchant.villager.VillagerTrades.ITrade;
 import net.minecraft.item.Items;
@@ -20,8 +21,6 @@ public class OnVillagerTradesEvent {
 	
 	@SubscribeEvent
 	public static void VillagerTrade(VillagerTradesEvent event) {
-		
-		// TODO: living update event -> villager reciistance
 		
 		VillagerProfession profession = event.getType();
 		VillagerTradeHelper tradeHelper = new VillagerTradeHelper();
@@ -38,7 +37,7 @@ public class OnVillagerTradesEvent {
 			
 			List<ITrade> trades3 = new ArrayList<ITrade>();
 			trades3.add(new Trade().priceBronze(8).saleItem(Items.END_STONE).defaultValues().creat());
-			trades3.add(new Trade().priceIron(3).saleItem(ModBlockItems.IRON_SPAWNER_ITEM.get()).defaultValues().creat());
+			trades3.add(new Trade().priceIron(3).saleItem(ModBlockItems.BLOCK_OF_IRON_ITEM.get()).defaultValues().creat());
 			
 			List<ITrade> trades4 = new ArrayList<ITrade>();
 			
@@ -203,15 +202,14 @@ public class OnVillagerTradesEvent {
 			trades1.add(new Trade().priceBronze(8).saleItem(Items.COBWEB).defaultValues().creat());
 			
 			List<ITrade> trades2 = new ArrayList<ITrade>();
-			trades2.add(new Trade().priceIron(3).saleItem(Items.GUNPOWDER).defaultValues().creat()); // TODO: change to modded one
-			trades2.add(new Trade().priceGold(11).saleItem(Items.BLAZE_ROD).defaultValues().creat()); // TODO: change to modded one
+			trades2.add(new Trade().priceIron(3).saleItem(ModItems.GUNPOWDER.get()).defaultValues().creat()); 
+			trades2.add(new Trade().priceGold(11).saleItem(ModItems.BLAZE_ROD.get()).defaultValues().creat()); 
 			
 			List<ITrade> trades3 = new ArrayList<ITrade>();
 			trades3.add(new Trade().priceGold(11).saleItem(Items.ENDER_PEARL).defaultValues().creat());
-			trades3.add(new Trade().priceGold(2).saleItem(Items.TNT).defaultValues().creat()); // TODO: instant and no blocks destroy
+			trades3.add(new Trade().priceIron(1).saleItem(Items.CHEST).defaultValues().creat());
 			
 			List<ITrade> trades4 = new ArrayList<ITrade>();
-			trades4.add(new Trade().priceIron(1).saleItem(Items.CHEST).defaultValues().creat());
 			trades4.add(new Trade().priceGold(2).saleItem(Items.ENDER_CHEST).defaultValues().creat());
 			
 			List<ITrade> trades5 = new ArrayList<ITrade>();

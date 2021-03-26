@@ -1,6 +1,7 @@
 package net.luis.bedwars.common.base.capability;
 
 import net.minecraft.item.DyeColor;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.BlockPos;
 
 public interface IBedwars {
@@ -56,5 +57,13 @@ public interface IBedwars {
 	
 	DyeColor getTeamColor();
 	void setTeamColor(DyeColor teamColor);
+	
+	
+	int getGunpowderCooldown();
+	void setGunpowderCooldown(int cooldown);
+	
+	
+	CompoundNBT serializeNBT();
+	void deserializeNBT(CompoundNBT nbt);
 	
 }

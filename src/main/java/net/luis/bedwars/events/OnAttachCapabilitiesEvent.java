@@ -1,7 +1,7 @@
 package net.luis.bedwars.events;
 
 import net.luis.bedwars.Bedwars;
-import net.luis.bedwars.init.ModCapability;
+import net.luis.bedwars.init.ModBedwarsCapability;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
@@ -18,7 +18,7 @@ public class OnAttachCapabilitiesEvent {
 		
 		if (event.getObject() instanceof PlayerEntity) {
 			
-			event.addCapability(new ResourceLocation(Bedwars.MOD_ID, "bedwars_capability"), new ModCapability.BagpackProvider());
+			event.addCapability(new ResourceLocation(Bedwars.MOD_ID, "bedwars_capability"), new ModBedwarsCapability.BagpackProvider());
 			
 		}
 		

@@ -1,12 +1,13 @@
 package net.luis.bedwars.events.block;
 
 import net.luis.bedwars.Bedwars;
-import net.luis.bedwars.init.ModCapability;
+import net.luis.bedwars.init.ModBedwarsCapability;
 import net.minecraft.block.BedBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.CarpetBlock;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.DyeColor;
 import net.minecraft.state.properties.BedPart;
 import net.minecraft.tileentity.BedTileEntity;
@@ -15,7 +16,6 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -26,14 +26,14 @@ public class OnBlockInteractEvent {
 
 	@SubscribeEvent
 	public static void BlockInteract(PlayerInteractEvent.RightClickBlock event) {
-
+		
 		PlayerEntity player = event.getPlayer();
 		World world = event.getWorld();
 		BlockPos pos = event.getPos();
 		BlockState state = world.getBlockState(pos);
 		Block block = world.getBlockState(pos).getBlock();
 
-		if (block instanceof BedBlock && world instanceof ServerWorld) {
+		if (block instanceof BedBlock && player instanceof ServerPlayerEntity) {
 
 			TileEntity tileEntity = world.getTileEntity(pos);
 
@@ -44,7 +44,7 @@ public class OnBlockInteractEvent {
 
 				BedPos bedPos = getBedPos(player, pos, state);
 
-				player.getCapability(ModCapability.BEDWARS, null).ifPresent(bedwarsHandler -> {
+				player.getCapability(ModBedwarsCapability.BEDWARS, null).ifPresent(bedwarsHandler -> {
 
 					if (bedwarsHandler.getTeamColor() == null) {
 
@@ -70,12 +70,12 @@ public class OnBlockInteractEvent {
 
 			}
 
-		} else if (block instanceof CarpetBlock && !world.isRemote) {
+		} else if (block instanceof CarpetBlock && player instanceof ServerPlayerEntity) {
 
 			CarpetBlock carpetBlock = (CarpetBlock) block;
 			DyeColor color = carpetBlock.getColor();
 
-			player.getCapability(ModCapability.BEDWARS, null).ifPresent(bedwarsHandler -> {
+			player.getCapability(ModBedwarsCapability.BEDWARS, null).ifPresent(bedwarsHandler -> {
 
 				if (bedwarsHandler.getTeamColor() == color) {
 
@@ -86,7 +86,7 @@ public class OnBlockInteractEvent {
 				} else {
 
 					player.sendMessage(new StringTextComponent(
-							"Du kannst dein Respawn Position nur auch einen Block mit gleicher Teamfarbe setzten"),
+							"Du kannst dein Respawn Position auf einen Block mit gleicher Teamfarbe setzten"),
 							player.getUniqueID());
 
 				}

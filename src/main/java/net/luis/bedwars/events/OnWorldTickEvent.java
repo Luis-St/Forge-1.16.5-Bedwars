@@ -4,7 +4,7 @@ import java.util.List;
 
 import net.luis.bedwars.Bedwars;
 import net.luis.bedwars.common.base.capability.IBedwars;
-import net.luis.bedwars.init.ModCapability;
+import net.luis.bedwars.init.ModBedwarsCapability;
 import net.minecraft.block.BedBlock;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.DyeColor;
@@ -33,7 +33,7 @@ public class OnWorldTickEvent {
 			
 			for (ServerPlayerEntity player : players) {
 				
-				player.getCapability(ModCapability.BEDWARS, null).ifPresent(bedwarsHandler -> {
+				player.getCapability(ModBedwarsCapability.BEDWARS, null).ifPresent(bedwarsHandler -> {
 					
 					BlockPos bedHead = new BlockPos(bedwarsHandler.getBedHeadPos());
 					BlockPos bedFoot = new BlockPos(bedwarsHandler.getBedFootPos());

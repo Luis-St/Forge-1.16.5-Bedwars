@@ -1,6 +1,7 @@
 package net.luis.bedwars.common.base.capability;
 
 import net.minecraft.item.DyeColor;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.BlockPos;
 
 public class BedwarsHandler implements IBedwars {
@@ -21,6 +22,8 @@ public class BedwarsHandler implements IBedwars {
 	private boolean canRespawn = true;
 	
 	private DyeColor teamColor = null;
+	
+	private int gunpowderCooldown = 0;
 	
 	public BedwarsHandler() {
 		
@@ -149,7 +152,7 @@ public class BedwarsHandler implements IBedwars {
 
 	@Override
 	public void setRespawnPosY(int posY) {
-		this.respawnPosY = respawnPosZ;
+		this.respawnPosY = posY;
 	}
 
 	@Override
@@ -180,6 +183,57 @@ public class BedwarsHandler implements IBedwars {
 	@Override
 	public void setTeamColor(DyeColor teamColor) {
 		this.teamColor = teamColor;
+	}
+
+	@Override
+	public int getGunpowderCooldown() {
+		return this.gunpowderCooldown;
+	}
+
+	@Override
+	public void setGunpowderCooldown(int cooldown) {
+		this.gunpowderCooldown = cooldown;
+	}
+
+	@Override
+	public CompoundNBT serializeNBT() {
+		CompoundNBT nbt = new CompoundNBT();
+		nbt.putInt("bedHeadPosX", this.getBedHeadPosX());
+		nbt.putInt("bedHeadPosY", this.getBedHeadPosY());
+		nbt.putInt("bedHeadPosZ", this.getBedHeadPosZ());
+		
+		nbt.putInt("bedFootPosX", this.getBedFootPosX());
+		nbt.putInt("bedFootPosY", this.getBedFootPosY());
+		nbt.putInt("bedFootPosZ", this.getBedFootPosZ());
+		
+		nbt.putInt("respawnPosX", this.getRespawnPosX());
+		nbt.putInt("respawnPosY", this.getRespawnPosY());
+		nbt.putInt("respawnPosZ", this.getRespawnPosZ());
+		
+		nbt.putBoolean("hasBed", this.hasBed());
+		nbt.putBoolean("canRespawn", this.canRespawn());
+		nbt.putInt("gunpowderCooldown", this.getGunpowderCooldown());
+		
+		return nbt;
+	}
+
+	@Override
+	public void deserializeNBT(CompoundNBT nbt) {
+		this.setBedHeadPosX(nbt.getInt("bedHeadPosX"));
+		this.setBedHeadPosY(nbt.getInt("bedHeadPosY"));
+		this.setBedHeadPosZ(nbt.getInt("bedHeadPosZ"));
+		
+		this.setBedFootPosX(nbt.getInt("bedFootPosX"));
+		this.setBedFootPosY(nbt.getInt("bedFootPosY"));
+		this.setBedFootPosZ(nbt.getInt("bedFootPosZ"));
+		
+		this.setRespawnPosX(nbt.getInt("respawnPosX"));
+		this.setRespawnPosY(nbt.getInt("respawnPosY"));
+		this.setRespawnPosZ(nbt.getInt("respawnPosZ"));
+		
+		this.setHasBed(nbt.getBoolean("hasBed"));
+		this.setCanRespawn(nbt.getBoolean("canRespawn"));
+		this.setGunpowderCooldown(nbt.getInt("gunpowderCooldown"));
 	}
 
 }

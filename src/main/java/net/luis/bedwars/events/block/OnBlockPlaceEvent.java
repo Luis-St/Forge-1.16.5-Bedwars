@@ -1,6 +1,7 @@
 package net.luis.bedwars.events.block;
 
 import net.luis.bedwars.Bedwars;
+import net.luis.bedwars.init.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
@@ -25,7 +26,7 @@ public class OnBlockPlaceEvent {
 			
 			if (!player.abilities.isCreativeMode) {
 				
-				event.setCanceled(!isBedwarsBlock(block));
+				isBedwarsBlock(event, block);
 				
 			}
 			
@@ -33,63 +34,69 @@ public class OnBlockPlaceEvent {
 		
 	}
 	
-	public static boolean isBedwarsBlock(Block block) {
+	public static void isBedwarsBlock(BlockEvent.EntityPlaceEvent event, Block block) {
 		
 		if (block == Blocks.CUT_SANDSTONE) {
 			
-			return true;
+			event.setCanceled(false);
 			
 		} else if (block == Blocks.PACKED_ICE) {
 			
-			return true;
+			event.setCanceled(false);
 			
 		} else if (block == Blocks.GLASS) {
 			
-			return true;
+			event.setCanceled(false);
 			
 		} else if (block == Blocks.SANDSTONE_STAIRS) {
 			
-			return true;
+			event.setCanceled(false);
 			
 		} else if (block == Blocks.END_STONE) {
 			
-			return true;
+			event.setCanceled(false);
 			
 		} else if (block == Blocks.NETHERITE_BLOCK) {
 			
-			return true;
+			event.setCanceled(false);
 			
 		} else if (block == Blocks.LADDER) {
 			
-			return true;
+			event.setCanceled(false);
 			
 		} else if (block == Blocks.COBWEB) {
 			
-			return true;
+			event.setCanceled(false);
 			
 		} else if (block == Blocks.NETHERITE_BLOCK) {
 			
-			return true;
+			event.setCanceled(false);
 			
 		} else if (block == Blocks.SLIME_BLOCK) {
 			
-			return true;
+			event.setCanceled(false);
 			
 		} else if (block == Blocks.TNT) {
 			
-			return true;
+			event.setCanceled(false);
 			
 		} else if (block == Blocks.CHEST) {
 			
-			return true;
+			event.setCanceled(false);
 			
 		} else if (block == Blocks.ENDER_CHEST) {
 			
-			return true;
+			event.setCanceled(false);
+			
+		} else if (block == ModBlocks.BLOCK_OF_IRON.get()) {
+			
+			event.setCanceled(false);
+			
+		} else {
+			
+			event.setCanceled(true);
 			
 		}
-		
-		return false;
 		
 	}
 

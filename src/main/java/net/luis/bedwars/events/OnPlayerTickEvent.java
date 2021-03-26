@@ -1,12 +1,12 @@
 package net.luis.bedwars.events;
 
 import net.luis.bedwars.Bedwars;
-import net.luis.bedwars.init.ModCapability;
+import net.luis.bedwars.init.ModBedwarsCapability;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.TickEvent.Phase;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 
@@ -18,13 +18,17 @@ public class OnPlayerTickEvent {
 		
 		PlayerEntity player = event.player;
 		
-		if (player.getEntityWorld().getGameTime() % 10 == 0) {
+		if (player.getEntityWorld().getGameTime() % 20 == 0) {
 			
-			if (event.phase == Phase.START && event.side == LogicalSide.SERVER) {
+			if (event.phase == Phase.START && player instanceof ServerPlayerEntity) {
 				
-				player.getCapability(ModCapability.BEDWARS, null).ifPresent(bedwarsHandler -> {
+				player.getCapability(ModBedwarsCapability.BEDWARS, null).ifPresent(bedwarsHandler -> {
 					
-					
+					if (bedwarsHandler.getGunpowderCooldown() > 0) {
+						
+						bedwarsHandler.setGunpowderCooldown(bedwarsHandler.getGunpowderCooldown() - 1);
+						
+					}
 					
 				});
 				
