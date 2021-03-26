@@ -2,6 +2,7 @@ package net.luis.bedwars.events;
 
 import net.luis.bedwars.Bedwars;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.merchant.villager.VillagerData;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
@@ -20,9 +21,17 @@ public class OnLivingUpdateEvent {
 		
 		if (livingEntity instanceof VillagerEntity) {
 			
-			VillagerEntity villagerEntity = (VillagerEntity) livingEntity;
-			villagerEntity.addPotionEffect(new EffectInstance(Effects.RESISTANCE, 100, 9, false, false));
-			villagerEntity.addPotionEffect(new EffectInstance(Effects.REGENERATION, 100, 9, false, false));
+			VillagerEntity villager = (VillagerEntity) livingEntity;
+			VillagerData data = villager.getVillagerData();
+			villager.addPotionEffect(new EffectInstance(Effects.RESISTANCE, 100, 9, false, false));
+			villager.addPotionEffect(new EffectInstance(Effects.REGENERATION, 100, 9, false, false));
+			
+			if (data.getLevel() == 5) {
+				
+				villager.setNoAI(true);
+				villager.setSilent(true);
+				
+			}
 			
 		}
 		

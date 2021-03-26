@@ -25,7 +25,8 @@ public class OnPlayerRespawnEvent {
 				if (!bedwarsHandler.canRespawn()) {
 					
 					player.setGameType(GameType.SPECTATOR);
-					player.setPositionAndUpdate(bedwarsHandler.getRespawnPosX(), bedwarsHandler.getRespawnPosY(), bedwarsHandler.getRespawnPosZ());
+					player.setPositionAndUpdate(bedwarsHandler.getRespawnPosX() + 0.5,
+							bedwarsHandler.getRespawnPosY() + 0.5, bedwarsHandler.getRespawnPosZ() + 0.5);
 					
 				}
 				

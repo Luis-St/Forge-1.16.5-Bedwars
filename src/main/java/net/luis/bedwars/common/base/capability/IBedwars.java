@@ -37,6 +37,9 @@ public interface IBedwars {
 	boolean hasBed();
 	void setHasBed(boolean hasBed);
 	
+	boolean hasBedAt(BlockPos pos);
+	
+	
 	// Respawn Pos
 	BlockPos getRespawnPos();
 	void setRespawnPos(BlockPos pos);

@@ -75,6 +75,7 @@ public class VillagerTradeHelper {
 	public ItemStack enchantedShield() {
 		
 		ItemStack stack = new ItemStack(Items.SHIELD);
+		stack.setDamage(224);
 		Map<Enchantment, Integer> enchantments = new HashMap<Enchantment, Integer>();
 		enchantments.put(Enchantments.UNBREAKING, 2);
 		EnchantmentHelper.setEnchantments(enchantments, stack);
@@ -126,11 +127,12 @@ public class VillagerTradeHelper {
 		
 	}
 	
-	public ItemStack enchantedIronChestplate() {
+	public ItemStack enchantedChainChestplate4() {
 		
-		ItemStack stack = new ItemStack(Items.IRON_CHESTPLATE);
+		ItemStack stack = new ItemStack(Items.CHAINMAIL_CHESTPLATE);
 		Map<Enchantment, Integer> enchantments = new HashMap<Enchantment, Integer>();
-		enchantments.put(Enchantments.PROTECTION, 3);
+		enchantments.put(Enchantments.PROTECTION, 4);
+		enchantments.put(Enchantments.THORNS, 1);
 		enchantments.put(Enchantments.UNBREAKING, 2);
 		EnchantmentHelper.setEnchantments(enchantments, stack);
 		return stack;
@@ -226,30 +228,7 @@ public class VillagerTradeHelper {
 		Map<Enchantment, Integer> enchantments = new HashMap<Enchantment, Integer>();
 		enchantments.put(Enchantments.INFINITY, 1);
 		enchantments.put(Enchantments.POWER, 2);
-		EnchantmentHelper.setEnchantments(enchantments, stack);
-		return stack;
-		
-	}
-	
-	public ItemStack enchantedBow4() {
-		
-		ItemStack stack = new ItemStack(Items.BOW);
-		Map<Enchantment, Integer> enchantments = new HashMap<Enchantment, Integer>();
-		enchantments.put(Enchantments.INFINITY, 1);
-		enchantments.put(Enchantments.POWER, 3);
 		enchantments.put(Enchantments.PUNCH, 1);
-		EnchantmentHelper.setEnchantments(enchantments, stack);
-		return stack;
-		
-	}
-	
-	public ItemStack enchantedBow5() {
-		
-		ItemStack stack = new ItemStack(Items.BOW);
-		Map<Enchantment, Integer> enchantments = new HashMap<Enchantment, Integer>();
-		enchantments.put(Enchantments.INFINITY, 1);
-		enchantments.put(Enchantments.POWER, 3);
-		enchantments.put(Enchantments.PUNCH, 2);
 		EnchantmentHelper.setEnchantments(enchantments, stack);
 		return stack;
 		

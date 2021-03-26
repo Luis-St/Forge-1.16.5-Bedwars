@@ -1,7 +1,6 @@
 package net.luis.bedwars.events.block;
 
 import net.luis.bedwars.Bedwars;
-import net.luis.bedwars.init.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
@@ -68,10 +67,6 @@ public class OnBlockPlaceEvent {
 			
 			event.setCanceled(false);
 			
-		} else if (block == Blocks.NETHERITE_BLOCK) {
-			
-			event.setCanceled(false);
-			
 		} else if (block == Blocks.SLIME_BLOCK) {
 			
 			event.setCanceled(false);
@@ -85,10 +80,6 @@ public class OnBlockPlaceEvent {
 			event.setCanceled(false);
 			
 		} else if (block == Blocks.ENDER_CHEST) {
-			
-			event.setCanceled(false);
-			
-		} else if (block == ModBlocks.BLOCK_OF_IRON.get()) {
 			
 			event.setCanceled(false);
 			

@@ -1,12 +1,20 @@
 package net.luis.bedwars.events.block;
 
+import java.util.List;
+
 import net.luis.bedwars.Bedwars;
-import net.luis.bedwars.init.ModBlocks;
+import net.luis.bedwars.init.ModBedwarsCapability;
+import net.luis.bedwars.init.ModGameCapability;
 import net.minecraft.block.BedBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.item.DyeColor;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -19,11 +27,57 @@ public class OnBlockBreakEvent {
 	public static void BlockBreak(BlockEvent.BreakEvent event) {
 		
 		BlockState state = event.getState();
-		PlayerEntity player = event.getPlayer();
+		PlayerEntity eventPlayer = event.getPlayer();
+		World world = (World) event.getWorld();
 		
-		if (!player.abilities.isCreativeMode) {
+		if (!eventPlayer.abilities.isCreativeMode) {
 			
-			isBedwarsBlock(event, state.getBlock());
+			if (state.getBlock() instanceof BedBlock) {
+				
+				if (world instanceof ServerWorld && eventPlayer instanceof ServerPlayerEntity) {
+					
+					ServerWorld serverWorld = (ServerWorld) world;
+					List<ServerPlayerEntity> players = serverWorld.getPlayers();
+					
+					serverWorld.getCapability(ModGameCapability.GAME, null).ifPresent(gameHandler -> {
+						
+						if (gameHandler.isGameStarted()) {
+							
+							for (ServerPlayerEntity player : players) {
+								
+								player.getCapability(ModBedwarsCapability.BEDWARS, null).ifPresent(bedwarsHandler -> {
+									
+									if (bedwarsHandler.hasBedAt(event.getPos())) {
+										
+										sendBedBreakMessage(players, bedwarsHandler.getTeamColor());
+										
+									}
+									
+								});
+								
+							}
+							
+						}
+						
+					});
+					
+				}
+				
+			} else {
+				
+				isBedwarsBlock(event, state.getBlock());
+				
+			}
+			
+		}
+		
+	}
+	
+	public static void sendBedBreakMessage(List<ServerPlayerEntity> players, DyeColor color) {
+		
+		for (ServerPlayerEntity player : players) {
+			
+			player.sendMessage(new StringTextComponent("Das Bett von Team " + color.getTranslationKey() + " wurde abgebaut"), player.getUniqueID());
 			
 		}
 		
@@ -36,6 +90,10 @@ public class OnBlockBreakEvent {
 			event.setCanceled(false);
 			
 		} else if (block == Blocks.PACKED_ICE) {
+			
+			event.setCanceled(false);
+			
+		} else if (block == Blocks.GLASS) {
 			
 			event.setCanceled(false);
 			
@@ -79,15 +137,7 @@ public class OnBlockBreakEvent {
 			
 			event.setCanceled(false);
 			
-		} else if (block instanceof BedBlock) {
-			
-			event.setCanceled(false);
-			
-		} else if (block == ModBlocks.BLOCK_OF_IRON.get()) {
-			
-			event.setCanceled(false);
-			
-		} else {
+		}else {
 			
 			event.setCanceled(true);
 			

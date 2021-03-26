@@ -6,7 +6,6 @@ import java.util.List;
 import net.luis.bedwars.Bedwars;
 import net.luis.bedwars.common.base.villager.Trade;
 import net.luis.bedwars.common.base.villager.VillagerTradeHelper;
-import net.luis.bedwars.init.ModBlockItems;
 import net.luis.bedwars.init.ModItems;
 import net.minecraft.entity.merchant.villager.VillagerProfession;
 import net.minecraft.entity.merchant.villager.VillagerTrades.ITrade;
@@ -37,7 +36,6 @@ public class OnVillagerTradesEvent {
 			
 			List<ITrade> trades3 = new ArrayList<ITrade>();
 			trades3.add(new Trade().priceBronze(8).saleItem(Items.END_STONE).defaultValues().creat());
-			trades3.add(new Trade().priceIron(3).saleItem(ModBlockItems.BLOCK_OF_IRON_ITEM.get()).defaultValues().creat());
 			
 			List<ITrade> trades4 = new ArrayList<ITrade>();
 			
@@ -94,7 +92,7 @@ public class OnVillagerTradesEvent {
 			
 			List<ITrade> trades5 = new ArrayList<ITrade>();
 			trades5.add(new Trade().priceIron(7).saleItem(tradeHelper.enchantedChainChestplate3()).defaultValues().creat());
-			trades5.add(new Trade().priceGold(3).saleItem(tradeHelper.enchantedIronChestplate()).defaultValues().creat());
+			trades5.add(new Trade().priceGold(3).saleItem(tradeHelper.enchantedChainChestplate4()).defaultValues().creat());
 			
 			event.getTrades().put(1, trades1);
 			event.getTrades().put(2, trades2);
@@ -133,12 +131,19 @@ public class OnVillagerTradesEvent {
 			trades1.add(new Trade().priceBronze(4).saleItem(tradeHelper.enchantedWoodPickaxe()).defaultValues().creat());
 			trades1.add(new Trade().priceIron(2).saleItem(tradeHelper.enchantedStonePickaxe()).defaultValues().creat());
 			
+			// TODO : add if iron block work
+//			List<ITrade> trades2 = new ArrayList<ITrade>();
+//			trades2.add(new Trade().priceGold(1).saleItem(tradeHelper.enchantedIronPickaxe()).defaultValues().creat());
+//			trades2.add(new Trade().priceIron(5).saleItem(tradeHelper.fishingRod()).defaultValues().creat());
+//			
+//			List<ITrade> trades3 = new ArrayList<ITrade>();
+//			trades3.add(new Trade().priceIron(3).saleItem(tradeHelper.enchantedFlintAndSteel()).defaultValues().creat());
+			
 			List<ITrade> trades2 = new ArrayList<ITrade>();
-			trades2.add(new Trade().priceGold(1).saleItem(tradeHelper.enchantedIronPickaxe()).defaultValues().creat());
 			trades2.add(new Trade().priceIron(5).saleItem(tradeHelper.fishingRod()).defaultValues().creat());
+			trades2.add(new Trade().priceIron(3).saleItem(tradeHelper.enchantedFlintAndSteel()).defaultValues().creat());
 			
 			List<ITrade> trades3 = new ArrayList<ITrade>();
-			trades3.add(new Trade().priceIron(3).saleItem(tradeHelper.enchantedFlintAndSteel()).defaultValues().creat());
 			
 			List<ITrade> trades4 = new ArrayList<ITrade>();
 			
@@ -153,16 +158,14 @@ public class OnVillagerTradesEvent {
 		} else if (profession == VillagerProfession.FLETCHER) {
 			
 			List<ITrade> trades1 = new ArrayList<ITrade>();
-			trades1.add(new Trade().priceGold(1).saleItem(tradeHelper.enchantedBow1()).defaultValues().creat());
-			trades1.add(new Trade().priceGold(3).saleItem(tradeHelper.enchantedBow2()).defaultValues().creat());
+			trades1.add(new Trade().priceGold(3).saleItem(tradeHelper.enchantedBow1()).defaultValues().creat());
+			trades1.add(new Trade().priceGold(7).saleItem(tradeHelper.enchantedBow2()).defaultValues().creat());
 			
 			List<ITrade> trades2 = new ArrayList<ITrade>();
-			trades2.add(new Trade().priceGold(6).saleItem(tradeHelper.enchantedBow3()).defaultValues().creat());
-			trades2.add(new Trade().priceGold(9).saleItem(tradeHelper.enchantedBow4()).defaultValues().creat());
+			trades2.add(new Trade().priceGold(13).saleItem(tradeHelper.enchantedBow3()).defaultValues().creat());
+			trades2.add(new Trade().priceGold(1).saleItem(Items.ARROW).defaultValues().creat());
 			
 			List<ITrade> trades3 = new ArrayList<ITrade>();
-			trades3.add(new Trade().priceGold(15).saleItem(tradeHelper.enchantedBow5()).defaultValues().creat());
-			trades3.add(new Trade().priceGold(1).saleItem(Items.ARROW).defaultValues().creat());
 			
 			List<ITrade> trades4 = new ArrayList<ITrade>();
 			
@@ -203,14 +206,14 @@ public class OnVillagerTradesEvent {
 			
 			List<ITrade> trades2 = new ArrayList<ITrade>();
 			trades2.add(new Trade().priceIron(3).saleItem(ModItems.GUNPOWDER.get()).defaultValues().creat()); 
-			trades2.add(new Trade().priceGold(11).saleItem(ModItems.BLAZE_ROD.get()).defaultValues().creat()); 
+			trades2.add(new Trade().priceGold(3).saleItem(ModItems.BLAZE_ROD.get()).defaultValues().creat()); 
 			
 			List<ITrade> trades3 = new ArrayList<ITrade>();
 			trades3.add(new Trade().priceGold(11).saleItem(Items.ENDER_PEARL).defaultValues().creat());
 			trades3.add(new Trade().priceIron(1).saleItem(Items.CHEST).defaultValues().creat());
 			
 			List<ITrade> trades4 = new ArrayList<ITrade>();
-			trades4.add(new Trade().priceGold(2).saleItem(Items.ENDER_CHEST).defaultValues().creat());
+			trades4.add(new Trade().priceGold(1).saleItem(Items.ENDER_CHEST).defaultValues().creat());
 			
 			List<ITrade> trades5 = new ArrayList<ITrade>();
 			

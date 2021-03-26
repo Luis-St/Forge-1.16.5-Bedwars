@@ -124,6 +124,23 @@ public class BedwarsHandler implements IBedwars {
 	}
 	
 	@Override
+	public boolean hasBedAt(BlockPos pos) {
+		
+		if (pos.getX() == this.getBedFootPosX() && pos.getY() == this.getBedFootPosY() && pos.getZ() == this.getBedFootPosZ()) {
+			
+			return true;
+			
+		} else if (pos.getX() == this.getBedHeadPosX() && pos.getY() == this.getBedHeadPosY() && pos.getZ() == this.getBedHeadPosZ()) {
+			
+			return true;
+			
+		}
+		
+		return false;
+		
+	}
+	
+	@Override
 	public BlockPos getRespawnPos() {
 		return new BlockPos(this.getRespawnPosX(), this.getRespawnPosY(), this.getRespawnPosZ());
 	}

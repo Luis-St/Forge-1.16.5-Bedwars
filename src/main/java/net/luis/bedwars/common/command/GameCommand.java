@@ -1,11 +1,16 @@
 package net.luis.bedwars.common.command;
 
+import java.util.List;
+
 import com.mojang.brigadier.CommandDispatcher;
 
+import net.luis.bedwars.init.ModBedwarsCapability;
 import net.luis.bedwars.init.ModGameCapability;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.world.GameType;
 import net.minecraft.world.server.ServerWorld;
 
 public class GameCommand {
@@ -36,15 +41,8 @@ public class GameCommand {
 		
 		world.getCapability(ModGameCapability.GAME, null).ifPresent(gameHandler -> {
 			
-			if (gameHandler.isGameStarted()) {
-				
-				source.sendFeedback(new StringTextComponent("The game is running"), true);
-				
-			} else {
-				
-				source.sendFeedback(new StringTextComponent("The game is paused"), true);
-				
-			}
+			boolean flag = gameHandler.isGameStarted();
+			source.sendFeedback(new StringTextComponent(flag ? "The game is running" : "The game is paused"), true);
 			
 		});
 		
@@ -52,16 +50,25 @@ public class GameCommand {
 		
 	}
 	
-	// TODO : add bed rea message
-	
 	private static int startGame(CommandSource source, ServerWorld world) {
-		
-		// TODO: info for all player && tp all player to their respawn point
 		
 		world.getCapability(ModGameCapability.GAME, null).ifPresent(gameHandler -> {
 			
 			gameHandler.startGame();
-			source.sendFeedback(new StringTextComponent("Start the game"), true);
+			List<ServerPlayerEntity> players = world.getPlayers();
+			
+			for (ServerPlayerEntity player : players) {
+				
+				player.sendMessage(new StringTextComponent("Start the game"), player.getUniqueID());
+				player.getCapability(ModBedwarsCapability.BEDWARS, null).ifPresent(bedwarsHandler -> {
+					
+					player.setGameType(GameType.SURVIVAL);
+					player.setPositionAndUpdate(bedwarsHandler.getRespawnPosX() + 0.5,
+							bedwarsHandler.getRespawnPosY() + 0.5, bedwarsHandler.getRespawnPosZ() + 0.5);
+					
+				});
+				
+			}
 			
 		});
 		
@@ -72,12 +79,23 @@ public class GameCommand {
 	
 	private static int stopGame(CommandSource source, ServerWorld world) {
 		
-		// TODO: info for all player && set all player in creative
-		
 		world.getCapability(ModGameCapability.GAME, null).ifPresent(gameHandler -> {
 			
 			gameHandler.stopGame();
-			source.sendFeedback(new StringTextComponent("Stop the game"), true);
+			List<ServerPlayerEntity> players = world.getPlayers();
+			
+			for (ServerPlayerEntity player : players) {
+				
+				player.sendMessage(new StringTextComponent("Stop the game"), player.getUniqueID());
+				player.setGameType(GameType.CREATIVE);
+				player.getCapability(ModBedwarsCapability.BEDWARS, null).ifPresent(bedwarsHandler -> {
+					
+					player.setPositionAndUpdate(bedwarsHandler.getRespawnPosX() + 0.5,
+							bedwarsHandler.getRespawnPosY() + 0.5, bedwarsHandler.getRespawnPosZ() + 0.5);
+					
+				});
+				
+			}
 			
 		});
 		
