@@ -34,7 +34,7 @@ public class BlazeRodItem extends Item {
 				this.creatPlatform(world, pos, Blocks.GLASS);
 				player.fallDistance /= 4;
 				
-				if (player.abilities.isCreativeMode) {
+				if (!player.abilities.isCreativeMode) {
 					
 					player.getHeldItemMainhand().shrink(1);
 					
@@ -51,19 +51,83 @@ public class BlazeRodItem extends Item {
 	
 	public void creatPlatform(World world, BlockPos pos, Block block) {
 		
-		world.setBlockState(pos, block.getDefaultState(), 3);
-		world.setBlockState(pos.north(), block.getDefaultState(), 3);
-		world.setBlockState(pos.east(), block.getDefaultState(), 3);
-		world.setBlockState(pos.south(), block.getDefaultState(), 3);
-		world.setBlockState(pos.west(), block.getDefaultState(), 3);
-		world.setBlockState(pos.north().east(), block.getDefaultState(), 3);
-		world.setBlockState(pos.east().south(), block.getDefaultState(), 3);
-		world.setBlockState(pos.south().west(), block.getDefaultState(), 3);
-		world.setBlockState(pos.west().north(), block.getDefaultState(), 3);
-		world.setBlockState(pos.north(2), block.getDefaultState(), 3);
-		world.setBlockState(pos.east(2), block.getDefaultState(), 3);
-		world.setBlockState(pos.south(2), block.getDefaultState(), 3);
-		world.setBlockState(pos.west(2), block.getDefaultState(), 3);
+		if (world.getBlockState(pos).getBlock() instanceof AirBlock) {
+			
+			world.setBlockState(pos, block.getDefaultState(), 3);
+			
+		} 
+		
+		if (world.getBlockState(pos.north()).getBlock() instanceof AirBlock) {
+			
+			world.setBlockState(pos.north(), block.getDefaultState(), 3);
+			
+		} 
+		
+		if (world.getBlockState(pos.east()).getBlock() instanceof AirBlock) {
+			
+			world.setBlockState(pos.east(), block.getDefaultState(), 3);
+			
+		} 
+		
+		if (world.getBlockState(pos.south()).getBlock() instanceof AirBlock) {
+			
+			world.setBlockState(pos.south(), block.getDefaultState(), 3);
+			
+		}
+		
+		if (world.getBlockState(pos.west()).getBlock() instanceof AirBlock) {
+			
+			world.setBlockState(pos.west(), block.getDefaultState(), 3);
+			
+		} 
+		
+		if (world.getBlockState(pos.north().east()).getBlock() instanceof AirBlock) {
+			
+			world.setBlockState(pos.north().east(), block.getDefaultState(), 3);
+			
+		}
+		
+		if (world.getBlockState(pos.east().south()).getBlock() instanceof AirBlock) {
+			
+			world.setBlockState(pos.east().south(), block.getDefaultState(), 3);
+			
+		}
+		
+		if (world.getBlockState(pos.south().west()).getBlock() instanceof AirBlock) {
+			
+			world.setBlockState(pos.south().west(), block.getDefaultState(), 3);
+			
+		}
+		
+		if (world.getBlockState(pos.west().north()).getBlock() instanceof AirBlock) {
+			
+			world.setBlockState(pos.west().north(), block.getDefaultState(), 3);
+			
+		}
+		
+		if (world.getBlockState(pos.north(2)).getBlock() instanceof AirBlock) {
+			
+			world.setBlockState(pos.north(2), block.getDefaultState(), 3);
+			
+		}  
+		
+		if (world.getBlockState(pos.east(2)).getBlock() instanceof AirBlock) {
+			
+			world.setBlockState(pos.east(2), block.getDefaultState(), 3);
+			
+		}
+	
+		if (world.getBlockState(pos.south(2)).getBlock() instanceof AirBlock) {
+			
+			world.setBlockState(pos.south(2), block.getDefaultState(), 3);
+			
+		} 
+		
+		if (world.getBlockState(pos.west(2)).getBlock() instanceof AirBlock) {
+			
+			world.setBlockState(pos.west(2), block.getDefaultState(), 3);
+			
+		}
 		
 	}
 

@@ -46,8 +46,8 @@ public class GunpowderItem extends Item {
 						
 					} else {
 						
-						player.sendMessage(new StringTextComponent("Du kannst das Item erst wieder in "
-								+ bedwarsHandler.getGunpowderCooldown() + "Sekunden nutzten"), null);
+						serverPlayer.sendMessage(new StringTextComponent("Du kannst das Item erst wieder in "
+								+ bedwarsHandler.getGunpowderCooldown() + " Sekunden nutzten"), null);
 						
 					}
 					

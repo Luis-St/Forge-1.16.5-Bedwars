@@ -22,11 +22,12 @@ public class OnPlayerRespawnEvent {
 			
 			player.getCapability(ModBedwarsCapability.BEDWARS, null).ifPresent(bedwarsHandler -> {
 				
+				player.setPositionAndUpdate(bedwarsHandler.getRespawnPosX() + 0.5,
+						bedwarsHandler.getRespawnPosY(), bedwarsHandler.getRespawnPosZ() + 0.5);
+				
 				if (!bedwarsHandler.canRespawn()) {
 					
 					player.setGameType(GameType.SPECTATOR);
-					player.setPositionAndUpdate(bedwarsHandler.getRespawnPosX() + 0.5,
-							bedwarsHandler.getRespawnPosY() + 0.5, bedwarsHandler.getRespawnPosZ() + 0.5);
 					
 				}
 				
