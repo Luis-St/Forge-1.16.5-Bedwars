@@ -19,7 +19,7 @@ credits="Thanks for downloading my Mod" #optional
 authors="Luis" #optional
 
 description='''
-
+Enable the Gamemode Bedwars with all features
 '''
 	
 [[dependencies.bedwars]] #optional

@@ -5,16 +5,17 @@ import net.luis.bedwars.init.ModBedwarsCapability;
 import net.minecraft.block.BedBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.CarpetBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.DyeColor;
 import net.minecraft.state.properties.BedPart;
-import net.minecraft.tileentity.BedTileEntity;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -34,41 +35,40 @@ public class OnBlockInteractEvent {
 		Block block = world.getBlockState(pos).getBlock();
 
 		if (block instanceof BedBlock && player instanceof ServerPlayerEntity) {
+			
+			ColorText color = getColor((BedBlock) block);
+			BedPos bedPos = getBedPos(player, pos, state);
 
-			TileEntity tileEntity = world.getTileEntity(pos);
+			player.getCapability(ModBedwarsCapability.BEDWARS, null).ifPresent(bedwarsHandler -> {
 
-			if (tileEntity instanceof BedTileEntity) {
-
-				BedTileEntity bedTileEntity = (BedTileEntity) tileEntity;
-				DyeColor color = bedTileEntity.getColor();
-
-				BedPos bedPos = getBedPos(player, pos, state);
-
-				player.getCapability(ModBedwarsCapability.BEDWARS, null).ifPresent(bedwarsHandler -> {
-
-					if (bedwarsHandler.getTeamColor() == null) {
-
+				if (bedwarsHandler.getTeamColor() == null) {
+					
+					if (color != null) {
+						
 						bedwarsHandler.setBedHeadPos(bedPos.getPosHead());
 						bedwarsHandler.setBedFootPos(bedPos.getPosFoot());
-						bedwarsHandler.setTeamColor(color);
-
-						int x = bedPos.getPosHead().getX();
-						int y = bedPos.getPosHead().getY();
-						int z = bedPos.getPosHead().getZ();
-
-						player.sendMessage(new StringTextComponent("Du bist nun im Team: " + color.getTranslationKey()),
-								player.getUniqueID());
-						player.sendMessage(new StringTextComponent(
-								"Dein Bett hat folgende Position [x]: " + x + " [y]: " + y + " [y]: " + z),
-								player.getUniqueID());
-						player.sendMessage(new StringTextComponent("Bitte Setzte nun noch dein Respawn Position"),
-								player.getUniqueID());
-
+						bedwarsHandler.setTeamColor(color.getColor());
+						
+						ITextComponent textComponent = new StringTextComponent("Du bist nun im Team: ")
+								.append((new StringTextComponent(color.getTeamName())).mergeStyle(color.getFormatting()));
+						player.sendMessage(textComponent, player.getUniqueID());
+						player.sendMessage(new StringTextComponent("Bitte Setzte nun noch dein Respawn Position"), player.getUniqueID());
+						
+					} else {
+						
+						player.sendMessage(new StringTextComponent("Die Farbe des Betts kann nicht als Team Farbe verwendet werden"), player.getUniqueID());
+						
 					}
+					
+					event.setCanceled(true);
 
-				});
+				} else {
+					
+					player.sendMessage(new StringTextComponent("Du bist bereits in einem Team"), player.getUniqueID());
+					
+				}
 
-			}
+			});
 
 		} else if (block instanceof CarpetBlock && player instanceof ServerPlayerEntity) {
 
@@ -85,8 +85,7 @@ public class OnBlockInteractEvent {
 
 				} else {
 
-					player.sendMessage(new StringTextComponent(
-							"Du kannst dein Respawn Position auf einen Block mit gleicher Teamfarbe setzten"),
+					player.sendMessage(new StringTextComponent("Du kannst dein Respawn Position nur auf einen Block mit gleicher Teamfarbe setzten"),
 							player.getUniqueID());
 
 				}
@@ -158,6 +157,78 @@ public class OnBlockInteractEvent {
 		return new BedPos(head, foot);
 
 	}
+	
+	public static ColorText getColor(BedBlock block) {
+		
+		if (block == Blocks.BLACK_BED) {
+			
+			return new ColorText(DyeColor.BLACK, "Black", TextFormatting.BLACK);
+			
+		} else if (block == Blocks.BLUE_BED) {
+			
+			return new ColorText(DyeColor.BLUE, "Blue", TextFormatting.DARK_BLUE);
+			
+		} else if (block == Blocks.BROWN_BED) {
+			
+			return null; 
+			
+		} else if (block == Blocks.CYAN_BED) {
+			
+			return new ColorText(DyeColor.CYAN, "Cyan", TextFormatting.DARK_AQUA); 
+			
+		} else if (block == Blocks.GRAY_BED) {
+			
+			return new ColorText(DyeColor.GRAY, "Gray", TextFormatting.DARK_GRAY);
+			
+		} else if (block == Blocks.GREEN_BED) {
+			
+			return new ColorText(DyeColor.GREEN, "Green", TextFormatting.DARK_GREEN);
+			
+		} else if (block == Blocks.LIGHT_BLUE_BED) {
+			
+			return new ColorText(DyeColor.LIGHT_BLUE, "Light Blue", TextFormatting.AQUA); 
+			
+		} else if (block == Blocks.LIGHT_GRAY_BED) {
+			
+			return new ColorText(DyeColor.LIGHT_GRAY, "Light Gray", TextFormatting.GRAY);
+			
+		} else if (block == Blocks.LIME_BED) {
+			
+			return new ColorText(DyeColor.LIME, "Lime", TextFormatting.GREEN);
+			
+		} else if (block == Blocks.MAGENTA_BED) {
+			
+			return null; 
+			
+		} else if (block == Blocks.ORANGE_BED) {
+			
+			return null; 
+			
+		} else if (block == Blocks.PINK_BED) {
+			
+			return new ColorText(DyeColor.PINK, "Pink", TextFormatting.LIGHT_PURPLE);
+			
+		} else if (block == Blocks.PURPLE_BED) {
+			
+			return new ColorText(DyeColor.PURPLE, "Purple", TextFormatting.DARK_PURPLE);
+			
+		} else if (block == Blocks.RED_BED) {
+			
+			return new ColorText(DyeColor.RED, "Red", TextFormatting.DARK_RED);
+			
+		} else if (block == Blocks.WHITE_BED) {
+			
+			return new ColorText(DyeColor.WHITE, "White", TextFormatting.WHITE);
+			
+		} else if (block == Blocks.YELLOW_BED) {
+			
+			return new ColorText(DyeColor.YELLOW, "Yellow", TextFormatting.YELLOW);
+			
+		}
+		
+		return null;
+		
+	}
 
 	public static class BedPos {
 
@@ -181,6 +252,40 @@ public class OnBlockInteractEvent {
 
 			return posFoot;
 
+		}
+
+	}
+	
+	public static class ColorText {
+		
+		private final DyeColor color;
+		private final String teamName;
+		private final TextFormatting[] formatting;
+		
+		public ColorText(DyeColor color, String teamName, TextFormatting... formatting) {
+			
+			this.color = color;
+			this.teamName = teamName;
+			this.formatting = formatting;
+			
+		}
+
+		public DyeColor getColor() {
+			
+			return color;
+			
+		}
+
+		public String getTeamName() {
+			
+			return teamName;
+			
+		}
+
+		public TextFormatting[] getFormatting() {
+			
+			return formatting;
+			
 		}
 
 	}

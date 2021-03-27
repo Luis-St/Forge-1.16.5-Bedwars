@@ -12,7 +12,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockReader;
 
 public class IronSpawnerBlock extends Block implements ISpawnerBlock {
-
+	
 	public IronSpawnerBlock() {
 		
 		super(AbstractBlock.Properties.from(Blocks.IRON_BLOCK));

@@ -23,21 +23,25 @@ public class GameCommand {
 			
 		}).executes(context -> {
 			
-			return infoGame(context.getSource(), context.getSource().getWorld());
+			return gameInfo(context.getSource(), context.getSource().getWorld());
 			
 		}).then(Commands.literal("start").executes(context -> {
 			
-			return startGame(context.getSource(), context.getSource().getWorld());
-			
+			return gameStart(context.getSource(), context.getSource().getWorld());
+		
 		})).then(Commands.literal("stop").executes(context -> {
 			
-			return stopGame(context.getSource(), context.getSource().getWorld());
+			return gameStop(context.getSource(), context.getSource().getWorld());
+		
+		})).then(Commands.literal("options").executes(context -> {
+			
+			return gameOptions(context.getSource());
 			
 		})));
 		
 	}
 	
-	public static int infoGame(CommandSource source, ServerWorld world) {
+	private static int gameInfo(CommandSource source, ServerWorld world) {
 		
 		world.getCapability(ModGameCapability.GAME, null).ifPresent(gameHandler -> {
 			
@@ -50,7 +54,7 @@ public class GameCommand {
 		
 	}
 	
-	private static int startGame(CommandSource source, ServerWorld world) {
+	private static int gameStart(CommandSource source, ServerWorld world) {
 		
 		world.getCapability(ModGameCapability.GAME, null).ifPresent(gameHandler -> {
 			
@@ -77,7 +81,7 @@ public class GameCommand {
 		
 	}
 	
-	private static int stopGame(CommandSource source, ServerWorld world) {
+	private static int gameStop(CommandSource source, ServerWorld world) {
 		
 		world.getCapability(ModGameCapability.GAME, null).ifPresent(gameHandler -> {
 			
@@ -98,6 +102,16 @@ public class GameCommand {
 			}
 			
 		});
+		
+		return 1;
+		
+	}
+	
+	private static int gameOptions(CommandSource source) {
+		
+		source.sendFeedback(new StringTextComponent("There are currently no options"), true);
+		source.sendFeedback(new StringTextComponent("Options will be added in future versions"), true);
+		source.sendFeedback(new StringTextComponent("If this is not the newest version, please update to a newer version"), true);
 		
 		return 1;
 		

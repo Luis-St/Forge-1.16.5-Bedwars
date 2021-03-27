@@ -5,16 +5,19 @@ import java.util.List;
 import net.luis.bedwars.Bedwars;
 import net.luis.bedwars.init.ModBedwarsCapability;
 import net.luis.bedwars.init.ModGameCapability;
+import net.minecraft.block.AbstractPlantBlock;
 import net.minecraft.block.BedBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.FlowerBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.DyeColor;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -137,7 +140,19 @@ public class OnBlockBreakEvent {
 			
 			event.setCanceled(false);
 			
-		}else {
+		} else if (block instanceof AbstractPlantBlock) {
+			
+			event.setCanceled(false);
+			
+		} else if (block instanceof IPlantable) {
+			
+			event.setCanceled(false);
+			
+		} else if (block instanceof FlowerBlock) {
+			
+			event.setCanceled(false);
+			
+		} else {
 			
 			event.setCanceled(true);
 			

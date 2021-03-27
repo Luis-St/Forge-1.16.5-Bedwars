@@ -4,12 +4,11 @@ import java.util.List;
 
 import net.luis.bedwars.Bedwars;
 import net.luis.bedwars.common.base.capability.IBedwars;
+import net.luis.bedwars.events.block.OnBlockInteractEvent;
+import net.luis.bedwars.events.block.OnBlockInteractEvent.ColorText;
 import net.luis.bedwars.init.ModBedwarsCapability;
 import net.minecraft.block.BedBlock;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.DyeColor;
-import net.minecraft.tileentity.BedTileEntity;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
@@ -42,22 +41,12 @@ public class OnWorldTickEvent {
 						
 						if (world.getBlockState(bedFoot).getBlock() instanceof BedBlock) {
 							
-							TileEntity tileEntity = world.getTileEntity(bedFoot);
+							ColorText color = OnBlockInteractEvent.getColor((BedBlock) world.getBlockState(bedFoot).getBlock());
 							
-							if (tileEntity instanceof BedTileEntity) {
+							if (color.getColor() == bedwarsHandler.getTeamColor()) {
 								
-								DyeColor color = ((BedTileEntity) tileEntity).getColor();
-								
-								if (color == bedwarsHandler.getTeamColor()) {
-									
-									bedwarsHandler.setHasBed(true);
-									bedwarsHandler.setCanRespawn(true);
-									
-								} else {
-									
-									setFalse(bedwarsHandler);
-									
-								}
+								bedwarsHandler.setHasBed(true);
+								bedwarsHandler.setCanRespawn(true);
 								
 							} else {
 								
