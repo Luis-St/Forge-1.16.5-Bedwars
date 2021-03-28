@@ -1,5 +1,6 @@
-package net.luis.bedwars.common.base.capability;
+package net.luis.bedwars.common.base.capability.handler;
 
+import net.luis.bedwars.common.base.capability.interfaces.IGame;
 import net.minecraft.nbt.CompoundNBT;
 
 public class GameHandler implements IGame {

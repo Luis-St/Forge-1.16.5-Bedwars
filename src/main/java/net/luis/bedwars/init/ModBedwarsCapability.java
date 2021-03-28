@@ -2,8 +2,8 @@ package net.luis.bedwars.init;
 
 import java.util.concurrent.Callable;
 
-import net.luis.bedwars.common.base.capability.BedwarsHandler;
-import net.luis.bedwars.common.base.capability.IBedwars;
+import net.luis.bedwars.common.base.capability.handler.BedwarsHandler;
+import net.luis.bedwars.common.base.capability.interfaces.IBedwars;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.util.Direction;

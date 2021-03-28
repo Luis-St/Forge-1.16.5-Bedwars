@@ -26,7 +26,7 @@ public class OnPlayerRespawnEvent {
 						bedwarsHandler.getRespawnPosY(), bedwarsHandler.getRespawnPosZ() + 0.5);
 				
 				if (!bedwarsHandler.canRespawn()) {
-					
+
 					player.setGameType(GameType.SPECTATOR);
 					
 				}

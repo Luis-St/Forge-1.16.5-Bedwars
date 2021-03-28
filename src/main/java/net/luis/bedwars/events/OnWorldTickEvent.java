@@ -3,7 +3,7 @@ package net.luis.bedwars.events;
 import java.util.List;
 
 import net.luis.bedwars.Bedwars;
-import net.luis.bedwars.common.base.capability.IBedwars;
+import net.luis.bedwars.common.base.capability.interfaces.IBedwars;
 import net.luis.bedwars.events.block.OnBlockInteractEvent;
 import net.luis.bedwars.events.block.OnBlockInteractEvent.ColorText;
 import net.luis.bedwars.init.ModBedwarsCapability;
