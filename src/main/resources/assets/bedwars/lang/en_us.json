@@ -1,4 +1,5 @@
 {
   "itemGroup.bedwars": "Bedwars",
-  "block.bedwars.block_of_iron": "Block of Iron"
+  "block.bedwars.block_of_iron": "Block of Iron",
+  "container.villager": "Villager"
 }

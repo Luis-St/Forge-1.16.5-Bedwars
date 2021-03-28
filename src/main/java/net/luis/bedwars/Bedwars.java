@@ -5,12 +5,16 @@ import org.apache.logging.log4j.Logger;
 
 import net.luis.bedwars.common.base.capability.interfaces.IBedwars;
 import net.luis.bedwars.common.base.capability.interfaces.IGame;
+import net.luis.bedwars.common.inventory.screen.VillagerScreen;
+import net.luis.bedwars.core.PacketHandler;
 import net.luis.bedwars.init.ModBedwarsCapability;
 import net.luis.bedwars.init.ModBlockItems;
 import net.luis.bedwars.init.ModBlocks;
+import net.luis.bedwars.init.ModContainerType;
 import net.luis.bedwars.init.ModGameCapability;
 import net.luis.bedwars.init.ModItems;
 import net.luis.bedwars.init.ModTileEntityType;
+import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -46,10 +50,13 @@ public class Bedwars {
 		
 		ModTileEntityType.TILE_ENTITIES.register(eventBus);
 		
+		ModContainerType.CONTAINERS.register(eventBus);
+		
 	}
 	
 	private void setup(FMLCommonSetupEvent event) {
 		
+		PacketHandler.init();
 		CapabilityManager.INSTANCE.register(IBedwars.class, new ModBedwarsCapability.BedwarsStorage(), new ModBedwarsCapability.BedwarsFactory());
 		CapabilityManager.INSTANCE.register(IGame.class, new ModGameCapability.GameStorage(), new ModGameCapability.GameFactory());
 		
@@ -57,7 +64,7 @@ public class Bedwars {
 	
 	private void doClientStuff(FMLClientSetupEvent event) {
 	
-		
+		event.enqueueWork(() -> ScreenManager.registerFactory(ModContainerType.VILLAGER.get(), VillagerScreen::new));
 		
 	}
 	
