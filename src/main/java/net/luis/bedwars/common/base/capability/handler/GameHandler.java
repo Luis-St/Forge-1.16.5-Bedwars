@@ -30,7 +30,7 @@ public class GameHandler implements IGame {
 	public boolean isGameStarted() {
 		return game;
 	}
-
+	
 	@Override
 	public CompoundNBT serializeNBT() {
 		CompoundNBT nbt = new CompoundNBT();

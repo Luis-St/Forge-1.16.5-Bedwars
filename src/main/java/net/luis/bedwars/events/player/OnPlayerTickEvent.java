@@ -4,6 +4,7 @@ import net.luis.bedwars.Bedwars;
 import net.luis.bedwars.init.ModBedwarsCapability;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.world.World;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.TickEvent.Phase;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -17,8 +18,9 @@ public class OnPlayerTickEvent {
 	public static void WorldTick(TickEvent.PlayerTickEvent event) {
 		
 		PlayerEntity player = event.player;
+		World world = player.getEntityWorld();
 		
-		if (player.getEntityWorld().getGameTime() % 20 == 0) {
+		if (world.getGameTime() % 20 == 0) {
 			
 			if (event.phase == Phase.START && player instanceof ServerPlayerEntity) {
 				
@@ -27,6 +29,12 @@ public class OnPlayerTickEvent {
 					if (bedwarsHandler.getGunpowderCooldown() > 0) {
 						
 						bedwarsHandler.setGunpowderCooldown(bedwarsHandler.getGunpowderCooldown() - 1);
+						
+					}
+					
+					if (bedwarsHandler.getBlazeRodCooldown() > 0) {
+						
+						bedwarsHandler.setBlazeRodCooldown(bedwarsHandler.getBlazeRodCooldown() - 1);
 						
 					}
 					

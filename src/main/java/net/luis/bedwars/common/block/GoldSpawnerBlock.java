@@ -43,7 +43,7 @@ public class GoldSpawnerBlock extends Block implements ISpawnerBlock {
 	@Override
 	public int getSpawnTime() {
 		
-		return 600;
+		return 900;
 		
 	}
 

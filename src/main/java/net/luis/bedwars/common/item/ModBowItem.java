@@ -71,13 +71,11 @@ public class ModBowItem extends BowItem {
 								player.getPosY(), player.getPosZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F,
 								1.0F / (random.nextFloat() * 0.4F + 1.2F) + velocityArrow * 0.5F);
 
-						stack.damageItem(1, player, item -> {
+						stack.damageItem(2 + random.nextInt(1), player, item -> {
 							
 							item.sendBreakAnimation(player.getActiveHand());
 							
 						});
-						
-
 						
 					}
 
@@ -137,9 +135,9 @@ public class ModBowItem extends BowItem {
 		float f = (float) charge / 20.0F;
 		f = (f * f + f * 2.0F) / 3.0F;
 		
-		if (f > 1.1F) {
+		if (f > 0.9F) {
 			
-			f = 1.1F;
+			f = 0.9F;
 			
 		}
 

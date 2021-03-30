@@ -62,8 +62,12 @@ public interface IBedwars {
 	void setTeamColor(DyeColor teamColor);
 	
 	
+	// Cooldowns
 	int getGunpowderCooldown();
 	void setGunpowderCooldown(int cooldown);
+	
+	int getBlazeRodCooldown();
+	void setBlazeRodCooldown(int cooldown);
 	
 	
 	CompoundNBT serializeNBT();

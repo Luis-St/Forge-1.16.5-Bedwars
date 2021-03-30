@@ -69,6 +69,8 @@ public class GameCommand {
 					player.setGameType(GameType.SURVIVAL);
 					player.setPositionAndUpdate(bedwarsHandler.getRespawnPosX() + 0.5,
 							bedwarsHandler.getRespawnPosY() + 0.5, bedwarsHandler.getRespawnPosZ() + 0.5);
+					player.inventory.clear(); 
+					player.getInventoryEnderChest().clear();
 					
 				});
 				
@@ -92,6 +94,7 @@ public class GameCommand {
 				
 				player.sendMessage(new StringTextComponent("Stop the game"), player.getUniqueID());
 				player.setGameType(GameType.CREATIVE);
+				player.getInventoryEnderChest().clear();
 				player.getCapability(ModBedwarsCapability.BEDWARS, null).ifPresent(bedwarsHandler -> {
 					
 					player.setPositionAndUpdate(bedwarsHandler.getRespawnPosX() + 0.5,

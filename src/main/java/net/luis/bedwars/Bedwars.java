@@ -6,7 +6,6 @@ import org.apache.logging.log4j.Logger;
 import net.luis.bedwars.common.base.capability.interfaces.IBedwars;
 import net.luis.bedwars.common.base.capability.interfaces.IGame;
 import net.luis.bedwars.common.inventory.screen.VillagerScreen;
-import net.luis.bedwars.core.PacketHandler;
 import net.luis.bedwars.init.ModBedwarsCapability;
 import net.luis.bedwars.init.ModBlockItems;
 import net.luis.bedwars.init.ModBlocks;
@@ -56,7 +55,6 @@ public class Bedwars {
 	
 	private void setup(FMLCommonSetupEvent event) {
 		
-		PacketHandler.init();
 		CapabilityManager.INSTANCE.register(IBedwars.class, new ModBedwarsCapability.BedwarsStorage(), new ModBedwarsCapability.BedwarsFactory());
 		CapabilityManager.INSTANCE.register(IGame.class, new ModGameCapability.GameStorage(), new ModGameCapability.GameFactory());
 		

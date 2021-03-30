@@ -52,7 +52,7 @@ public class VillagerTradeHelper {
 		
 		ItemStack stack = new ItemStack(Items.IRON_SWORD);
 		Map<Enchantment, Integer> enchantments = new HashMap<Enchantment, Integer>();
-		enchantments.put(Enchantments.SHARPNESS, 3);
+		enchantments.put(Enchantments.SHARPNESS, 2);
 		enchantments.put(Enchantments.UNBREAKING, 2);
 		enchantments.put(Enchantments.KNOCKBACK, 1);
 		EnchantmentHelper.setEnchantments(enchantments, stack);
@@ -64,7 +64,7 @@ public class VillagerTradeHelper {
 		
 		ItemStack stack = new ItemStack(Items.IRON_SWORD);
 		Map<Enchantment, Integer> enchantments = new HashMap<Enchantment, Integer>();
-		enchantments.put(Enchantments.SHARPNESS, 4);
+		enchantments.put(Enchantments.SHARPNESS, 3);
 		enchantments.put(Enchantments.UNBREAKING, 2);
 		enchantments.put(Enchantments.KNOCKBACK, 1);
 		EnchantmentHelper.setEnchantments(enchantments, stack);
@@ -72,22 +72,22 @@ public class VillagerTradeHelper {
 		
 	}
 	
-	public ItemStack enchantedShield() {
+	public ItemStack enchantedLeatherArmor(Item item) {
 		
-		ItemStack stack = new ItemStack(Items.SHIELD);
-		stack.setDamage(224);
+		ItemStack stack = new ItemStack(item);
 		Map<Enchantment, Integer> enchantments = new HashMap<Enchantment, Integer>();
-		enchantments.put(Enchantments.UNBREAKING, 2);
+		enchantments.put(Enchantments.PROTECTION, 1);
+		enchantments.put(Enchantments.UNBREAKING, 1);
 		EnchantmentHelper.setEnchantments(enchantments, stack);
 		return stack;
 		
 	}
 	
-	public ItemStack enchantedArmor(Item item) {
+	public ItemStack enchantedChainArmor(Item item) {
 		
 		ItemStack stack = new ItemStack(item);
 		Map<Enchantment, Integer> enchantments = new HashMap<Enchantment, Integer>();
-		enchantments.put(Enchantments.PROTECTION, 1);
+		enchantments.put(Enchantments.PROTECTION, 2);
 		enchantments.put(Enchantments.UNBREAKING, 1);
 		EnchantmentHelper.setEnchantments(enchantments, stack);
 		return stack;
@@ -131,7 +131,7 @@ public class VillagerTradeHelper {
 		
 		ItemStack stack = new ItemStack(Items.CHAINMAIL_CHESTPLATE);
 		Map<Enchantment, Integer> enchantments = new HashMap<Enchantment, Integer>();
-		enchantments.put(Enchantments.PROTECTION, 4);
+		enchantments.put(Enchantments.PROTECTION, 3);
 		enchantments.put(Enchantments.THORNS, 1);
 		enchantments.put(Enchantments.UNBREAKING, 2);
 		EnchantmentHelper.setEnchantments(enchantments, stack);
@@ -144,7 +144,7 @@ public class VillagerTradeHelper {
 		ItemStack stack = new ItemStack(Items.GOLDEN_BOOTS);
 		Map<Enchantment, Integer> enchantments = new HashMap<Enchantment, Integer>();
 		enchantments.put(Enchantments.FEATHER_FALLING, 3);
-		enchantments.put(Enchantments.UNBREAKING, 2);
+		enchantments.put(Enchantments.UNBREAKING, 1);
 		EnchantmentHelper.setEnchantments(enchantments, stack);
 		return stack;
 		
@@ -154,7 +154,6 @@ public class VillagerTradeHelper {
 		
 		ItemStack stack = new ItemStack(Items.WOODEN_PICKAXE);
 		Map<Enchantment, Integer> enchantments = new HashMap<Enchantment, Integer>();
-		enchantments.put(Enchantments.EFFICIENCY, 1);
 		enchantments.put(Enchantments.UNBREAKING, 1);
 		EnchantmentHelper.setEnchantments(enchantments, stack);
 		return stack;
@@ -165,7 +164,6 @@ public class VillagerTradeHelper {
 		
 		ItemStack stack = new ItemStack(Items.STONE_PICKAXE);
 		Map<Enchantment, Integer> enchantments = new HashMap<Enchantment, Integer>();
-		enchantments.put(Enchantments.EFFICIENCY, 1);
 		enchantments.put(Enchantments.UNBREAKING, 1);
 		EnchantmentHelper.setEnchantments(enchantments, stack);
 		return stack;
@@ -176,7 +174,7 @@ public class VillagerTradeHelper {
 		
 		ItemStack stack = new ItemStack(Items.IRON_PICKAXE);
 		Map<Enchantment, Integer> enchantments = new HashMap<Enchantment, Integer>();
-		enchantments.put(Enchantments.EFFICIENCY, 3);
+		enchantments.put(Enchantments.EFFICIENCY, 1);
 		enchantments.put(Enchantments.UNBREAKING, 1);
 		EnchantmentHelper.setEnchantments(enchantments, stack);
 		return stack;
@@ -266,18 +264,10 @@ public class VillagerTradeHelper {
 		
 	}
 	
-	public ItemStack potionInvisibility() {
-		
-		ItemStack stack = new ItemStack(Items.POTION);
-		PotionUtils.addPotionToItemStack(stack, Potions.INVISIBILITY);
-		return stack;
-		
-	}
-	
 	public ItemStack potionStrength() {
 		
 		ItemStack stack = new ItemStack(Items.POTION);
-		PotionUtils.addPotionToItemStack(stack, Potions.STRONG_STRENGTH);
+		PotionUtils.addPotionToItemStack(stack, Potions.STRENGTH);
 		return stack;
 		
 	}

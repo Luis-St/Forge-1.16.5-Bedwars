@@ -25,6 +25,7 @@ public class BedwarsHandler implements IBedwars {
 	private DyeColor teamColor = null;
 	
 	private int gunpowderCooldown = 0;
+	private int blazeRodCooldown = 0;
 	
 	public BedwarsHandler() {
 		
@@ -212,7 +213,17 @@ public class BedwarsHandler implements IBedwars {
 	public void setGunpowderCooldown(int cooldown) {
 		this.gunpowderCooldown = cooldown;
 	}
+	
+	@Override
+	public int getBlazeRodCooldown() {
+		return this.blazeRodCooldown;
+	}
 
+	@Override
+	public void setBlazeRodCooldown(int cooldown) {
+		this.blazeRodCooldown = cooldown;
+	}
+	
 	@Override
 	public CompoundNBT serializeNBT() {
 		CompoundNBT nbt = new CompoundNBT();
@@ -231,6 +242,7 @@ public class BedwarsHandler implements IBedwars {
 		nbt.putBoolean("hasBed", this.hasBed());
 		nbt.putBoolean("canRespawn", this.canRespawn());
 		nbt.putInt("gunpowderCooldown", this.getGunpowderCooldown());
+		nbt.putInt("blazeRodCooldown", this.getBlazeRodCooldown());
 		
 		return nbt;
 	}
@@ -252,6 +264,7 @@ public class BedwarsHandler implements IBedwars {
 		this.setHasBed(nbt.getBoolean("hasBed"));
 		this.setCanRespawn(nbt.getBoolean("canRespawn"));
 		this.setGunpowderCooldown(nbt.getInt("gunpowderCooldown"));
+		this.setBlazeRodCooldown(nbt.getInt("blazeRodCooldown"));
 	}
 
 }

@@ -43,7 +43,7 @@ public class IronSpawnerBlock extends Block implements ISpawnerBlock {
 	@Override
 	public int getSpawnTime() {
 		
-		return 300;
+		return 450;
 		
 	}
 

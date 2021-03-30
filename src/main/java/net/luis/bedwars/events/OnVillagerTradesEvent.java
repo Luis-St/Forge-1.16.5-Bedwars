@@ -60,7 +60,6 @@ public class OnVillagerTradesEvent {
 			
 			List<ITrade> trades3 = new ArrayList<ITrade>();
 			trades3.add(new Trade().priceGold(9).saleItem(tradeHelper.enchantedIronSword2()).defaultValues().creat());
-			trades3.add(new Trade().priceGold(1).saleItem(tradeHelper.enchantedShield()).defaultValues().creat());
 			
 			List<ITrade> trades4 = new ArrayList<ITrade>();
 			
@@ -75,15 +74,15 @@ public class OnVillagerTradesEvent {
 		} else if (profession == VillagerProfession.ARMORER) {
 			
 			List<ITrade> trades1 = new ArrayList<ITrade>();
-			trades1.add(new Trade().priceBronze(1).saleItem(tradeHelper.enchantedArmor(Items.LEATHER_HELMET)).defaultValues().creat());
-			trades1.add(new Trade().priceBronze(1).saleItem(tradeHelper.enchantedArmor(Items.LEATHER_LEGGINGS)).defaultValues().creat());
+			trades1.add(new Trade().priceBronze(1).saleItem(tradeHelper.enchantedLeatherArmor(Items.LEATHER_HELMET)).defaultValues().creat());
+			trades1.add(new Trade().priceBronze(1).saleItem(tradeHelper.enchantedLeatherArmor(Items.LEATHER_LEGGINGS)).defaultValues().creat());
 			
 			List<ITrade> trades2 = new ArrayList<ITrade>();
-			trades2.add(new Trade().priceBronze(1).saleItem(tradeHelper.enchantedArmor(Items.LEATHER_BOOTS)).defaultValues().creat());
-			trades2.add(new Trade().priceIron(3).saleItem(tradeHelper.enchantedArmor(Items.CHAINMAIL_HELMET)).defaultValues().creat());
+			trades2.add(new Trade().priceBronze(1).saleItem(tradeHelper.enchantedLeatherArmor(Items.LEATHER_BOOTS)).defaultValues().creat());
+			trades2.add(new Trade().priceIron(2).saleItem(tradeHelper.enchantedChainArmor(Items.CHAINMAIL_HELMET)).defaultValues().creat());
 			
 			List<ITrade> trades3 = new ArrayList<ITrade>();
-			trades3.add(new Trade().priceIron(3).saleItem(tradeHelper.enchantedArmor(Items.CHAINMAIL_LEGGINGS)).defaultValues().creat());
+			trades3.add(new Trade().priceIron(2).saleItem(tradeHelper.enchantedChainArmor(Items.CHAINMAIL_LEGGINGS)).defaultValues().creat());
 			trades3.add(new Trade().priceIron(4).saleItem(tradeHelper.enchantedGoldBoots()).defaultValues().creat());
 			
 			List<ITrade> trades4 = new ArrayList<ITrade>();
@@ -111,11 +110,10 @@ public class OnVillagerTradesEvent {
 			trades2.add(new Trade().priceIron(7).saleItem(tradeHelper.potionSwiftness()).defaultValues().creat());
 			
 			List<ITrade> trades3 = new ArrayList<ITrade>();
-			trades3.add(new Trade().priceIron(32).saleItem(tradeHelper.potionInvisibility()).defaultValues().creat());
-			trades3.add(new Trade().priceGold(8).saleItem(tradeHelper.potionStrength()).defaultValues().creat());
+			trades3.add(new Trade().priceGold(7).saleItem(tradeHelper.potionStrength()).defaultValues().creat());
+			trades3.add(new Trade().priceGold(4).saleItem(tradeHelper.potionSlowFalling()).defaultValues().creat());
 			
 			List<ITrade> trades4 = new ArrayList<ITrade>();
-			trades4.add(new Trade().priceGold(8).saleItem(tradeHelper.potionSlowFalling()).defaultValues().creat());
 			
 			List<ITrade> trades5 = new ArrayList<ITrade>();
 			

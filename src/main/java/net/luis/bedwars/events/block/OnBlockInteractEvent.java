@@ -202,7 +202,7 @@ public class OnBlockInteractEvent {
 			
 		} else if (block == Blocks.ORANGE_BED) {
 			
-			return null; 
+			return new ColorText(DyeColor.ORANGE, "Orange", TextFormatting.GOLD); 
 			
 		} else if (block == Blocks.PINK_BED) {
 			

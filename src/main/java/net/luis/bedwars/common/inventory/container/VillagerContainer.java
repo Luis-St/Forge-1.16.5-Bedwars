@@ -1,9 +1,9 @@
 package net.luis.bedwars.common.inventory.container;
 
+import net.luis.bedwars.common.inventory.BuyHelper;
+import net.luis.bedwars.common.inventory.BuyingItem;
 import net.luis.bedwars.common.inventory.ContainerHelper;
 import net.luis.bedwars.common.inventory.slot.VillagerSlot;
-import net.luis.bedwars.core.PacketHandler;
-import net.luis.bedwars.core.message.SyncVillagerContainerMessage;
 import net.luis.bedwars.init.ModContainerType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -14,10 +14,14 @@ import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemHandlerHelper;
 
 public class VillagerContainer extends Container {
 	
 	private final ContainerHelper containerHelper;
+	private Page page = Page.DEFAULT;
 
 	public VillagerContainer(int id, PlayerInventory playerInventory, PacketBuffer extraData) {
 		
@@ -65,40 +69,75 @@ public class VillagerContainer extends Container {
 	public ItemStack slotClick(int slot, int dragType, ClickType clickTypeIn, PlayerEntity player) {
 		
 		switch (slot) {
-		case 9: this.sendSyncMessage(0); break;
-		case 10: this.sendSyncMessage(1); break;
-		case 11: this.sendSyncMessage(2); break;
-		case 12: this.sendSyncMessage(3); break;
-		case 13: this.sendSyncMessage(4); break;
-		case 14: this.sendSyncMessage(5); break;
-		case 15: this.sendSyncMessage(6); break;
-		case 16: this.sendSyncMessage(7); break;
-		default: this.sendSyncMessage(8); break;
+		case 9: this.containerHelper.creatBlocks(); this.page = Page.BLOCKS; break;
+		case 10: this.containerHelper.creatWeapons(); this.page = Page.WEAPONS; break;
+		case 11: this.containerHelper.creatArmor(); this.page = Page.ARMOR; break;
+		case 12: this.containerHelper.creatTools(); this.page = Page.TOOLS; break;
+		case 13: this.containerHelper.creatBows(); this.page = Page.BOWS; break;
+		case 14: this.containerHelper.creatFoot(); this.page = Page.FOOT; break;
+		case 15: this.containerHelper.creatPotions(); this.page = Page.POTIONS; break;
+		case 16: this.containerHelper.creatMisc(); this.page = Page.MISC; break;
+		default: break;
 		}
 		
+		this.buyItem(slot, player, this.page);
+		this.detectAndSendChanges();
 		return super.slotClick(slot, dragType, clickTypeIn, player);
 		
 	}
 	
-	public void syncSecondById(int id) {
+	public void buyItem(int slot, PlayerEntity player, Page page) {
 		
-		switch (id) {
-		case 0: this.containerHelper.creatBlocks(); break;
-		case 1: this.containerHelper.creatSwords(); break;
-		case 2: this.containerHelper.creatArmor(); break;
-		case 3: this.containerHelper.creatTools(); break;
-		case 4: this.containerHelper.creatBows(); break;
-		case 5: this.containerHelper.creatFoot(); break;
-		case 6: this.containerHelper.creatPotions(); break;
-		case 7: this.containerHelper.creatMisc(); break;
-		default: this.containerHelper.creatDefault(); break;
+		BuyHelper buyHelper = new BuyHelper(player, page);
+		BuyingItem buyingItem = buyHelper.getBuyingItem(slot);
+		
+		if (buyingItem != null) {
+			
+			ItemStack itemStack = buyingItem.getItemStack();
+			ItemStack buyingStack = buyingItem.getBuyingStack();
+			
+			if (buyHelper.hasItemToBuy(buyingStack.getItem(), buyingStack.getCount())) {
+			
+				this.removeItems(player, buyingStack, buyingStack.getCount());
+				ItemHandlerHelper.giveItemToPlayer(player, itemStack);
+				
+			}
+			
 		}
 		
 	}
 	
-	public void sendSyncMessage(int id) {
+	protected void removeItems(PlayerEntity player, ItemStack itemToBuy, int cost) {
 		
-		PacketHandler.simpleChannel.sendToServer(new SyncVillagerContainerMessage(this, id));
+		IItemHandler itemHandler = player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).orElseThrow(
+				() -> new NullPointerException());
+		
+		for (int i = 0; i < itemHandler.getSlots(); i++) {
+			
+			ItemStack stack = itemHandler.getStackInSlot(i);
+			
+			if (cost > 0) {
+				
+				if (itemToBuy.getItem() == stack.getItem()) {
+					
+					if (stack.getCount() >= cost) {
+						
+						stack.shrink(cost);
+						cost = 0;
+						
+					} else {
+						
+						int count = stack.getCount();
+						stack.shrink(count);
+						cost -= count;
+						
+					}
+					
+				}
+				
+			}
+			
+		}
 		
 	}
 	
@@ -124,6 +163,20 @@ public class VillagerContainer extends Container {
 	public ItemStack transferStackInSlot(PlayerEntity playerIn, int index) {
 		
 		return ItemStack.EMPTY;
+		
+	}
+	
+	public static enum Page {
+		
+		DEFAULT,
+		BLOCKS,
+		WEAPONS,
+		ARMOR,
+		TOOLS,
+		BOWS,
+		FOOT,
+		POTIONS,
+		MISC;
 		
 	}
 

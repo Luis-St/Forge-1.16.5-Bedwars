@@ -1,6 +1,7 @@
 package net.luis.bedwars.common.item;
 
 import net.luis.bedwars.Bedwars;
+import net.luis.bedwars.init.ModBedwarsCapability;
 import net.minecraft.block.AirBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -11,6 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 
 public class BlazeRodItem extends Item {
@@ -31,14 +33,28 @@ public class BlazeRodItem extends Item {
 			
 			if (world.getBlockState(pos).getBlock() instanceof AirBlock) {
 				
-				this.creatPlatform(world, pos, Blocks.GLASS);
-				player.fallDistance /= 4;
-				
-				if (!player.abilities.isCreativeMode) {
+				serverPlayer.getCapability(ModBedwarsCapability.BEDWARS, null).ifPresent(bedwarsHandler -> {
 					
-					player.getHeldItemMainhand().shrink(1);
+					if (bedwarsHandler.getBlazeRodCooldown() == 0) {
+						
+						bedwarsHandler.setBlazeRodCooldown(5);
+						this.creatPlatform(world, pos, Blocks.GLASS);
+						player.fallDistance /= 4;
+						
+						if (!player.abilities.isCreativeMode) {
+							
+							player.getHeldItemMainhand().shrink(1);
+							
+						}
+						
+					} else {
+						
+						serverPlayer.sendMessage(new StringTextComponent("Du kannst das Item erst wieder in "
+								+ bedwarsHandler.getBlazeRodCooldown() + " Sekunden nutzten"), null);
+						
+					}
 					
-				}
+				});
 				
 				
 			}
