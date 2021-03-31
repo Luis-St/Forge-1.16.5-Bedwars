@@ -1,11 +1,13 @@
 package net.luis.bedwars.common.base.capability.handler;
 
 import net.luis.bedwars.common.base.capability.interfaces.IGame;
+import net.luis.bedwars.common.base.util.BlockGameChangeList;
 import net.minecraft.nbt.CompoundNBT;
 
 public class GameHandler implements IGame {
 
 	private boolean game = false;
+	private final BlockGameChangeList changeList = new BlockGameChangeList();
 	
 	public GameHandler() {
 		
@@ -29,6 +31,11 @@ public class GameHandler implements IGame {
 	@Override
 	public boolean isGameStarted() {
 		return game;
+	}
+	
+	@Override
+	public BlockGameChangeList getChangeList() {
+		return this.changeList;
 	}
 	
 	@Override
