@@ -1,15 +1,15 @@
 package net.luis.bedwars.common.inventory;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.luis.bedwars.common.base.villager.VillagerTradeHelper;
 import net.luis.bedwars.common.inventory.container.VillagerContainer.Page;
+import net.luis.bedwars.common.item.ModBowItem;
 import net.luis.bedwars.init.ModItems;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.item.TieredItem;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 
@@ -164,7 +164,7 @@ public class BuyHelper {
 	
 	public boolean hasItemToBuy(Item item, int count) {
 		
-		IItemHandler itemHandler = player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).orElseThrow(
+		IItemHandler itemHandler = this.player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).orElseThrow(
 				() -> new NullPointerException());
 		
 		for (int i = 0; i < itemHandler.getSlots(); i++) {
@@ -183,25 +183,27 @@ public class BuyHelper {
 		
 	}
 	
-	public List<ItemStack> getAllItemsToBye(Item item) {
+	public boolean canBuyPerShift(Item item) {
 		
-		List<ItemStack> stacks = new ArrayList<ItemStack>();
-		IItemHandler itemHandler = player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).orElseThrow(
-				() -> new NullPointerException());
-		
-		for (int i = 0; i < itemHandler.getSlots(); i++) {
+		if (item instanceof ArmorItem || this.isToolItem(item)) {
 			
-			ItemStack stack = itemHandler.getStackInSlot(i);
-			
-			if (stack.getItem() == item) {
-				
-				stacks.add(stack);
-				
-			}
+			return false;
 			
 		}
 		
-		return stacks;
+		return true;
+		
+	}
+	
+	protected boolean isToolItem(Item item) {
+		
+		if (item instanceof TieredItem || item instanceof ModBowItem || item == Items.FISHING_ROD || item == Items.FLINT_AND_STEEL) {
+			
+			return true;
+			
+		}
+		
+		return false;
 		
 	}
 	

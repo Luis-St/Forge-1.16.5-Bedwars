@@ -28,7 +28,7 @@ public class VillagerContainer extends Container {
 		this(id, playerInventory, new Inventory(6 * 9));
 		
 	}
-
+	
 	public VillagerContainer(int id, PlayerInventory playerInventory, IInventory inventory) {
 		
 		super(ModContainerType.VILLAGER.get(), id);
@@ -66,7 +66,7 @@ public class VillagerContainer extends Container {
 	}
 	
 	@Override
-	public ItemStack slotClick(int slot, int dragType, ClickType clickTypeIn, PlayerEntity player) {
+	public ItemStack slotClick(int slot, int dragType, ClickType clickType, PlayerEntity player) {
 		
 		switch (slot) {
 		case 9: this.containerHelper.creatBlocks(); this.page = Page.BLOCKS; break;
@@ -80,26 +80,68 @@ public class VillagerContainer extends Container {
 		default: break;
 		}
 		
-		this.buyItem(slot, player, this.page);
+		this.buyItem(slot, player, this.page, clickType);
 		this.detectAndSendChanges();
-		return super.slotClick(slot, dragType, clickTypeIn, player);
+		return super.slotClick(slot, dragType, clickType, player);
 		
 	}
 	
-	public void buyItem(int slot, PlayerEntity player, Page page) {
+	public void buyItem(int slot, PlayerEntity player, Page page, ClickType clickType) {
 		
 		BuyHelper buyHelper = new BuyHelper(player, page);
 		BuyingItem buyingItem = buyHelper.getBuyingItem(slot);
 		
 		if (buyingItem != null) {
 			
-			ItemStack itemStack = buyingItem.getItemStack();
-			ItemStack buyingStack = buyingItem.getBuyingStack();
+			if (clickType == ClickType.PICKUP || clickType == ClickType.PICKUP_ALL) {
+				
+				this.buyItem(buyHelper, buyingItem, player);
+				
+			} else if (clickType == ClickType.QUICK_MOVE) {
+				
+				if (!buyHelper.canBuyPerShift(buyingItem.getItemStack().getItem())) {
+					
+					this.buyItem(buyHelper, buyingItem, player);
+					
+				} else {
+					
+					this.buyAllItems(buyHelper, buyingItem, player);
+					
+				}
+				
+			}
+			
+		}
+		
+	}
+
+	private void buyItem(BuyHelper buyHelper, BuyingItem buyingItem, PlayerEntity player) {
+		
+		ItemStack itemStack = buyingItem.getItemStack();
+		ItemStack buyingStack = buyingItem.getBuyingStack();
+		
+		if (buyHelper.hasItemToBuy(buyingStack.getItem(), buyingStack.getCount())) {
+		
+			this.removeItems(player, buyingStack, buyingStack.getCount());
+			ItemHandlerHelper.giveItemToPlayer(player, itemStack);
+			
+		}
+		
+	}
+	
+	protected void buyAllItems(BuyHelper buyHelper, BuyingItem buyingItem, PlayerEntity player) {
+		
+		int givenItem = 0;
+		ItemStack itemStack = buyingItem.getItemStack();
+		ItemStack buyingStack = buyingItem.getBuyingStack();
+		
+		while (givenItem < 64 && buyHelper.hasItemToBuy(buyingStack.getItem(), buyingStack.getCount())) {
 			
 			if (buyHelper.hasItemToBuy(buyingStack.getItem(), buyingStack.getCount())) {
-			
+				
 				this.removeItems(player, buyingStack, buyingStack.getCount());
 				ItemHandlerHelper.giveItemToPlayer(player, itemStack);
+				givenItem += itemStack.getCount();
 				
 			}
 			
