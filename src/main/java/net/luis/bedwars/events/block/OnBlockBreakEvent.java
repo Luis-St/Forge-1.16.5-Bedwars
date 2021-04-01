@@ -3,6 +3,7 @@ package net.luis.bedwars.events.block;
 import java.util.List;
 
 import net.luis.bedwars.Bedwars;
+import net.luis.bedwars.events.block.OnBlockInteractEvent.ColorText;
 import net.luis.bedwars.init.ModBedwarsCapability;
 import net.luis.bedwars.init.ModGameCapability;
 import net.minecraft.block.AbstractPlantBlock;
@@ -13,8 +14,9 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.FlowerBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.DyeColor;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.IPlantable;
@@ -37,6 +39,8 @@ public class OnBlockBreakEvent {
 			
 			if (state.getBlock() instanceof BedBlock) {
 				
+				BedBlock bedBlock = (BedBlock) state.getBlock();
+				
 				if (world instanceof ServerWorld && eventPlayer instanceof ServerPlayerEntity) {
 					
 					ServerWorld serverWorld = (ServerWorld) world;
@@ -52,7 +56,8 @@ public class OnBlockBreakEvent {
 									
 									if (bedwarsHandler.hasBedAt(event.getPos())) {
 										
-										sendBedBreakMessage(players, bedwarsHandler.getTeamColor());
+										ColorText colorText = OnBlockInteractEvent.getColor(bedBlock);
+										sendBedBreakMessage(players, colorText);
 										
 									}
 									
@@ -76,11 +81,15 @@ public class OnBlockBreakEvent {
 		
 	}
 	
-	public static void sendBedBreakMessage(List<ServerPlayerEntity> players, DyeColor color) {
+	public static void sendBedBreakMessage(List<ServerPlayerEntity> players, ColorText colorText) {
+		
+		ITextComponent firstPart = (new StringTextComponent("Das Bett von Team ")).mergeStyle(TextFormatting.RESET);
+		ITextComponent secondPart = (new StringTextComponent(colorText.getTeamName())).mergeStyle(colorText.getFormatting());
+		ITextComponent thirdPart = (new StringTextComponent(" wurde abgebaut")).mergeStyle(TextFormatting.RESET);
 		
 		for (ServerPlayerEntity player : players) {
 			
-			player.sendMessage(new StringTextComponent("Das Bett von Team " + color.getTranslationKey() + " wurde abgebaut"), player.getUniqueID());
+			player.sendMessage(new StringTextComponent("").append(firstPart).append(secondPart).append(thirdPart), player.getUniqueID());
 			
 		}
 		

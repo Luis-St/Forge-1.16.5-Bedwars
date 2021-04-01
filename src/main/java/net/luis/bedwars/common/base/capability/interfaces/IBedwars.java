@@ -66,6 +66,12 @@ public interface IBedwars {
 	int getGunpowderCooldown();
 	void setGunpowderCooldown(int cooldown);
 	
+	int getGunpowderTeleportCooldown();
+	void setGunpowderTeleportCooldown(int cooldown);
+	
+	boolean canTeleport();
+	void setCanTeleport(boolean teleport);
+	
 	int getBlazeRodCooldown();
 	void setBlazeRodCooldown(int cooldown);
 	

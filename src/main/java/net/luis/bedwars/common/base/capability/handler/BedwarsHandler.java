@@ -25,6 +25,8 @@ public class BedwarsHandler implements IBedwars {
 	private DyeColor teamColor = null;
 	
 	private int gunpowderCooldown = 0;
+	private int gunpowderTeleportCooldown = 6;
+	private boolean canTeleport = false;
 	private int blazeRodCooldown = 0;
 	
 	public BedwarsHandler() {
@@ -215,6 +217,26 @@ public class BedwarsHandler implements IBedwars {
 	}
 	
 	@Override
+	public int getGunpowderTeleportCooldown() {
+		return this.gunpowderTeleportCooldown;
+	}
+
+	@Override
+	public void setGunpowderTeleportCooldown(int cooldown) {
+		this.gunpowderTeleportCooldown = cooldown;
+	}
+	
+	@Override
+	public boolean canTeleport() {
+		return this.canTeleport;
+	}
+
+	@Override
+	public void setCanTeleport(boolean teleport) {
+		this.canTeleport = teleport;
+	}
+	
+	@Override
 	public int getBlazeRodCooldown() {
 		return this.blazeRodCooldown;
 	}
@@ -241,7 +263,11 @@ public class BedwarsHandler implements IBedwars {
 		
 		nbt.putBoolean("hasBed", this.hasBed());
 		nbt.putBoolean("canRespawn", this.canRespawn());
+		
 		nbt.putInt("gunpowderCooldown", this.getGunpowderCooldown());
+		nbt.putInt("gunpowderTeleportCooldown", this.getGunpowderTeleportCooldown());
+		nbt.putBoolean("canTeleport", this.canTeleport());
+		
 		nbt.putInt("blazeRodCooldown", this.getBlazeRodCooldown());
 		
 		return nbt;
@@ -263,7 +289,11 @@ public class BedwarsHandler implements IBedwars {
 		
 		this.setHasBed(nbt.getBoolean("hasBed"));
 		this.setCanRespawn(nbt.getBoolean("canRespawn"));
+		
 		this.setGunpowderCooldown(nbt.getInt("gunpowderCooldown"));
+		this.setGunpowderTeleportCooldown(nbt.getInt("gunpowderTeleportCooldown"));
+		this.setCanTeleport(nbt.getBoolean("canTeleport"));
+		
 		this.setBlazeRodCooldown(nbt.getInt("blazeRodCooldown"));
 	}
 

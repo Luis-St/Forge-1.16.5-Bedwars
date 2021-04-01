@@ -1,4 +1,4 @@
-package net.luis.bedwars.events;
+package net.luis.bedwars.events.living;
 
 import java.util.ArrayList;
 import java.util.List;

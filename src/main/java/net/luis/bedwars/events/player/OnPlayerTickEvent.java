@@ -24,7 +24,9 @@ public class OnPlayerTickEvent {
 			
 			if (event.phase == Phase.START && player instanceof ServerPlayerEntity) {
 				
-				player.getCapability(ModBedwarsCapability.BEDWARS, null).ifPresent(bedwarsHandler -> {
+				ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
+				
+				serverPlayer.getCapability(ModBedwarsCapability.BEDWARS, null).ifPresent(bedwarsHandler -> {
 					
 					if (bedwarsHandler.getGunpowderCooldown() > 0) {
 						
@@ -35,6 +37,21 @@ public class OnPlayerTickEvent {
 					if (bedwarsHandler.getBlazeRodCooldown() > 0) {
 						
 						bedwarsHandler.setBlazeRodCooldown(bedwarsHandler.getBlazeRodCooldown() - 1);
+						
+					}
+					
+					if (bedwarsHandler.canTeleport()) {
+						
+						if (bedwarsHandler.getGunpowderTeleportCooldown() > 0) {
+							
+							if (bedwarsHandler.getGunpowderTeleportCooldown() > 0) {
+
+								bedwarsHandler.setGunpowderTeleportCooldown(bedwarsHandler.getGunpowderTeleportCooldown() - 1);
+								serverPlayer.addExperienceLevel(-1);
+
+							}
+							
+						}
 						
 					}
 					

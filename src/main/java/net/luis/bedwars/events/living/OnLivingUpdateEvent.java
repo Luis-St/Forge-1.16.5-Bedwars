@@ -1,4 +1,4 @@
-package net.luis.bedwars.events;
+package net.luis.bedwars.events.living;
 
 import net.luis.bedwars.Bedwars;
 import net.minecraft.entity.LivingEntity;
