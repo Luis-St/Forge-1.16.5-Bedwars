@@ -36,6 +36,7 @@ public class OnVillagerTradesEvent {
 			
 			List<ITrade> trades3 = new ArrayList<ITrade>();
 			trades3.add(new Trade().priceBronze(8).saleItem(Items.END_STONE).defaultValues().creat());
+			trades3.add(new Trade().priceIron(4).saleItem(Items.IRON_BLOCK).defaultValues().creat());
 			
 			List<ITrade> trades4 = new ArrayList<ITrade>();
 			
@@ -129,19 +130,12 @@ public class OnVillagerTradesEvent {
 			trades1.add(new Trade().priceBronze(4).saleItem(tradeHelper.enchantedWoodPickaxe()).defaultValues().creat());
 			trades1.add(new Trade().priceIron(2).saleItem(tradeHelper.enchantedStonePickaxe()).defaultValues().creat());
 			
-			// TODO : add if iron block work
-//			List<ITrade> trades2 = new ArrayList<ITrade>();
-//			trades2.add(new Trade().priceGold(1).saleItem(tradeHelper.enchantedIronPickaxe()).defaultValues().creat());
-//			trades2.add(new Trade().priceIron(5).saleItem(tradeHelper.fishingRod()).defaultValues().creat());
-//			
-//			List<ITrade> trades3 = new ArrayList<ITrade>();
-//			trades3.add(new Trade().priceIron(3).saleItem(tradeHelper.enchantedFlintAndSteel()).defaultValues().creat());
-			
 			List<ITrade> trades2 = new ArrayList<ITrade>();
+			trades2.add(new Trade().priceGold(1).saleItem(tradeHelper.enchantedIronPickaxe()).defaultValues().creat());
 			trades2.add(new Trade().priceIron(5).saleItem(tradeHelper.fishingRod()).defaultValues().creat());
-			trades2.add(new Trade().priceIron(3).saleItem(tradeHelper.enchantedFlintAndSteel()).defaultValues().creat());
 			
 			List<ITrade> trades3 = new ArrayList<ITrade>();
+			trades3.add(new Trade().priceIron(3).saleItem(tradeHelper.enchantedFlintAndSteel()).defaultValues().creat());
 			
 			List<ITrade> trades4 = new ArrayList<ITrade>();
 			

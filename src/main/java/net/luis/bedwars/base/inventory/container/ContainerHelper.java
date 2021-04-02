@@ -88,7 +88,7 @@ public class ContainerHelper {
 		this.putStackInSlot(10, new ItemStack(Items.GOLDEN_SWORD));
 		this.putStackInSlot(11, new ItemStack(Items.LEATHER_HELMET));
 		this.putStackInSlot(12, new ItemStack(Items.STONE_PICKAXE));
-		this.putStackInSlot(13, new ItemStack(ModItems.BOW.get()));
+		this.putStackInSlot(13, new ItemStack(Items.BOW));
 		this.putStackInSlot(14, new ItemStack(Items.APPLE));
 		this.putStackInSlot(15, Items.POTION.getDefaultInstance());
 		this.putStackInSlot(16, new ItemStack(Items.ENDER_PEARL));
@@ -100,17 +100,19 @@ public class ContainerHelper {
 	public void creatBlocks() {
 		
 		this.clearSecondPart();
-		this.putStackInSlot(38, new ItemStack(Items.CUT_SANDSTONE, 2));
-		this.putStackInSlot(39, new ItemStack(Items.PACKED_ICE));
-		this.putStackInSlot(40, new ItemStack(Items.GLASS));
-		this.putStackInSlot(41, new ItemStack(Items.SANDSTONE_STAIRS));
-		this.putStackInSlot(42, new ItemStack(Items.END_STONE));
+		this.putStackInSlot(37, new ItemStack(Items.CUT_SANDSTONE, 2));
+		this.putStackInSlot(38, new ItemStack(Items.PACKED_ICE));
+		this.putStackInSlot(39, new ItemStack(Items.GLASS));
+		this.putStackInSlot(40, new ItemStack(Items.SANDSTONE_STAIRS));
+		this.putStackInSlot(41, new ItemStack(Items.END_STONE));
+		this.putStackInSlot(42, new ItemStack(Items.IRON_BLOCK));
 		
-		this.putStackInSlot(47, new ItemStack(Items.BRICK));
-		this.putStackInSlot(48, new ItemStack(Items.BRICK, 4));
+		this.putStackInSlot(46, new ItemStack(Items.BRICK));
+		this.putStackInSlot(47, new ItemStack(Items.BRICK, 4));
+		this.putStackInSlot(48, new ItemStack(Items.BRICK, 2));
 		this.putStackInSlot(49, new ItemStack(Items.BRICK, 2));
-		this.putStackInSlot(50, new ItemStack(Items.BRICK, 2));
-		this.putStackInSlot(51, new ItemStack(Items.BRICK, 8));
+		this.putStackInSlot(50, new ItemStack(Items.BRICK, 8));
+		this.putStackInSlot(51, new ItemStack(Items.IRON_INGOT, 4));
 		this.fillSecondPart();
 		this.container.detectAndSendChanges();
 		

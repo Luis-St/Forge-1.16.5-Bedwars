@@ -1,7 +1,10 @@
 package net.luis.bedwars.base.capability.interfaces;
 
-import net.luis.bedwars.common.base.util.BlockGameChangeList;
+import java.util.List;
+
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 public interface IGame {
 	
@@ -11,7 +14,10 @@ public interface IGame {
 	boolean isGameStopped();
 	boolean isGameStarted();
 	
-	BlockGameChangeList getChangeList();
+	void add(BlockPos pos);
+	void reset(World world);
+	List<BlockPos> get();
+	void set(List<BlockPos> changeList);
 	
 	CompoundNBT serializeNBT();
 	void deserializeNBT(CompoundNBT nbt);

@@ -3,7 +3,7 @@ package net.luis.bedwars.events.block;
 import java.util.List;
 
 import net.luis.bedwars.Bedwars;
-import net.luis.bedwars.events.block.OnBlockInteractEvent.ColorText;
+import net.luis.bedwars.base.util.ColorText;
 import net.luis.bedwars.init.ModGameCapability;
 import net.minecraft.block.AbstractPlantBlock;
 import net.minecraft.block.BedBlock;
@@ -49,7 +49,7 @@ public class OnBlockBreakEvent {
 						
 						if (gameHandler.isGameStarted()) {
 							
-							ColorText colorText = OnBlockInteractEvent.getColor(bedBlock);
+							ColorText colorText = ColorText.getColor(bedBlock);
 							sendBedBreakMessage(players, colorText);
 							
 						}
@@ -104,7 +104,7 @@ public class OnBlockBreakEvent {
 			
 			event.setCanceled(false);
 			
-		} else if (block == Blocks.NETHERITE_BLOCK) {
+		} else if (block == Blocks.IRON_BLOCK) {
 			
 			event.setCanceled(false);
 			

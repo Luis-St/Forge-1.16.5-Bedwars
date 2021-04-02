@@ -1,5 +1,7 @@
 {
   "itemGroup.bedwars": "Bedwars",
-  "block.bedwars.block_of_iron": "Block of Iron",
+  "block.bedwars.block_of_iron": "Iron Spawner",
+  "block.minecraft.gold_block": "Gold Spawner",
+  "block.minecraft.terracotta": "Bronze Spawner",
   "container.villager": "Villager"
 }

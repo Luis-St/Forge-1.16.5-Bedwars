@@ -1,10 +1,13 @@
 package net.luis.bedwars.events.block;
 
 import net.luis.bedwars.Bedwars;
+import net.luis.bedwars.init.ModGameCapability;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -18,6 +21,7 @@ public class OnBlockPlaceEvent {
 		
 		Block block = event.getState().getBlock();
 		Entity entity = event.getEntity();
+		World world = (World) event.getWorld();
 		
 		if (entity instanceof PlayerEntity) {
 			
@@ -26,6 +30,22 @@ public class OnBlockPlaceEvent {
 			if (!player.abilities.isCreativeMode) {
 				
 				isBedwarsBlock(event, block);
+				
+			}
+			
+			if (!event.isCanceled()) {
+				
+				if (world instanceof ServerWorld) {
+					
+					ServerWorld serverWorld = (ServerWorld) world;
+					
+					serverWorld.getCapability(ModGameCapability.GAME, null).ifPresent(gameHandler -> {
+						
+						gameHandler.add(event.getPos());
+						
+					});
+					
+				}
 				
 			}
 			
@@ -55,7 +75,7 @@ public class OnBlockPlaceEvent {
 			
 			event.setCanceled(false);
 			
-		} else if (block == Blocks.NETHERITE_BLOCK) {
+		} else if (block == Blocks.IRON_BLOCK) {
 			
 			event.setCanceled(false);
 			

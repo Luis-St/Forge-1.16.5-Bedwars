@@ -1,21 +1,19 @@
 package net.luis.bedwars.events.block;
 
 import net.luis.bedwars.Bedwars;
+import net.luis.bedwars.base.util.BedPos;
+import net.luis.bedwars.base.util.ColorText;
 import net.luis.bedwars.init.ModBedwarsCapability;
 import net.minecraft.block.BedBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.block.CarpetBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.DyeColor;
-import net.minecraft.state.properties.BedPart;
-import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -36,8 +34,8 @@ public class OnBlockInteractEvent {
 
 		if (block instanceof BedBlock && player instanceof ServerPlayerEntity) {
 			
-			ColorText color = getColor((BedBlock) block);
-			BedPos bedPos = getBedPos(player, pos, state);
+			ColorText color = ColorText.getColor((BedBlock) block);
+			BedPos bedPos = BedPos.getBedPos(player, pos, state);
 
 			player.getCapability(ModBedwarsCapability.BEDWARS, null).ifPresent(bedwarsHandler -> {
 
@@ -92,200 +90,6 @@ public class OnBlockInteractEvent {
 
 			});
 
-		}
-
-	}
-
-	public static BedPos getBedPos(PlayerEntity player, BlockPos pos, BlockState state) {
-
-		BedPart part = state.get(BedBlock.PART);
-		int x = pos.getX();
-		int z = pos.getZ();
-		BlockPos head = BlockPos.ZERO;
-		BlockPos foot = BlockPos.ZERO;
-		Direction direction = BedBlock.getFootDirection(state);
-
-		if (part == BedPart.FOOT) {
-
-			switch (direction) {
-			case NORTH:
-				--z;
-				break;
-			case EAST:
-				++x;
-				break;
-			case SOUTH:
-				++z;
-				break;
-			case WEST:
-				--x;
-				break;
-			default:
-				break;
-			}
-
-			head = new BlockPos(x, pos.getY(), z);
-			foot = pos;
-
-		} else {
-
-			part = BedPart.HEAD;
-			direction = direction.getOpposite();
-
-			switch (direction) {
-			case NORTH:
-				z -= 1;
-				break;
-			case EAST:
-				x += 1;
-				break;
-			case SOUTH:
-				z += 1;
-				break;
-			case WEST:
-				x -= 1;
-				break;
-			default:
-				break;
-			}
-
-			head = pos;
-			foot = new BlockPos(x, pos.getY(), z);
-
-		}
-
-		return new BedPos(head, foot);
-
-	}
-	
-	public static ColorText getColor(BedBlock block) {
-		
-		if (block == Blocks.BLACK_BED) {
-			
-			return new ColorText(DyeColor.BLACK, "Black", TextFormatting.BLACK);
-			
-		} else if (block == Blocks.BLUE_BED) {
-			
-			return new ColorText(DyeColor.BLUE, "Blue", TextFormatting.DARK_BLUE);
-			
-		} else if (block == Blocks.BROWN_BED) {
-			
-			return null; 
-			
-		} else if (block == Blocks.CYAN_BED) {
-			
-			return new ColorText(DyeColor.CYAN, "Cyan", TextFormatting.DARK_AQUA); 
-			
-		} else if (block == Blocks.GRAY_BED) {
-			
-			return new ColorText(DyeColor.GRAY, "Gray", TextFormatting.DARK_GRAY);
-			
-		} else if (block == Blocks.GREEN_BED) {
-			
-			return new ColorText(DyeColor.GREEN, "Green", TextFormatting.DARK_GREEN);
-			
-		} else if (block == Blocks.LIGHT_BLUE_BED) {
-			
-			return new ColorText(DyeColor.LIGHT_BLUE, "Light Blue", TextFormatting.AQUA); 
-			
-		} else if (block == Blocks.LIGHT_GRAY_BED) {
-			
-			return new ColorText(DyeColor.LIGHT_GRAY, "Light Gray", TextFormatting.GRAY);
-			
-		} else if (block == Blocks.LIME_BED) {
-			
-			return new ColorText(DyeColor.LIME, "Lime", TextFormatting.GREEN);
-			
-		} else if (block == Blocks.MAGENTA_BED) {
-			
-			return null; 
-			
-		} else if (block == Blocks.ORANGE_BED) {
-			
-			return new ColorText(DyeColor.ORANGE, "Orange", TextFormatting.GOLD); 
-			
-		} else if (block == Blocks.PINK_BED) {
-			
-			return new ColorText(DyeColor.PINK, "Pink", TextFormatting.LIGHT_PURPLE);
-			
-		} else if (block == Blocks.PURPLE_BED) {
-			
-			return new ColorText(DyeColor.PURPLE, "Purple", TextFormatting.DARK_PURPLE);
-			
-		} else if (block == Blocks.RED_BED) {
-			
-			return new ColorText(DyeColor.RED, "Red", TextFormatting.DARK_RED);
-			
-		} else if (block == Blocks.WHITE_BED) {
-			
-			return new ColorText(DyeColor.WHITE, "White", TextFormatting.WHITE);
-			
-		} else if (block == Blocks.YELLOW_BED) {
-			
-			return new ColorText(DyeColor.YELLOW, "Yellow", TextFormatting.YELLOW);
-			
-		}
-		
-		return null;
-		
-	}
-
-	public static class BedPos {
-
-		private final BlockPos posHead;
-		private final BlockPos posFoot;
-
-		public BedPos(BlockPos posHead, BlockPos posFoot) {
-
-			this.posHead = posHead;
-			this.posFoot = posFoot;
-
-		}
-
-		public BlockPos getPosHead() {
-
-			return posHead;
-
-		}
-
-		public BlockPos getPosFoot() {
-
-			return posFoot;
-
-		}
-
-	}
-	
-	public static class ColorText {
-		
-		private final DyeColor color;
-		private final String teamName;
-		private final TextFormatting[] formatting;
-		
-		public ColorText(DyeColor color, String teamName, TextFormatting... formatting) {
-			
-			this.color = color;
-			this.teamName = teamName;
-			this.formatting = formatting;
-			
-		}
-
-		public DyeColor getColor() {
-			
-			return color;
-			
-		}
-
-		public String getTeamName() {
-			
-			return teamName;
-			
-		}
-
-		public TextFormatting[] getFormatting() {
-			
-			return formatting;
-			
 		}
 
 	}

@@ -37,6 +37,10 @@ public class GameCommand {
 			
 			return gameOptions(context.getSource());
 			
+		})).then(Commands.literal("reset").executes(context -> {
+			
+			return gameReset(context.getSource(), context.getSource().getWorld());
+			
 		})));
 		
 	}
@@ -115,6 +119,29 @@ public class GameCommand {
 		source.sendFeedback(new StringTextComponent("There are currently no options"), true);
 		source.sendFeedback(new StringTextComponent("Options will be added in future versions"), true);
 		source.sendFeedback(new StringTextComponent("If this is not the newest version, please update to a newer version"), true);
+		
+		return 1;
+		
+	}
+	
+	private static int gameReset(CommandSource source, ServerWorld world) {
+		
+		world.getCapability(ModGameCapability.GAME, null).ifPresent(gameHandler -> {
+			
+			if (gameHandler.isGameStopped()) {
+				
+				gameHandler.reset(world);
+				List<ServerPlayerEntity> players = world.getPlayers();
+				
+				for (ServerPlayerEntity player : players) {
+					
+					player.sendMessage(new StringTextComponent("Reset the game"), player.getUniqueID());
+					
+				}
+				
+			}
+			
+		});
 		
 		return 1;
 		

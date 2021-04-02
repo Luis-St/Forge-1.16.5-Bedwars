@@ -9,8 +9,6 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 @Mod.EventBusSubscriber(modid = Bedwars.MOD_ID, bus = Bus.FORGE)
 public class OnExplosionEvent {
 	
-	// TODO : ExplosionEvent.Start -> creat own explosion
-	
 	@SubscribeEvent
 	public static void Explosion(ExplosionEvent.Detonate event) {
 		

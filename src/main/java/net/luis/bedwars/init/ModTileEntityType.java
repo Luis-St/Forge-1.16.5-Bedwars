@@ -15,6 +15,6 @@ public class ModTileEntityType {
 	
 	public static final RegistryObject<TileEntityType<SpawnBlockTileEntity>> SPAWNER = TILE_ENTITIES.register("spawner", 
 			() -> TileEntityType.Builder.create(SpawnBlockTileEntity::new, 
-			new Block[] {ModBlocks.BRONZE_SPAWNER.get(), ModBlocks.IRON_SPAWNER.get(), ModBlocks.GOLD_SPAWNER.get()}).build(null));
+			new Block[] {ModBlocks.BRONZE_SPAWNER.get(), ModBlocks.BLOCK_OF_IRON.get(), ModBlocks.GOLD_SPAWNER.get()}).build(null));
 
 }

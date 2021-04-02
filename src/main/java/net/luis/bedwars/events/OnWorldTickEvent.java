@@ -4,8 +4,7 @@ import java.util.List;
 
 import net.luis.bedwars.Bedwars;
 import net.luis.bedwars.base.capability.interfaces.IBedwars;
-import net.luis.bedwars.events.block.OnBlockInteractEvent;
-import net.luis.bedwars.events.block.OnBlockInteractEvent.ColorText;
+import net.luis.bedwars.base.util.ColorText;
 import net.luis.bedwars.init.ModBedwarsCapability;
 import net.minecraft.block.BedBlock;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -41,7 +40,7 @@ public class OnWorldTickEvent {
 						
 						if (world.getBlockState(bedFoot).getBlock() instanceof BedBlock) {
 							
-							ColorText color = OnBlockInteractEvent.getColor((BedBlock) world.getBlockState(bedFoot).getBlock());
+							ColorText color = ColorText.getColor((BedBlock) world.getBlockState(bedFoot).getBlock());
 							
 							if (color.getColor() == bedwarsHandler.getTeamColor()) {
 								

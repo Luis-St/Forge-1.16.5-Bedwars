@@ -5,10 +5,10 @@ import java.util.List;
 
 import net.luis.bedwars.base.villager.VillagerTradeHelper;
 import net.luis.bedwars.common.inventory.container.VillagerContainer.Page;
-import net.luis.bedwars.common.item.ModBowItem;
 import net.luis.bedwars.init.ModItems;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ArmorItem;
+import net.minecraft.item.BowItem;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.DyeItem;
 import net.minecraft.item.Item;
@@ -53,11 +53,19 @@ public class BuyHelper {
 	public BuyingItem getBlockBuyingItem(int slot) {
 		
 		switch (slot) {
-		case 38: return new BuyingItem(new ItemStack(Items.CUT_SANDSTONE, 2), this.creatBronze(1));
-		case 39: return new BuyingItem(new ItemStack(Items.PACKED_ICE), this.creatBronze(4));	
-		case 40: return new BuyingItem(new ItemStack(Items.GLASS), this.creatBronze(2));
-		case 41: return new BuyingItem(new ItemStack(Items.SANDSTONE_STAIRS), this.creatBronze(2));
-		case 42: return new BuyingItem(new ItemStack(Items.END_STONE), this.creatBronze(8));
+		case 37: return new BuyingItem(new ItemStack(Items.CUT_SANDSTONE, 2), this.creatBronze(1));
+		case 38: return new BuyingItem(new ItemStack(Items.PACKED_ICE), this.creatBronze(4));	
+		case 39: return new BuyingItem(new ItemStack(Items.GLASS), this.creatBronze(2));
+		case 40: return new BuyingItem(new ItemStack(Items.SANDSTONE_STAIRS), this.creatBronze(2));
+		case 41: return new BuyingItem(new ItemStack(Items.END_STONE), this.creatBronze(8));
+		case 42: return new BuyingItem(new ItemStack(Items.IRON_BLOCK), this.creatIron(4));
+		
+		case 46: return new BuyingItem(new ItemStack(Items.CUT_SANDSTONE, 2), this.creatBronze(1));
+		case 47: return new BuyingItem(new ItemStack(Items.PACKED_ICE), this.creatBronze(4));	
+		case 48: return new BuyingItem(new ItemStack(Items.GLASS), this.creatBronze(2));
+		case 49: return new BuyingItem(new ItemStack(Items.SANDSTONE_STAIRS), this.creatBronze(2));
+		case 50: return new BuyingItem(new ItemStack(Items.END_STONE), this.creatBronze(8));
+		case 51: return new BuyingItem(new ItemStack(Items.IRON_BLOCK), this.creatIron(4));
 		}
 		
 		return null;
@@ -72,6 +80,12 @@ public class BuyHelper {
 		case 40: return new BuyingItem(this.tradeHelper.enchantedGoldSword2(), this.creatIron(3));	
 		case 41: return new BuyingItem(this.tradeHelper.enchantedIronSword1(), this.creatGold(5));
 		case 42: return new BuyingItem(this.tradeHelper.enchantedIronSword2(), this.creatGold(9));
+		
+		case 47: return new BuyingItem(this.tradeHelper.enchantedStick(), this.creatBronze(8));
+		case 48: return new BuyingItem(this.tradeHelper.enchantedGoldSword1(), this.creatIron(1));
+		case 49: return new BuyingItem(this.tradeHelper.enchantedGoldSword2(), this.creatIron(3));	
+		case 50: return new BuyingItem(this.tradeHelper.enchantedIronSword1(), this.creatGold(5));
+		case 51: return new BuyingItem(this.tradeHelper.enchantedIronSword2(), this.creatGold(9));
 		}
 		
 		return null;
@@ -91,6 +105,17 @@ public class BuyHelper {
 		case 42: return new BuyingItem(this.tradeHelper.enchantedChainChestplate2(), this.creatIron(3));
 		case 43: return new BuyingItem(this.tradeHelper.enchantedChainChestplate3(), this.creatIron(7));
 		case 44: return new BuyingItem(this.tradeHelper.enchantedChainChestplate4(), this.creatGold(4));
+		
+		case 28: return new BuyingItem(this.tradeHelper.enchantedLeatherArmor(Items.LEATHER_HELMET), this.creatBronze(1));
+		case 37: return new BuyingItem(this.tradeHelper.enchantedLeatherArmor(Items.LEATHER_LEGGINGS), this.creatBronze(1));
+		case 46: return new BuyingItem(this.tradeHelper.enchantedLeatherArmor(Items.LEATHER_BOOTS), this.creatBronze(1));
+		case 30: return new BuyingItem(this.tradeHelper.enchantedChainArmor(Items.CHAINMAIL_HELMET), this.creatIron(2));
+		case 39: return new BuyingItem(this.tradeHelper.enchantedChainArmor(Items.CHAINMAIL_LEGGINGS), this.creatIron(2));
+		case 48: return new BuyingItem(this.tradeHelper.enchantedGoldBoots(), this.creatIron(4));
+		case 50: return new BuyingItem(this.tradeHelper.enchantedChainChestplate1(), this.creatIron(1));	
+		case 51: return new BuyingItem(this.tradeHelper.enchantedChainChestplate2(), this.creatIron(3));
+		case 52: return new BuyingItem(this.tradeHelper.enchantedChainChestplate3(), this.creatIron(7));
+		case 53: return new BuyingItem(this.tradeHelper.enchantedChainChestplate4(), this.creatGold(4));
 		}
 		
 		return null;
@@ -105,6 +130,12 @@ public class BuyHelper {
 		case 40: return new BuyingItem(this.tradeHelper.enchantedIronPickaxe(), this.creatGold(1));	
 		case 41: return new BuyingItem(this.tradeHelper.fishingRod(), this.creatIron(5));
 		case 42: return new BuyingItem(this.tradeHelper.enchantedFlintAndSteel(), this.creatIron(3));
+		
+		case 47: return new BuyingItem(this.tradeHelper.enchantedWoodPickaxe(), this.creatBronze(4));
+		case 48: return new BuyingItem(this.tradeHelper.enchantedStonePickaxe(), this.creatIron(2));
+		case 49: return new BuyingItem(this.tradeHelper.enchantedIronPickaxe(), this.creatGold(1));	
+		case 50: return new BuyingItem(this.tradeHelper.fishingRod(), this.creatIron(5));
+		case 51: return new BuyingItem(this.tradeHelper.enchantedFlintAndSteel(), this.creatIron(3));
 		}
 		
 		return null;
@@ -118,6 +149,11 @@ public class BuyHelper {
 		case 39: return new BuyingItem(this.tradeHelper.enchantedBow2(), this.creatGold(7));
 		case 40: return new BuyingItem(this.tradeHelper.enchantedBow3(), this.creatGold(13));	
 		case 42: return new BuyingItem(new ItemStack(Items.ARROW), this.creatGold(1));
+		
+		case 47: return new BuyingItem(this.tradeHelper.enchantedBow1(), this.creatGold(3));
+		case 48: return new BuyingItem(this.tradeHelper.enchantedBow2(), this.creatGold(7));
+		case 49: return new BuyingItem(this.tradeHelper.enchantedBow3(), this.creatGold(13));	
+		case 51: return new BuyingItem(new ItemStack(Items.ARROW), this.creatGold(1));
 		}
 		
 		return null;
@@ -130,6 +166,10 @@ public class BuyHelper {
 		case 39: return new BuyingItem(new ItemStack(Items.APPLE), this.creatBronze(1));
 		case 40: return new BuyingItem(new ItemStack(Items.COOKED_PORKCHOP), this.creatBronze(2));	
 		case 41: return new BuyingItem(new ItemStack(Items.GOLDEN_APPLE), this.creatGold(2));
+		
+		case 48: return new BuyingItem(new ItemStack(Items.APPLE), this.creatBronze(1));
+		case 49: return new BuyingItem(new ItemStack(Items.COOKED_PORKCHOP), this.creatBronze(2));	
+		case 50: return new BuyingItem(new ItemStack(Items.GOLDEN_APPLE), this.creatGold(2));
 		}
 		
 		return null;
@@ -145,6 +185,13 @@ public class BuyHelper {
 		case 40: return new BuyingItem(this.tradeHelper.potionSwiftness(), this.creatIron(7));
 		case 42: return new BuyingItem(this.tradeHelper.potionStrength(), this.creatGold(7));
 		case 43: return new BuyingItem(this.tradeHelper.potionSlowFalling(), this.creatGold(4));
+		
+		case 46: return new BuyingItem(this.tradeHelper.potionHealing1(), this.creatIron(3));
+		case 47: return new BuyingItem(this.tradeHelper.potionHealing2(), this.creatIron(5));
+		case 48: return new BuyingItem(this.tradeHelper.potionLeaping(), this.creatIron(7));	
+		case 49: return new BuyingItem(this.tradeHelper.potionSwiftness(), this.creatIron(7));
+		case 50: return new BuyingItem(this.tradeHelper.potionStrength(), this.creatGold(7));
+		case 51: return new BuyingItem(this.tradeHelper.potionSlowFalling(), this.creatGold(4));
 		}
 		
 		return null;
@@ -162,6 +209,15 @@ public class BuyHelper {
 		case 41: return new BuyingItem(new ItemStack(Items.ENDER_PEARL), this.creatGold(11));
 		case 43: return new BuyingItem(new ItemStack(Items.CHEST), this.creatIron(1));
 		case 44: return new BuyingItem(new ItemStack(Items.ENDER_CHEST), this.creatGold(1));
+		
+		case 45: return new BuyingItem(new ItemStack(Items.LADDER), this.creatBronze(2));
+		case 46: return new BuyingItem(new ItemStack(Items.COBWEB), this.creatBronze(8));
+		case 47: return new BuyingItem(new ItemStack(ModItems.GUNPOWDER.get()), this.creatIron(3));	
+		case 48: return new BuyingItem(new ItemStack(ModItems.BLAZE_ROD.get()), this.creatGold(3));
+		case 49: return new BuyingItem(new ItemStack(Items.TNT), this.creatGold(2));
+		case 50: return new BuyingItem(new ItemStack(Items.ENDER_PEARL), this.creatGold(11));
+		case 51: return new BuyingItem(new ItemStack(Items.CHEST), this.creatIron(1));
+		case 52: return new BuyingItem(new ItemStack(Items.ENDER_CHEST), this.creatGold(1));
 		}
 		
 		return null;
@@ -277,7 +333,7 @@ public class BuyHelper {
 	
 	protected boolean isToolItem(Item item) {
 		
-		if (item instanceof TieredItem || item instanceof ModBowItem || item == Items.FISHING_ROD || item == Items.FLINT_AND_STEEL) {
+		if (item instanceof TieredItem || item instanceof BowItem || item == Items.FISHING_ROD || item == Items.FLINT_AND_STEEL) {
 			
 			return true;
 			
