@@ -1,17 +1,26 @@
 package net.luis.bedwars.common.inventory.container;
 
-import net.luis.bedwars.common.inventory.BuyHelper;
-import net.luis.bedwars.common.inventory.BuyingItem;
-import net.luis.bedwars.common.inventory.ContainerHelper;
+import java.util.ArrayList;
+import java.util.List;
+
+import net.luis.bedwars.base.capability.interfaces.IBedwars;
+import net.luis.bedwars.base.inventory.BuyHelper;
+import net.luis.bedwars.base.inventory.BuyingItem;
+import net.luis.bedwars.base.inventory.container.ContainerHelper;
 import net.luis.bedwars.common.inventory.slot.VillagerSlot;
+import net.luis.bedwars.init.ModBedwarsCapability;
 import net.luis.bedwars.init.ModContainerType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.container.ClickType;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.Slot;
+import net.minecraft.item.DyeColor;
+import net.minecraft.item.DyeItem;
+import net.minecraft.item.IDyeableArmorItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -117,7 +126,7 @@ public class VillagerContainer extends Container {
 
 	private void buyItem(BuyHelper buyHelper, BuyingItem buyingItem, PlayerEntity player) {
 		
-		ItemStack itemStack = buyingItem.getItemStack();
+		ItemStack itemStack = this.colorArmorItem(buyHelper, buyingItem.getItemStack(), player);
 		ItemStack buyingStack = buyingItem.getBuyingStack();
 		
 		if (buyHelper.hasItemToBuy(buyingStack.getItem(), buyingStack.getCount())) {
@@ -180,6 +189,40 @@ public class VillagerContainer extends Container {
 			}
 			
 		}
+		
+	}
+	
+	protected ItemStack colorArmorItem(BuyHelper buyHelper, ItemStack itemStack, PlayerEntity player) {
+		
+		List<DyeItem> dyeItems = new ArrayList<DyeItem>();
+		
+		if (player instanceof ServerPlayerEntity) {
+			
+			ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player; 
+			
+			if (itemStack.getItem() instanceof IDyeableArmorItem) {
+				
+				DyeColor color = this.getColor(serverPlayer);
+				
+				if (color != null) {
+					
+					dyeItems.add(buyHelper.getItemFromColor(color));
+					itemStack = IDyeableArmorItem.dyeItem(itemStack, dyeItems);
+					
+				}
+				
+			}
+			
+		}
+		
+		return itemStack;
+		
+	}
+	
+	protected DyeColor getColor(ServerPlayerEntity serverPlayer) {
+		
+		IBedwars bedwarsHandler = serverPlayer.getCapability(ModBedwarsCapability.BEDWARS, null).orElseThrow(() -> new NullPointerException());
+		return bedwarsHandler.getTeamColor();
 		
 	}
 	

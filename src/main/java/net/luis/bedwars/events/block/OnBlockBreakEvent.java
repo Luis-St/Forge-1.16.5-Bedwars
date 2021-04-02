@@ -4,7 +4,6 @@ import java.util.List;
 
 import net.luis.bedwars.Bedwars;
 import net.luis.bedwars.events.block.OnBlockInteractEvent.ColorText;
-import net.luis.bedwars.init.ModBedwarsCapability;
 import net.luis.bedwars.init.ModGameCapability;
 import net.minecraft.block.AbstractPlantBlock;
 import net.minecraft.block.BedBlock;
@@ -50,20 +49,8 @@ public class OnBlockBreakEvent {
 						
 						if (gameHandler.isGameStarted()) {
 							
-							for (ServerPlayerEntity player : players) {
-								
-								player.getCapability(ModBedwarsCapability.BEDWARS, null).ifPresent(bedwarsHandler -> {
-									
-									if (bedwarsHandler.hasBedAt(event.getPos())) {
-										
-										ColorText colorText = OnBlockInteractEvent.getColor(bedBlock);
-										sendBedBreakMessage(players, colorText);
-										
-									}
-									
-								});
-								
-							}
+							ColorText colorText = OnBlockInteractEvent.getColor(bedBlock);
+							sendBedBreakMessage(players, colorText);
 							
 						}
 						
@@ -126,10 +113,6 @@ public class OnBlockBreakEvent {
 			event.setCanceled(false);
 			
 		} else if (block == Blocks.COBWEB) {
-			
-			event.setCanceled(false);
-			
-		} else if (block == Blocks.NETHERITE_BLOCK) {
 			
 			event.setCanceled(false);
 			

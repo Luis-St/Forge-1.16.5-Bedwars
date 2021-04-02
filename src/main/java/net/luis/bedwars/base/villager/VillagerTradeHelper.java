@@ -1,15 +1,11 @@
-package net.luis.bedwars.common.base.villager;
+package net.luis.bedwars.base.villager;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
-import net.minecraft.item.DyeItem;
-import net.minecraft.item.IDyeableArmorItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -72,21 +68,6 @@ public class VillagerTradeHelper {
 		enchantments.put(Enchantments.UNBREAKING, 2);
 		enchantments.put(Enchantments.KNOCKBACK, 1);
 		EnchantmentHelper.setEnchantments(enchantments, stack);
-		return stack;
-		
-	}
-	
-	@Deprecated
-	public ItemStack enchantedLeatherArmor(Item item, DyeItem dyeItem) {
-		
-		ItemStack stack = new ItemStack(item);
-		Map<Enchantment, Integer> enchantments = new HashMap<Enchantment, Integer>();
-		enchantments.put(Enchantments.PROTECTION, 1);
-		enchantments.put(Enchantments.UNBREAKING, 1);
-		List<DyeItem> dyeItems = new ArrayList<DyeItem>();
-		dyeItems.add(dyeItem);
-		EnchantmentHelper.setEnchantments(enchantments, stack);
-		IDyeableArmorItem.dyeItem(stack, dyeItems);
 		return stack;
 		
 	}

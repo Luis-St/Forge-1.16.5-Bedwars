@@ -1,6 +1,9 @@
-package net.luis.bedwars.common.inventory;
+package net.luis.bedwars.base.inventory;
 
-import net.luis.bedwars.common.base.villager.VillagerTradeHelper;
+import java.util.ArrayList;
+import java.util.List;
+
+import net.luis.bedwars.base.villager.VillagerTradeHelper;
 import net.luis.bedwars.common.inventory.container.VillagerContainer.Page;
 import net.luis.bedwars.common.item.ModBowItem;
 import net.luis.bedwars.init.ModItems;
@@ -151,13 +154,14 @@ public class BuyHelper {
 	public BuyingItem getMiscBuyingItem(int slot) {
 		
 		switch (slot) {
-		case 37: return new BuyingItem(new ItemStack(Items.LADDER), this.creatBronze(2));
-		case 38: return new BuyingItem(new ItemStack(Items.COBWEB), this.creatBronze(8));
-		case 39: return new BuyingItem(new ItemStack(ModItems.GUNPOWDER.get()), this.creatIron(3));	
-		case 40: return new BuyingItem(new ItemStack(ModItems.BLAZE_ROD.get()), this.creatGold(3));
+		case 36: return new BuyingItem(new ItemStack(Items.LADDER), this.creatBronze(2));
+		case 37: return new BuyingItem(new ItemStack(Items.COBWEB), this.creatBronze(8));
+		case 38: return new BuyingItem(new ItemStack(ModItems.GUNPOWDER.get()), this.creatIron(3));	
+		case 39: return new BuyingItem(new ItemStack(ModItems.BLAZE_ROD.get()), this.creatGold(3));
+		case 40: return new BuyingItem(new ItemStack(Items.TNT), this.creatGold(2));
 		case 41: return new BuyingItem(new ItemStack(Items.ENDER_PEARL), this.creatGold(11));
-		case 42: return new BuyingItem(new ItemStack(Items.CHEST), this.creatIron(1));
-		case 43: return new BuyingItem(new ItemStack(Items.ENDER_CHEST), this.creatGold(1));
+		case 43: return new BuyingItem(new ItemStack(Items.CHEST), this.creatIron(1));
+		case 44: return new BuyingItem(new ItemStack(Items.ENDER_CHEST), this.creatGold(1));
 		}
 		
 		return null;
@@ -168,6 +172,7 @@ public class BuyHelper {
 		
 		IItemHandler itemHandler = this.player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).orElseThrow(
 				() -> new NullPointerException());
+		boolean hasItem = false;
 		
 		for (int i = 0; i < itemHandler.getSlots(); i++) {
 			
@@ -175,17 +180,66 @@ public class BuyHelper {
 			
 			if (stack.getItem() == item && stack.getCount() >= count) {
 				
-				return true;
+				hasItem = true;
 				
 			}
 			
 		}
 		
-		return false;
+		if (!hasItem) {
+			
+			List<ItemStack> itemsToBuy = this.getAllItemsToBuy(item);
+			int listCount = this.checkIfCount(itemsToBuy, item);
+			
+			hasItem = listCount >= count;
+			
+		}
+		
+		return hasItem;
 		
 	}
 	
-	public static DyeItem getItemFromColor(DyeColor color) {
+	public List<ItemStack> getAllItemsToBuy(Item item) {
+		
+		IItemHandler itemHandler = this.player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).orElseThrow(
+				() -> new NullPointerException());
+		List<ItemStack> itemsToBuy = new ArrayList<ItemStack>();
+		
+		for (int i = 0; i < itemHandler.getSlots(); i++) {
+			
+			ItemStack stack = itemHandler.getStackInSlot(i);
+			
+			if (stack.getItem() == item) {
+				
+				itemsToBuy.add(stack);
+				
+			}
+			
+		}
+		
+		return itemsToBuy;
+		
+	}
+	
+	protected int checkIfCount(List<ItemStack> itemsToBuy, Item item) {
+		
+		int stackCount = 0;
+		
+		for (ItemStack stack : itemsToBuy) {
+			
+			if (stack.getItem() == item) {
+				
+				stackCount += stack.getCount();
+				
+			}
+			
+		}
+		
+		return stackCount;
+		
+	}
+	
+	public DyeItem getItemFromColor(DyeColor color) {
 		
 		switch (color) {
 		case BLACK: return (DyeItem) Items.BLACK_DYE;

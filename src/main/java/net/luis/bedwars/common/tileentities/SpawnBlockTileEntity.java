@@ -1,8 +1,8 @@
 package net.luis.bedwars.common.tileentities;
 
-import net.luis.bedwars.common.base.block.ISpawnerBlock;
-import net.luis.bedwars.common.base.side.Side;
-import net.luis.bedwars.common.base.side.SideHelper;
+import net.luis.bedwars.base.block.ISpawnerBlock;
+import net.luis.bedwars.base.block.side.Side;
+import net.luis.bedwars.base.block.side.SideHelper;
 import net.luis.bedwars.init.ModGameCapability;
 import net.luis.bedwars.init.ModTileEntityType;
 import net.minecraft.block.Block;

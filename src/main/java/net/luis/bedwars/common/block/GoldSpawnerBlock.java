@@ -1,6 +1,6 @@
 package net.luis.bedwars.common.block;
 
-import net.luis.bedwars.common.base.block.ISpawnerBlock;
+import net.luis.bedwars.base.block.ISpawnerBlock;
 import net.luis.bedwars.common.tileentities.SpawnBlockTileEntity;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;

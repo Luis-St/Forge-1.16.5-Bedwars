@@ -1,4 +1,4 @@
-package net.luis.bedwars.common.base.villager;
+package net.luis.bedwars.base.villager;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

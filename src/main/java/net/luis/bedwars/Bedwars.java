@@ -3,8 +3,8 @@ package net.luis.bedwars;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import net.luis.bedwars.common.base.capability.interfaces.IBedwars;
-import net.luis.bedwars.common.base.capability.interfaces.IGame;
+import net.luis.bedwars.base.capability.interfaces.IBedwars;
+import net.luis.bedwars.base.capability.interfaces.IGame;
 import net.luis.bedwars.common.inventory.screen.VillagerScreen;
 import net.luis.bedwars.init.ModBedwarsCapability;
 import net.luis.bedwars.init.ModBlockItems;

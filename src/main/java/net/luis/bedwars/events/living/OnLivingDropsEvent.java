@@ -12,7 +12,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 public class OnLivingDropsEvent {
 	
 	@SubscribeEvent
-	public static void AttachCapabilitiesEntity(LivingDropsEvent event) {
+	public static void LivingDrops(LivingDropsEvent event) {
 		
 		LivingEntity livingEntity = event.getEntityLiving();
 		

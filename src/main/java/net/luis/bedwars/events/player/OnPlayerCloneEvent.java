@@ -14,7 +14,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 public class OnPlayerCloneEvent {
 	
 	@SubscribeEvent
-	public static void LivingUpdate(PlayerEvent.Clone event) {
+	public static void PlayerClone(PlayerEvent.Clone event) {
 		
 		PlayerEntity oldPlayer = event.getOriginal();
 		PlayerEntity newPlayer = event.getPlayer();

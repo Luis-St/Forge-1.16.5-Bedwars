@@ -1,4 +1,4 @@
-package net.luis.bedwars.common.base.capability.interfaces;
+package net.luis.bedwars.base.capability.interfaces;
 
 import net.minecraft.item.DyeColor;
 import net.minecraft.nbt.CompoundNBT;

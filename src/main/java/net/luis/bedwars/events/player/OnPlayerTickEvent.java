@@ -15,7 +15,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 public class OnPlayerTickEvent {
 	
 	@SubscribeEvent
-	public static void WorldTick(TickEvent.PlayerTickEvent event) {
+	public static void PlayerTick(TickEvent.PlayerTickEvent event) {
 		
 		PlayerEntity player = event.player;
 		World world = player.getEntityWorld();

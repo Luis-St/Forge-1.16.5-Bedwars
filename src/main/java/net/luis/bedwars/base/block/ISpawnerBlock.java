@@ -1,4 +1,4 @@
-package net.luis.bedwars.common.base.block;
+package net.luis.bedwars.base.block;
 
 import net.minecraft.item.Item;
 

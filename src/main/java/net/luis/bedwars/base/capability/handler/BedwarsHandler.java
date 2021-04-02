@@ -1,6 +1,6 @@
-package net.luis.bedwars.common.base.capability.handler;
+package net.luis.bedwars.base.capability.handler;
 
-import net.luis.bedwars.common.base.capability.interfaces.IBedwars;
+import net.luis.bedwars.base.capability.interfaces.IBedwars;
 import net.minecraft.item.DyeColor;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.BlockPos;

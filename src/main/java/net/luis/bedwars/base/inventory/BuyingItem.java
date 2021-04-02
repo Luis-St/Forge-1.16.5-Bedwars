@@ -1,4 +1,4 @@
-package net.luis.bedwars.common.inventory;
+package net.luis.bedwars.base.inventory;
 
 import net.minecraft.item.ItemStack;
 

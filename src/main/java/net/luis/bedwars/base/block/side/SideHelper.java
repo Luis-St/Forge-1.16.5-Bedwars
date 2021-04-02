@@ -1,4 +1,4 @@
-package net.luis.bedwars.common.base.side;
+package net.luis.bedwars.base.block.side;
 
 import java.util.ArrayList;
 import java.util.List;

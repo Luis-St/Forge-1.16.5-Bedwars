@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.luis.bedwars.Bedwars;
-import net.luis.bedwars.common.base.villager.Trade;
-import net.luis.bedwars.common.base.villager.VillagerTradeHelper;
+import net.luis.bedwars.base.villager.Trade;
+import net.luis.bedwars.base.villager.VillagerTradeHelper;
 import net.luis.bedwars.init.ModItems;
 import net.minecraft.entity.merchant.villager.VillagerProfession;
 import net.minecraft.entity.merchant.villager.VillagerTrades.ITrade;

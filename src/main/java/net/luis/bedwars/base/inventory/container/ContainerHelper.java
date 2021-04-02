@@ -1,6 +1,6 @@
-package net.luis.bedwars.common.inventory;
+package net.luis.bedwars.base.inventory.container;
 
-import net.luis.bedwars.common.base.villager.VillagerTradeHelper;
+import net.luis.bedwars.base.villager.VillagerTradeHelper;
 import net.luis.bedwars.common.inventory.container.VillagerContainer;
 import net.luis.bedwars.init.ModItems;
 import net.minecraft.inventory.container.Slot;
@@ -237,21 +237,23 @@ public class ContainerHelper {
 	public void creatMisc() {
 		
 		this.clearSecondPart();
-		this.putStackInSlot(37, new ItemStack(Items.LADDER));
-		this.putStackInSlot(38, new ItemStack(Items.COBWEB));
-		this.putStackInSlot(39, new ItemStack(ModItems.GUNPOWDER.get()));
-		this.putStackInSlot(40, new ItemStack(ModItems.BLAZE_ROD.get()));
+		this.putStackInSlot(36, new ItemStack(Items.LADDER));
+		this.putStackInSlot(37, new ItemStack(Items.COBWEB));
+		this.putStackInSlot(38, new ItemStack(ModItems.GUNPOWDER.get()));
+		this.putStackInSlot(39, new ItemStack(ModItems.BLAZE_ROD.get()));
+		this.putStackInSlot(40, new ItemStack(Items.TNT));
 		this.putStackInSlot(41, new ItemStack(Items.ENDER_PEARL));
-		this.putStackInSlot(42, new ItemStack(Items.CHEST));
-		this.putStackInSlot(43, new ItemStack(Items.ENDER_CHEST));
+		this.putStackInSlot(43, new ItemStack(Items.CHEST));
+		this.putStackInSlot(44, new ItemStack(Items.ENDER_CHEST));
 		
-		this.putStackInSlot(46, new ItemStack(Items.BRICK, 2));
-		this.putStackInSlot(47, new ItemStack(Items.BRICK, 8));
-		this.putStackInSlot(48, new ItemStack(Items.IRON_INGOT, 3));
-		this.putStackInSlot(49, new ItemStack(Items.GOLD_INGOT, 3));
+		this.putStackInSlot(45, new ItemStack(Items.BRICK, 2));
+		this.putStackInSlot(46, new ItemStack(Items.BRICK, 8));
+		this.putStackInSlot(47, new ItemStack(Items.IRON_INGOT, 3));
+		this.putStackInSlot(48, new ItemStack(Items.GOLD_INGOT, 3));
+		this.putStackInSlot(49, new ItemStack(Items.GOLD_INGOT, 2));
 		this.putStackInSlot(50, new ItemStack(Items.GOLD_INGOT, 11));
-		this.putStackInSlot(51, new ItemStack(Items.IRON_INGOT, 1));
-		this.putStackInSlot(52, new ItemStack(Items.GOLD_INGOT, 1));
+		this.putStackInSlot(52, new ItemStack(Items.IRON_INGOT, 1));
+		this.putStackInSlot(53, new ItemStack(Items.GOLD_INGOT, 1));
 		this.fillSecondPart();
 		this.container.detectAndSendChanges();
 		

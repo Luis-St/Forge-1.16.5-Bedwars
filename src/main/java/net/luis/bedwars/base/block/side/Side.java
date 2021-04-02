@@ -1,4 +1,4 @@
-package net.luis.bedwars.common.base.side;
+package net.luis.bedwars.base.block.side;
 
 public enum Side {
 	

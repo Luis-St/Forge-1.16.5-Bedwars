@@ -1,6 +1,6 @@
-package net.luis.bedwars.common.base.capability.handler;
+package net.luis.bedwars.base.capability.handler;
 
-import net.luis.bedwars.common.base.capability.interfaces.IGame;
+import net.luis.bedwars.base.capability.interfaces.IGame;
 import net.luis.bedwars.common.base.util.BlockGameChangeList;
 import net.minecraft.nbt.CompoundNBT;
 

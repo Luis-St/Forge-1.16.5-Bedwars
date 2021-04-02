@@ -1,4 +1,4 @@
-package net.luis.bedwars.common.base.capability.interfaces;
+package net.luis.bedwars.base.capability.interfaces;
 
 import net.luis.bedwars.common.base.util.BlockGameChangeList;
 import net.minecraft.nbt.CompoundNBT;
