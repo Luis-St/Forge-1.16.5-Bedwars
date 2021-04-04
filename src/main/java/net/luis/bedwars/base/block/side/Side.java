@@ -15,7 +15,7 @@ public enum Side {
 	private final double z;
 	private final boolean canSpawn;
 	
-	Side(double x, double y, double z, boolean canSpawn) {
+	private Side(double x, double y, double z, boolean canSpawn) {
 		
 		this.x = x;
 		this.y = y;

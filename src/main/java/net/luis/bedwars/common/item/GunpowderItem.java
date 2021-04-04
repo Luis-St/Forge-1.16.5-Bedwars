@@ -39,12 +39,6 @@ public class GunpowderItem extends Item {
 						serverPlayer.setPositionAndUpdate(bedwarsHandler.getRespawnPosX() + 0.5,
 								bedwarsHandler.getRespawnPosY(), bedwarsHandler.getRespawnPosZ() + 0.5);
 						
-						if (!serverPlayer.abilities.isCreativeMode) {
-							
-							serverPlayer.getHeldItemMainhand().shrink(1);
-							
-						}
-						
 						bedwarsHandler.setCanTeleport(false);
 						
 					}
@@ -75,10 +69,16 @@ public class GunpowderItem extends Item {
 						bedwarsHandler.setCanTeleport(true);
 						serverPlayer.setExperienceLevel(6);
 						
+						if (!serverPlayer.abilities.isCreativeMode) {
+							
+							serverPlayer.getHeldItemMainhand().shrink(1);
+							
+						}
+						
 					} else {
 						
 						serverPlayer.sendMessage(new StringTextComponent("Du kannst das Item erst wieder in "
-								+ bedwarsHandler.getGunpowderCooldown() + " Sekunden nutzten"), null);
+								+ bedwarsHandler.getGunpowderCooldown() + " Sekunden nutzten"), player.getUniqueID());
 						
 					}
 					

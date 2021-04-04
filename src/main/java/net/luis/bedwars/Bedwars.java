@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 
 import net.luis.bedwars.base.capability.interfaces.IBedwars;
 import net.luis.bedwars.base.capability.interfaces.IGame;
+import net.luis.bedwars.common.command.args.ChatRankArgument;
 import net.luis.bedwars.common.inventory.screen.VillagerScreen;
 import net.luis.bedwars.init.ModBedwarsCapability;
 import net.luis.bedwars.init.ModBlockItems;
@@ -14,6 +15,8 @@ import net.luis.bedwars.init.ModGameCapability;
 import net.luis.bedwars.init.ModItems;
 import net.luis.bedwars.init.ModTileEntityType;
 import net.minecraft.client.gui.ScreenManager;
+import net.minecraft.command.arguments.ArgumentSerializer;
+import net.minecraft.command.arguments.ArgumentTypes;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -57,6 +60,7 @@ public class Bedwars {
 		
 		CapabilityManager.INSTANCE.register(IBedwars.class, new ModBedwarsCapability.BedwarsStorage(), new ModBedwarsCapability.BedwarsFactory());
 		CapabilityManager.INSTANCE.register(IGame.class, new ModGameCapability.GameStorage(), new ModGameCapability.GameFactory());
+		ArgumentTypes.register("rank", ChatRankArgument.class, new ArgumentSerializer<>(ChatRankArgument::chatRank));
 		
 	}
 	

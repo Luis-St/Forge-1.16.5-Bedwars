@@ -1,5 +1,6 @@
 package net.luis.bedwars.base.capability.interfaces;
 
+import net.luis.bedwars.base.util.ChatRank;
 import net.minecraft.item.DyeColor;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.BlockPos;
@@ -58,8 +59,12 @@ public interface IBedwars {
 	void setCanRespawn(boolean canRespawn);
 	
 	
+	// Chat and Team
 	DyeColor getTeamColor();
 	void setTeamColor(DyeColor teamColor);
+	
+	ChatRank getChatRank();
+	void setChatRank(ChatRank chatRank);
 	
 	
 	// Cooldowns
@@ -75,7 +80,7 @@ public interface IBedwars {
 	int getBlazeRodCooldown();
 	void setBlazeRodCooldown(int cooldown);
 	
-	
+	// NBT
 	CompoundNBT serializeNBT();
 	void deserializeNBT(CompoundNBT nbt);
 	

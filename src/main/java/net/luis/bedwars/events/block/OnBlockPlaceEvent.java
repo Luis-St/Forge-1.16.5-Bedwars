@@ -6,6 +6,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.world.BlockEvent;
@@ -41,7 +42,13 @@ public class OnBlockPlaceEvent {
 					
 					serverWorld.getCapability(ModGameCapability.GAME, null).ifPresent(gameHandler -> {
 						
-						gameHandler.add(event.getPos());
+						if (gameHandler.isGameStarted()) {
+							
+							BlockPos pos = event.getPos();
+							gameHandler.add(pos);
+							Bedwars.LOGGER.info("Add Pos to Block Change List" + pos.toString().replace("BlockPos", " "));
+							
+						}
 						
 					});
 					

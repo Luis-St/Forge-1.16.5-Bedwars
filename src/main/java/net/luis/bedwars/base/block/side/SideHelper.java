@@ -41,7 +41,7 @@ public class SideHelper {
 	public Side getRandomAvailabledSide() {
 		
 		List<Side> sideList = this.getAvailabledSides();
-		Side side = null;
+		Side side = Side.NULL;
 		
 		if (sideList.size() > 0 && !sideList.isEmpty()) {
 			
@@ -67,6 +67,12 @@ public class SideHelper {
 			double sideX = side.getX();
 			double sideY = side.getY();
 			double sideZ = side.getZ();
+			
+			if (this.isOnSideAir(side) || this.isOnSideCobweb(side)) {
+				
+				sideList.add(side);
+				
+			}
 			
 			Block block = this.world.getBlockState(new BlockPos(posX + sideX, posY + sideY, posZ + sideZ)).getBlock();
 			

@@ -1,6 +1,7 @@
 package net.luis.bedwars.base.capability.handler;
 
 import net.luis.bedwars.base.capability.interfaces.IBedwars;
+import net.luis.bedwars.base.util.ChatRank;
 import net.minecraft.item.DyeColor;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.BlockPos;
@@ -23,6 +24,7 @@ public class BedwarsHandler implements IBedwars {
 	private boolean canRespawn = true;
 	
 	private DyeColor teamColor = null;
+	private ChatRank chatRank = ChatRank.PLAYER;
 	
 	private int gunpowderCooldown = 0;
 	private int gunpowderTeleportCooldown = 6;
@@ -205,6 +207,16 @@ public class BedwarsHandler implements IBedwars {
 	public void setTeamColor(DyeColor teamColor) {
 		this.teamColor = teamColor;
 	}
+	
+	@Override
+	public ChatRank getChatRank() {
+		return this.chatRank;
+	}
+
+	@Override
+	public void setChatRank(ChatRank chatRank) {
+		this.chatRank = chatRank;
+	}
 
 	@Override
 	public int getGunpowderCooldown() {
@@ -257,12 +269,15 @@ public class BedwarsHandler implements IBedwars {
 		nbt.putInt("bedFootPosY", this.getBedFootPosY());
 		nbt.putInt("bedFootPosZ", this.getBedFootPosZ());
 		
+		nbt.putBoolean("hasBed", this.hasBed());
+		
 		nbt.putInt("respawnPosX", this.getRespawnPosX());
 		nbt.putInt("respawnPosY", this.getRespawnPosY());
 		nbt.putInt("respawnPosZ", this.getRespawnPosZ());
 		
-		nbt.putBoolean("hasBed", this.hasBed());
 		nbt.putBoolean("canRespawn", this.canRespawn());
+		
+		nbt.putInt("chatRank", this.getChatRank().getId());
 		
 		nbt.putInt("gunpowderCooldown", this.getGunpowderCooldown());
 		nbt.putInt("gunpowderTeleportCooldown", this.getGunpowderTeleportCooldown());
@@ -283,12 +298,15 @@ public class BedwarsHandler implements IBedwars {
 		this.setBedFootPosY(nbt.getInt("bedFootPosY"));
 		this.setBedFootPosZ(nbt.getInt("bedFootPosZ"));
 		
+		this.setHasBed(nbt.getBoolean("hasBed"));
+		
 		this.setRespawnPosX(nbt.getInt("respawnPosX"));
 		this.setRespawnPosY(nbt.getInt("respawnPosY"));
 		this.setRespawnPosZ(nbt.getInt("respawnPosZ"));
 		
-		this.setHasBed(nbt.getBoolean("hasBed"));
 		this.setCanRespawn(nbt.getBoolean("canRespawn"));
+		
+		this.setChatRank(ChatRank.byId(nbt.getInt("chatRank")));
 		
 		this.setGunpowderCooldown(nbt.getInt("gunpowderCooldown"));
 		this.setGunpowderTeleportCooldown(nbt.getInt("gunpowderTeleportCooldown"));
