@@ -4,16 +4,16 @@ import net.luis.bedwars.Bedwars;
 import net.luis.bedwars.init.ModBedwarsCapability;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraftforge.event.entity.living.LivingDamageEvent;
+import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 
 @Mod.EventBusSubscriber(modid = Bedwars.MOD_ID, bus = Bus.FORGE)
-public class OnLivingDamageEvent {
+public class OnLivingAttackEvent {
 	
 	@SubscribeEvent
-	public static void LivingDamage(LivingDamageEvent event) {
+	public static void LivingAttack(LivingAttackEvent event) {
 		
 		LivingEntity targetEntity = event.getEntityLiving();
 		LivingEntity attackerEntity = (LivingEntity) event.getSource().getTrueSource();

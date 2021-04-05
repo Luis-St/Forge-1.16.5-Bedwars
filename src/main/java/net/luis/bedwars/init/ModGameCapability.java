@@ -9,11 +9,13 @@ import net.minecraft.nbt.INBT;
 import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.Capability.IStorage;
+import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.LazyOptional;
 
 public class ModGameCapability {
 	
+	@CapabilityInject(IGame.class)
 	public static Capability<IGame> GAME = null;
 	
 	public static class GameStorage implements IStorage<IGame> {

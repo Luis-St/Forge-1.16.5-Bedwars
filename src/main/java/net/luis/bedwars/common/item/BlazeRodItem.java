@@ -52,8 +52,8 @@ public class BlazeRodItem extends Item {
 						
 					} else {
 						
-						serverPlayer.sendMessage(new StringTextComponent("Du kannst das Item erst wieder in "
-								+ bedwarsHandler.getBlazeRodCooldown() + " Sekunden nutzten"), player.getUniqueID());
+						serverPlayer.sendMessage(new StringTextComponent("You can use this item in "
+								+ bedwarsHandler.getBlazeRodCooldown() + " seconds"), player.getUniqueID());
 						
 					}
 					

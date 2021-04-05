@@ -34,10 +34,11 @@ public class OnBlockInteractEvent {
 
 		if (block instanceof BedBlock && player instanceof ServerPlayerEntity) {
 			
+			ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
 			ColorText color = ColorText.getColor((BedBlock) block);
 			BedPos bedPos = BedPos.getBedPos(player, pos, state);
 
-			player.getCapability(ModBedwarsCapability.BEDWARS, null).ifPresent(bedwarsHandler -> {
+			serverPlayer.getCapability(ModBedwarsCapability.BEDWARS, null).ifPresent(bedwarsHandler -> {
 
 				if (bedwarsHandler.getTeamColor() == null) {
 					
@@ -47,44 +48,45 @@ public class OnBlockInteractEvent {
 						bedwarsHandler.setBedFootPos(bedPos.getPosFoot());
 						bedwarsHandler.setTeamColor(color.getColor());
 						
-						ITextComponent textComponent = new StringTextComponent("Du bist nun im Team: ")
+						ITextComponent textComponent = new StringTextComponent("Your now in team: ")
 								.append((new StringTextComponent(color.getTeamName())).mergeStyle(color.getFormatting()));
-						player.sendMessage(textComponent, player.getUniqueID());
-						player.sendMessage(new StringTextComponent("Bitte Setzte nun noch dein Respawn Position"), player.getUniqueID());
+						serverPlayer.sendMessage(textComponent, serverPlayer.getUniqueID());
+						serverPlayer.sendMessage(new StringTextComponent("Please set your respawn position"), serverPlayer.getUniqueID());
 						
 					} else {
 						
-						player.sendMessage(new StringTextComponent("Die Farbe des Betts kann nicht als Team Farbe verwendet werden"), player.getUniqueID());
+						player.sendMessage(new StringTextComponent("The color of this bed can used as a team color"), serverPlayer.getUniqueID());
 						
 					}
-					
-					event.setCanceled(true);
 
 				} else {
 					
-					player.sendMessage(new StringTextComponent("Du bist bereits in einem Team"), player.getUniqueID());
+					serverPlayer.sendMessage(new StringTextComponent("You are already in a team"), serverPlayer.getUniqueID());
 					
 				}
 
 			});
+			
+			event.setCanceled(true);
 
 		} else if (block instanceof CarpetBlock && player instanceof ServerPlayerEntity) {
-
+			
+			ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
 			CarpetBlock carpetBlock = (CarpetBlock) block;
 			DyeColor color = carpetBlock.getColor();
-
-			player.getCapability(ModBedwarsCapability.BEDWARS, null).ifPresent(bedwarsHandler -> {
+			
+			serverPlayer.getCapability(ModBedwarsCapability.BEDWARS, null).ifPresent(bedwarsHandler -> {
 
 				if (bedwarsHandler.getTeamColor() == color) {
-
+					
 					bedwarsHandler.setRespawnPos(pos);
 
-					player.sendMessage(new StringTextComponent("Respawn Position gesetzt"), player.getUniqueID());
+					serverPlayer.sendMessage(new StringTextComponent("Respawn position set"), serverPlayer.getUniqueID());
 
 				} else {
 
-					player.sendMessage(new StringTextComponent("Du kannst dein Respawn Position nur auf einen Block mit gleicher Teamfarbe setzten"),
-							player.getUniqueID());
+					serverPlayer.sendMessage(new StringTextComponent("You can set your respawn position only on a block with your team color"),
+							serverPlayer.getUniqueID());
 
 				}
 

@@ -3,5 +3,6 @@
   "block.bedwars.block_of_iron": "Iron Spawner",
   "block.minecraft.gold_block": "Gold Spawner",
   "block.minecraft.terracotta": "Bronze Spawner",
-  "container.villager": "Villager"
+  "container.villager": "Villager",
+  "chat_rank.unknown" : "Unknown chat rank: %s"
 }

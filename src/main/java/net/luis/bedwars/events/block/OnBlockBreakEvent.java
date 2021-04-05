@@ -70,9 +70,9 @@ public class OnBlockBreakEvent {
 	
 	public static void sendBedBreakMessage(List<ServerPlayerEntity> players, ColorText colorText) {
 		
-		ITextComponent firstPart = (new StringTextComponent("Das Bett von Team ")).mergeStyle(TextFormatting.RESET);
+		ITextComponent firstPart = (new StringTextComponent("The bed of team ")).mergeStyle(TextFormatting.RESET);
 		ITextComponent secondPart = (new StringTextComponent(colorText.getTeamName())).mergeStyle(colorText.getFormatting());
-		ITextComponent thirdPart = (new StringTextComponent(" wurde abgebaut")).mergeStyle(TextFormatting.RESET);
+		ITextComponent thirdPart = (new StringTextComponent(" was destroyed")).mergeStyle(TextFormatting.RESET);
 		
 		for (ServerPlayerEntity player : players) {
 			

@@ -3,6 +3,7 @@ package net.luis.bedwars.events;
 import net.luis.bedwars.Bedwars;
 import net.luis.bedwars.init.ModBedwarsCapability;
 import net.luis.bedwars.init.ModGameCapability;
+import net.luis.bedwars.init.ModTeamCapability;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
@@ -33,6 +34,12 @@ public class OnAttachCapabilitiesEvent {
 		if (event.getObject() instanceof ServerWorld) {
 			
 			event.addCapability(new ResourceLocation(Bedwars.MOD_ID, "game_capability"), new ModGameCapability.GameProvider());
+			
+		}
+		
+		if (event.getObject() instanceof World) {
+			
+			event.addCapability(new ResourceLocation(Bedwars.MOD_ID, "team_capability"), new ModTeamCapability.TeamProvider());
 			
 		}
 		

@@ -22,7 +22,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 
 public class ChatRankArgument implements ArgumentType<ChatRank> {
 	
-	private static final Collection<String> EXAMPLES = Arrays.asList("pig_hunter", "skeleton_sniper");
+	private static final Collection<String> EXAMPLES = Arrays.asList("zombie_fighter", "skeleton_sniper");
 	public static final DynamicCommandExceptionType CHAT_RANK_UNKNOWN = new DynamicCommandExceptionType((chatRank) -> {
 		return new TranslationTextComponent("chat_rank.unknown", chatRank);
 	});

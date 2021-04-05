@@ -8,12 +8,14 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.capabilities.Capability.IStorage;
+import net.minecraftforge.common.capabilities.CapabilityInject;
+import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.LazyOptional;
 
 public class ModBedwarsCapability {
 	
+	@CapabilityInject(IBedwars.class)
 	public static Capability<IBedwars> BEDWARS = null;
 	
 	public static class BedwarsStorage implements IStorage<IBedwars> {

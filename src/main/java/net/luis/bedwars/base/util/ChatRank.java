@@ -9,7 +9,7 @@ import net.minecraft.util.text.TextFormatting;
 
 public enum ChatRank {
 	
-	PIG_HUNTER("Pig Hunter", "pig_hunter", new ResourceLocation(Bedwars.MOD_ID, "pig_hunter"), 0, TextFormatting.LIGHT_PURPLE),
+	ZOMBIE_FIGHTER("Zombie Fighter", "zombie_fighter", new ResourceLocation(Bedwars.MOD_ID, "zombie_fighter"), 0, TextFormatting.DARK_GREEN),
 	SKELETON_SNIPER("Skeleton Sniper", "skeleton_sniper", new ResourceLocation(Bedwars.MOD_ID, "skeleton_sniper"), 1, TextFormatting.GRAY),
 	CREEPER_KILLER("Creeper Killer", "creeper_killer", new ResourceLocation(Bedwars.MOD_ID, "pig_hunter"), 2, TextFormatting.GREEN),
 	DRAGON_SLAYER("Dragon Slayer", "dragon_slayer", new ResourceLocation(Bedwars.MOD_ID, "creeper_killer"), 3, TextFormatting.DARK_PURPLE),
@@ -65,7 +65,7 @@ public enum ChatRank {
 	public static ChatRank byId(int id) {
 		
 		ChatRank[] ranks = ChatRank.values();
-		ChatRank returnRank = PIG_HUNTER;
+		ChatRank returnRank = ZOMBIE_FIGHTER;
 		
 		for (ChatRank chatRank : ranks) {
 			
