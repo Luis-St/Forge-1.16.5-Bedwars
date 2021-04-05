@@ -11,9 +11,9 @@ public enum ChatRank {
 	
 	ZOMBIE_FIGHTER("Zombie Fighter", "zombie_fighter", new ResourceLocation(Bedwars.MOD_ID, "zombie_fighter"), 0, TextFormatting.DARK_GREEN),
 	SKELETON_SNIPER("Skeleton Sniper", "skeleton_sniper", new ResourceLocation(Bedwars.MOD_ID, "skeleton_sniper"), 1, TextFormatting.GRAY),
-	CREEPER_KILLER("Creeper Killer", "creeper_killer", new ResourceLocation(Bedwars.MOD_ID, "pig_hunter"), 2, TextFormatting.GREEN),
-	DRAGON_SLAYER("Dragon Slayer", "dragon_slayer", new ResourceLocation(Bedwars.MOD_ID, "creeper_killer"), 3, TextFormatting.DARK_PURPLE),
-	MINECRAFT_GOD("Minecraft God", "minecraft_god", new ResourceLocation(Bedwars.MOD_ID, "dragon_slayer"), 4, TextFormatting.GOLD),
+	CREEPER_KILLER("Creeper Killer", "creeper_killer", new ResourceLocation(Bedwars.MOD_ID, "creeper_killer"), 2, TextFormatting.GREEN),
+	DRAGON_SLAYER("Dragon Slayer", "dragon_slayer", new ResourceLocation(Bedwars.MOD_ID, "dragon_slayer"), 3, TextFormatting.DARK_PURPLE),
+	MINECRAFT_GOD("Minecraft God", "minecraft_god", new ResourceLocation(Bedwars.MOD_ID, "minecraft_god"), 4, TextFormatting.GOLD),
 	SERVER_ADMIN("Server Admin", "server_admin", new ResourceLocation(Bedwars.MOD_ID, "server_admin"), 5, TextFormatting.DARK_RED);
 	
 	private final String rank;

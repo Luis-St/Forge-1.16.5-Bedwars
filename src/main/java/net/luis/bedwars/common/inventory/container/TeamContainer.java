@@ -23,6 +23,7 @@ public class TeamContainer extends Container {
 		super(ModContainerType.TEAM.get(), id);
 		PlayerEntity player = playerInventory.player;
 		World world = player.getEntityWorld();
+		@SuppressWarnings("unused")
 		ITeam team = world.getCapability(ModTeamCapability.TEAM, null).orElseThrow(() -> new NullPointerException());
 		int i = (6 - 3) * 18;
 		
@@ -57,7 +58,7 @@ public class TeamContainer extends Container {
 	@Override
 	public boolean canInteractWith(PlayerEntity playerIn) {
 		
-		return true;
+		return false;
 		
 	}
 
