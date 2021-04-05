@@ -46,15 +46,15 @@ public class GameCommand {
 			
 			return gameReset(context.getSource(), context.getSource().getWorld());
 			
-		})).then(Commands.literal("chat").requires(commandSource -> {
+		})).then(Commands.literal("rank").requires(commandSource -> {
 			
 			return commandSource.hasPermissionLevel(4);
 			
 		}).then(Commands.literal("set")
 			.then(Commands.argument("player", EntityArgument.player())
-			.then(Commands.argument("rank", ChatRankArgument.chatRank())).executes(context -> {
+			.then(Commands.argument("chat_rank", ChatRankArgument.chatRank())).executes(context -> {
 			
-			return gameSetChatRank(context.getSource(), EntityArgument.getPlayer(context, "player"), ChatRankArgument.getChatRank(context, "rank"));
+			return gameSetChatRank(context.getSource(), EntityArgument.getPlayer(context, "player"), ChatRankArgument.getChatRank(context, "chat_rank"));
 			
 		})))));
 		

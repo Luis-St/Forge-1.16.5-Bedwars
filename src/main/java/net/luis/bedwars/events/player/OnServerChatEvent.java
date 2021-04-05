@@ -23,15 +23,16 @@ public class OnServerChatEvent {
 		// TODO : @all hinzufügen
 		// TODO : finish this (add command part)
 		
-		String message = ": " + event.getMessage();
+		String message = event.getMessage();
 		ServerPlayerEntity serverPlayer = event.getPlayer();
 		IBedwars bedwarsHandler = serverPlayer.getCapability(ModBedwarsCapability.BEDWARS, null).orElseThrow(() -> new NullPointerException());
 		ChatRank chatRank = bedwarsHandler.getChatRank();
 		
-		ITextComponent rankComponent = (new StringTextComponent(chatRank.getRankName() + " " + event.getUsername())).mergeStyle(chatRank.getRankFormatting());
-		ITextComponent messageComponent = (new StringTextComponent(message)).mergeStyle(TextFormatting.RESET);
+		ITextComponent userComponent = new StringTextComponent("[" + event.getUsername() + "]: ").mergeStyle(TextFormatting.RESET);
+		ITextComponent rankComponent = new StringTextComponent(chatRank.getRankName() + " ").mergeStyle(chatRank.getRankFormatting());
+		ITextComponent messageComponent = new StringTextComponent(message).mergeStyle(TextFormatting.RESET);
 		
-		event.setComponent(new StringTextComponent("").append(rankComponent).append(messageComponent));
+		event.setComponent(new StringTextComponent("").append(rankComponent).append(userComponent).append(messageComponent));
 		
 	}
 

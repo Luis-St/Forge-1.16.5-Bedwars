@@ -24,7 +24,7 @@ public class BedwarsHandler implements IBedwars {
 	private boolean canRespawn = true;
 	
 	private DyeColor teamColor = null;
-	private ChatRank chatRank = ChatRank.PLAYER;
+	private ChatRank chatRank = ChatRank.SKELETON_SNIPER;
 	
 	private int gunpowderCooldown = 0;
 	private int gunpowderTeleportCooldown = 6;
