@@ -56,6 +56,10 @@ public class GameCommand {
 			
 			return gameSetChatRank(context.getSource(), EntityArgument.getPlayer(context, "player"), ChatRankArgument.getChatRank(context, "chat_rank"));
 			
+		}))).then(Commands.literal("get").then(Commands.argument("player", EntityArgument.player()).executes(context -> {
+			
+			return 0;
+			
 		})))));
 		
 	}

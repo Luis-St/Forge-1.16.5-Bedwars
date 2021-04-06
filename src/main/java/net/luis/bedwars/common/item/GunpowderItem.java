@@ -1,5 +1,8 @@
 package net.luis.bedwars.common.item;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.luis.bedwars.Bedwars;
 import net.luis.bedwars.init.ModBedwarsCapability;
 import net.minecraft.block.AirBlock;
@@ -13,6 +16,8 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
 
 public class GunpowderItem extends Item {
 
@@ -41,6 +46,14 @@ public class GunpowderItem extends Item {
 						
 						bedwarsHandler.setCanTeleport(false);
 						
+						if (!serverPlayer.abilities.isCreativeMode) {
+							
+							List<ItemStack> stacks = this.getAllItems(serverPlayer, this);
+							ItemStack itemStack = stacks.get(0);
+							itemStack.shrink(1);
+							
+						}
+						
 					}
 					
 				}
@@ -48,6 +61,28 @@ public class GunpowderItem extends Item {
 			});
 			
 		}
+		
+	}
+	
+	public List<ItemStack> getAllItems(ServerPlayerEntity player, Item item) {
+		
+		IItemHandler itemHandler = player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).orElseThrow(
+				() -> new NullPointerException());
+		List<ItemStack> itemsToBuy = new ArrayList<ItemStack>();
+		
+		for (int i = 0; i < itemHandler.getSlots(); i++) {
+			
+			ItemStack stack = itemHandler.getStackInSlot(i);
+			
+			if (stack.getItem() == item) {
+				
+				itemsToBuy.add(stack);
+				
+			}
+			
+		}
+		
+		return itemsToBuy;
 		
 	}
 	
@@ -68,12 +103,6 @@ public class GunpowderItem extends Item {
 						bedwarsHandler.setGunpowderTeleportCooldown(6);
 						bedwarsHandler.setCanTeleport(true);
 						serverPlayer.setExperienceLevel(6);
-						
-						if (!serverPlayer.abilities.isCreativeMode) {
-							
-							serverPlayer.getHeldItemMainhand().shrink(1);
-							
-						}
 						
 					} else {
 						
