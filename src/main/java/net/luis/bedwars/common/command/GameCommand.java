@@ -5,15 +5,16 @@ import java.util.List;
 import com.mojang.brigadier.CommandDispatcher;
 
 import net.luis.bedwars.base.util.ChatRank;
-import net.luis.bedwars.common.command.args.ChatRankArgument;
 import net.luis.bedwars.init.ModBedwarsCapability;
 import net.luis.bedwars.init.ModGameCapability;
+import net.luis.bedwars.init.ModTeamCapability;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.command.arguments.EntityArgument;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.GameType;
 import net.minecraft.world.server.ServerWorld;
@@ -38,11 +39,13 @@ public class GameCommand {
 			
 			return gameStop(context.getSource(), context.getSource().getWorld());
 		
-		})).then(Commands.literal("options").executes(context -> {
-			
-			return gameOptions(context.getSource());
-			
-		})).then(Commands.literal("reset").executes(context -> {
+		}))
+//		.then(Commands.literal("options").executes(context -> {
+//			
+//			return gameOptions(context.getSource());
+//			
+//		}))
+		.then(Commands.literal("reset").executes(context -> {
 			
 			return gameReset(context.getSource(), context.getSource().getWorld());
 			
@@ -50,17 +53,39 @@ public class GameCommand {
 			
 			return commandSource.hasPermissionLevel(3);
 			
-		}).then(Commands.literal("set")
-			.then(Commands.argument("player", EntityArgument.player())
-			.then(Commands.argument("chat_rank", ChatRankArgument.chatRank())).executes(context -> {
+		}).then(Commands.literal("get").then(Commands.argument("player", EntityArgument.player()).executes(context -> {
 			
-			return gameSetChatRank(context.getSource(), EntityArgument.getPlayer(context, "player"), ChatRankArgument.getChatRank(context, "chat_rank"));
+			return gameGetChatRank(context.getSource(), EntityArgument.getPlayer(context, "player"));
 			
-		}))).then(Commands.literal("get").then(Commands.argument("player", EntityArgument.player()).executes(context -> {
-			
-			return 0;
-			
-		})))));
+		}))).then(Commands.literal("set").then(Commands.argument("player", EntityArgument.player()).then(Commands.literal("zombie_fighter").executes(context -> {
+							
+			return gameSetChatRank(context.getSource(), EntityArgument.getPlayer(context, "player"), ChatRank.ZOMBIE_FIGHTER);
+							
+		})).then(Commands.literal("skeleton_sniper").executes(context -> {
+							
+			return gameSetChatRank(context.getSource(), EntityArgument.getPlayer(context, "player"), ChatRank.SKELETON_SNIPER);
+							
+		})).then(Commands.literal("creeper_defuser").executes(context -> {
+							
+			return gameSetChatRank(context.getSource(), EntityArgument.getPlayer(context, "player"), ChatRank.CREEPER_DEFUSER);
+							
+		})).then(Commands.literal("wither_killer").executes(context -> {
+							
+			return gameSetChatRank(context.getSource(), EntityArgument.getPlayer(context, "player"), ChatRank.WITHER_KILLER);
+							
+		})).then(Commands.literal("dragon_slayer").executes(context -> {
+							
+			return gameSetChatRank(context.getSource(), EntityArgument.getPlayer(context, "player"), ChatRank.DRAGON_SLAYER);
+							
+		})).then(Commands.literal("minecraft_god").executes(context -> {
+							
+			return gameSetChatRank(context.getSource(), EntityArgument.getPlayer(context, "player"), ChatRank.MINECRAFT_GOD);
+							
+		})).then(Commands.literal("server_admin").executes(context -> {
+							
+			return gameSetChatRank(context.getSource(), EntityArgument.getPlayer(context, "player"), ChatRank.SERVER_ADMIN);
+							
+		}))))));
 		
 	}
 	
@@ -110,6 +135,12 @@ public class GameCommand {
 	
 	private static int gameStop(CommandSource source, ServerWorld world) {
 		
+		world.getCapability(ModTeamCapability.TEAM, null).ifPresent(teamHandler -> {
+			
+			teamHandler.clearAll();
+			
+		});
+		
 		world.getCapability(ModGameCapability.GAME, null).ifPresent(gameHandler -> {
 			
 			gameHandler.stopGame();
@@ -137,15 +168,15 @@ public class GameCommand {
 		
 	}
 	
-	private static int gameOptions(CommandSource source) {
-		
-		source.sendFeedback(new StringTextComponent("There are currently no options"), true);
-		source.sendFeedback(new StringTextComponent("Options will be added in future versions"), true);
-		source.sendFeedback(new StringTextComponent("If this is not the newest version, please update to a newer version"), true);
-		
-		return 1;
-		
-	}
+//	private static int gameOptions(CommandSource source) {
+//		
+//		source.sendFeedback(new StringTextComponent("There are currently no options"), true);
+//		source.sendFeedback(new StringTextComponent("Options will be added in future versions"), true);
+//		source.sendFeedback(new StringTextComponent("If this is not the newest version, please update to a newer version"), true);
+//		
+//		return 1;
+//		
+//	}
 	
 	private static int gameReset(CommandSource source, ServerWorld world) {
 		
@@ -177,7 +208,22 @@ public class GameCommand {
 		serverPlayer.getCapability(ModBedwarsCapability.BEDWARS, null).ifPresent(bedwarsHandler -> {
 			
 			bedwarsHandler.setChatRank(chatRank);
-			source.sendFeedback(new StringTextComponent("The Player " + serverPlayer.getName() + " has now the Chat Rank " + chatRank.getRankName()), true);
+			ITextComponent component = new StringTextComponent(chatRank.getRankName()).mergeStyle(chatRank.getRankFormatting());
+			source.sendFeedback(new StringTextComponent("The Player " + serverPlayer.getName().getString() + " has now the Chat Rank ").append(component), true);
+			
+		});
+		
+		return 1;
+		
+	}
+	
+	private static int gameGetChatRank(CommandSource source, ServerPlayerEntity serverPlayer) {
+		
+		serverPlayer.getCapability(ModBedwarsCapability.BEDWARS, null).ifPresent(bedwarsHandler -> {
+			
+			ChatRank chatRank = bedwarsHandler.getChatRank();
+			ITextComponent component = new StringTextComponent(chatRank.getRankName()).mergeStyle(chatRank.getRankFormatting());
+			source.sendFeedback(new StringTextComponent("The Player " + serverPlayer.getName().getString() + " has the Chat Rank ").append(component), true);
 			
 		});
 		

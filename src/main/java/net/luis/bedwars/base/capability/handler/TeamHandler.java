@@ -117,7 +117,7 @@ public class TeamHandler implements ITeam {
 	}
 
 	@Override
-	public ItemStackHandler getInventoryByColor(TeamColor teamColor) {
+	public ItemStackHandler getInventoryByTeamColor(TeamColor teamColor) {
 		switch (teamColor) {
 		case BLACK: return this.getInventoryBlack();
 		case BLUE: return this.getInventoryBlue();

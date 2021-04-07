@@ -1,11 +1,10 @@
 package net.luis.bedwars.base.capability.interfaces;
 
 import net.luis.bedwars.base.util.ChatRank;
-import net.minecraft.item.DyeColor;
-import net.minecraft.nbt.CompoundNBT;
+import net.luis.bedwars.base.util.TeamColor;
 import net.minecraft.util.math.BlockPos;
 
-public interface IBedwars {
+public interface IBedwars extends SerializeNBT {
 	
 	// Head Pos
 	BlockPos getBedHeadPos();
@@ -60,8 +59,8 @@ public interface IBedwars {
 	
 	
 	// Chat and Team
-	DyeColor getTeamColor();
-	void setTeamColor(DyeColor teamColor);
+	TeamColor getTeamColor();
+	void setTeamColor(TeamColor teamColor);
 	
 	ChatRank getChatRank();
 	void setChatRank(ChatRank chatRank);
@@ -79,9 +78,5 @@ public interface IBedwars {
 	
 	int getBlazeRodCooldown();
 	void setBlazeRodCooldown(int cooldown);
-	
-	// NBT
-	CompoundNBT serializeNBT();
-	void deserializeNBT(CompoundNBT nbt);
 	
 }

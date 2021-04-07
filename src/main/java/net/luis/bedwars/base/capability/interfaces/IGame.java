@@ -2,11 +2,10 @@ package net.luis.bedwars.base.capability.interfaces;
 
 import java.util.List;
 
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public interface IGame {
+public interface IGame extends SerializeNBT {
 	
 	void startGame();
 	void stopGame();
@@ -18,8 +17,5 @@ public interface IGame {
 	void reset(World world);
 	List<BlockPos> get();
 	void set(List<BlockPos> changeList);
-	
-	CompoundNBT serializeNBT();
-	void deserializeNBT(CompoundNBT nbt);
 	
 }

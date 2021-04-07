@@ -6,7 +6,7 @@ import org.apache.logging.log4j.Logger;
 import net.luis.bedwars.base.capability.interfaces.IBedwars;
 import net.luis.bedwars.base.capability.interfaces.IGame;
 import net.luis.bedwars.base.capability.interfaces.ITeam;
-import net.luis.bedwars.common.command.args.ChatRankArgument;
+import net.luis.bedwars.common.inventory.screen.TeamScreen;
 import net.luis.bedwars.common.inventory.screen.VillagerScreen;
 import net.luis.bedwars.init.ModBedwarsCapability;
 import net.luis.bedwars.init.ModBlockItems;
@@ -17,8 +17,6 @@ import net.luis.bedwars.init.ModItems;
 import net.luis.bedwars.init.ModTeamCapability;
 import net.luis.bedwars.init.ModTileEntityType;
 import net.minecraft.client.gui.ScreenManager;
-import net.minecraft.command.arguments.ArgumentSerializer;
-import net.minecraft.command.arguments.ArgumentTypes;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -63,13 +61,17 @@ public class Bedwars {
 		CapabilityManager.INSTANCE.register(IBedwars.class, new ModBedwarsCapability.BedwarsStorage(), new ModBedwarsCapability.BedwarsFactory());
 		CapabilityManager.INSTANCE.register(IGame.class, new ModGameCapability.GameStorage(), new ModGameCapability.GameFactory());
 		CapabilityManager.INSTANCE.register(ITeam.class, new ModTeamCapability.TeamStorage(), new ModTeamCapability.TeamFactory());
-		ArgumentTypes.register("rank", ChatRankArgument.class, new ArgumentSerializer<>(ChatRankArgument::chatRank));
 		
 	}
 	
 	private void doClientStuff(FMLClientSetupEvent event) {
 	
-		event.enqueueWork(() -> ScreenManager.registerFactory(ModContainerType.VILLAGER.get(), VillagerScreen::new));
+		event.enqueueWork(() -> {
+			
+			ScreenManager.registerFactory(ModContainerType.VILLAGER.get(), VillagerScreen::new);
+			ScreenManager.registerFactory(ModContainerType.TEAM.get(), TeamScreen::new);
+			
+		});
 		
 	}
 	

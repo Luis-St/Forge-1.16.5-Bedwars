@@ -222,7 +222,7 @@ public class VillagerContainer extends Container {
 	protected DyeColor getColor(ServerPlayerEntity serverPlayer) {
 		
 		IBedwars bedwarsHandler = serverPlayer.getCapability(ModBedwarsCapability.BEDWARS, null).orElseThrow(() -> new NullPointerException());
-		return bedwarsHandler.getTeamColor();
+		return bedwarsHandler.getTeamColor().getDyeColor();
 		
 	}
 	

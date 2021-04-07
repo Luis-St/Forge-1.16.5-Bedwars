@@ -3,10 +3,9 @@ package net.luis.bedwars.base.capability.interfaces;
 import java.util.List;
 
 import net.luis.bedwars.base.util.TeamColor;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.items.ItemStackHandler;
 
-public interface ITeam {
+public interface ITeam extends SerializeNBT {
 	
 	ItemStackHandler getInventoryBlack();
 	
@@ -37,10 +36,7 @@ public interface ITeam {
 	ItemStackHandler getInventoryYellow();
 	
 	List<ItemStackHandler> getAllInventories();
-	ItemStackHandler getInventoryByColor(TeamColor teamColor);
+	ItemStackHandler getInventoryByTeamColor(TeamColor teamColor);
 	void clearAll();
-	
-	CompoundNBT serializeNBT();
-	void deserializeNBT(CompoundNBT nbt);
 	
 }

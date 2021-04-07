@@ -3,7 +3,7 @@ package net.luis.bedwars.events.block;
 import java.util.List;
 
 import net.luis.bedwars.Bedwars;
-import net.luis.bedwars.base.util.ColorText;
+import net.luis.bedwars.base.util.TeamColor;
 import net.luis.bedwars.init.ModGameCapability;
 import net.minecraft.block.AbstractPlantBlock;
 import net.minecraft.block.BedBlock;
@@ -49,8 +49,8 @@ public class OnBlockBreakEvent {
 						
 						if (gameHandler.isGameStarted()) {
 							
-							ColorText colorText = ColorText.getColor(bedBlock);
-							sendBedBreakMessage(players, colorText);
+							TeamColor teamColor = TeamColor.getByBedBlock(bedBlock);
+							sendBedBreakMessage(players, teamColor);
 							
 						}
 						
@@ -68,10 +68,10 @@ public class OnBlockBreakEvent {
 		
 	}
 	
-	public static void sendBedBreakMessage(List<ServerPlayerEntity> players, ColorText colorText) {
+	public static void sendBedBreakMessage(List<ServerPlayerEntity> players, TeamColor teamColor) {
 		
 		ITextComponent firstPart = (new StringTextComponent("The bed of team ")).mergeStyle(TextFormatting.RESET);
-		ITextComponent secondPart = (new StringTextComponent(colorText.getTeamName())).mergeStyle(colorText.getFormatting());
+		ITextComponent secondPart = (new StringTextComponent(teamColor.getName())).mergeStyle(teamColor.getTextFormatting());
 		ITextComponent thirdPart = (new StringTextComponent(" was destroyed")).mergeStyle(TextFormatting.RESET);
 		
 		for (ServerPlayerEntity player : players) {

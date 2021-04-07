@@ -2,7 +2,7 @@ package net.luis.bedwars.base.capability.handler;
 
 import net.luis.bedwars.base.capability.interfaces.IBedwars;
 import net.luis.bedwars.base.util.ChatRank;
-import net.minecraft.item.DyeColor;
+import net.luis.bedwars.base.util.TeamColor;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.BlockPos;
 
@@ -23,7 +23,7 @@ public class BedwarsHandler implements IBedwars {
 	private boolean hasBed = true;
 	private boolean canRespawn = true;
 	
-	private DyeColor teamColor = null;
+	private TeamColor teamColor = null;
 	private ChatRank chatRank = ChatRank.ZOMBIE_FIGHTER;
 	
 	private int gunpowderCooldown = 0;
@@ -199,12 +199,12 @@ public class BedwarsHandler implements IBedwars {
 	}
 
 	@Override
-	public DyeColor getTeamColor() {
+	public TeamColor getTeamColor() {
 		return this.teamColor;
 	}
 
 	@Override
-	public void setTeamColor(DyeColor teamColor) {
+	public void setTeamColor(TeamColor teamColor) {
 		this.teamColor = teamColor;
 	}
 	
