@@ -40,10 +40,6 @@ public class ModBedwarsCapability {
 		private BedwarsHandler bedwarsHandler = new BedwarsHandler();
 		private LazyOptional<BedwarsHandler> bedwarsOptional = LazyOptional.of(() -> bedwarsHandler);
 		
-		public BedwarsProvider() {
-			
-		}
-		
 		@Override
 		@SuppressWarnings({ "unchecked" })
 		public <T> LazyOptional<T> getCapability(Capability<T> cap, Direction side) {

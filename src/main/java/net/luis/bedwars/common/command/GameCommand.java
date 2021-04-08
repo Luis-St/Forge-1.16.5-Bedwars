@@ -7,7 +7,6 @@ import com.mojang.brigadier.CommandDispatcher;
 import net.luis.bedwars.base.util.ChatRank;
 import net.luis.bedwars.init.ModBedwarsCapability;
 import net.luis.bedwars.init.ModGameCapability;
-import net.luis.bedwars.init.ModTeamCapability;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.command.arguments.EntityArgument;
@@ -134,12 +133,6 @@ public class GameCommand {
 	}
 	
 	private static int gameStop(CommandSource source, ServerWorld world) {
-		
-		world.getCapability(ModTeamCapability.TEAM, null).ifPresent(teamHandler -> {
-			
-			teamHandler.clearAll();
-			
-		});
 		
 		world.getCapability(ModGameCapability.GAME, null).ifPresent(gameHandler -> {
 			

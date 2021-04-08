@@ -86,6 +86,7 @@ public class VillagerContainer extends Container {
 		case 14: this.containerHelper.creatFoot(); this.page = Page.FOOT; break;
 		case 15: this.containerHelper.creatPotions(); this.page = Page.POTIONS; break;
 		case 16: this.containerHelper.creatMisc(); this.page = Page.MISC; break;
+		case 17: this.containerHelper.creatMisc(); this.page = Page.MISC; break;
 		default: break;
 		}
 		
@@ -129,7 +130,7 @@ public class VillagerContainer extends Container {
 		ItemStack itemStack = this.colorArmorItem(buyHelper, buyingItem.getItemStack(), player);
 		ItemStack buyingStack = buyingItem.getBuyingStack();
 		
-		if (buyHelper.hasItemToBuy(buyingStack.getItem(), buyingStack.getCount())) {
+		if (buyHelper.hasItemToBuy(buyingStack.getItem(), buyingStack.getCount()) || player.abilities.isCreativeMode) {
 		
 			this.removeItems(player, buyingStack, buyingStack.getCount());
 			ItemHandlerHelper.giveItemToPlayer(player, itemStack);
@@ -144,9 +145,9 @@ public class VillagerContainer extends Container {
 		ItemStack itemStack = buyingItem.getItemStack();
 		ItemStack buyingStack = buyingItem.getBuyingStack();
 		
-		while (givenItem < 64 && buyHelper.hasItemToBuy(buyingStack.getItem(), buyingStack.getCount())) {
+		while (givenItem < 64 && (buyHelper.hasItemToBuy(buyingStack.getItem(), buyingStack.getCount()) || player.abilities.isCreativeMode)) {
 			
-			if (buyHelper.hasItemToBuy(buyingStack.getItem(), buyingStack.getCount())) {
+			if (buyHelper.hasItemToBuy(buyingStack.getItem(), buyingStack.getCount()) || player.abilities.isCreativeMode) {
 				
 				this.removeItems(player, buyingStack, buyingStack.getCount());
 				ItemHandlerHelper.giveItemToPlayer(player, itemStack);
@@ -163,24 +164,28 @@ public class VillagerContainer extends Container {
 		IItemHandler itemHandler = player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).orElseThrow(
 				() -> new NullPointerException());
 		
-		for (int i = 0; i < itemHandler.getSlots(); i++) {
+		if (!player.abilities.isCreativeMode) {
 			
-			ItemStack stack = itemHandler.getStackInSlot(i);
-			
-			if (cost > 0) {
+			for (int i = 0; i < itemHandler.getSlots(); i++) {
 				
-				if (itemToBuy.getItem() == stack.getItem()) {
+				ItemStack stack = itemHandler.getStackInSlot(i);
+				
+				if (cost > 0) {
 					
-					if (stack.getCount() >= cost) {
+					if (itemToBuy.getItem() == stack.getItem()) {
 						
-						stack.shrink(cost);
-						cost = 0;
-						
-					} else {
-						
-						int count = stack.getCount();
-						stack.shrink(count);
-						cost -= count;
+						if (stack.getCount() >= cost) {
+							
+							stack.shrink(cost);
+							cost = 0;
+							
+						} else {
+							
+							int count = stack.getCount();
+							stack.shrink(count);
+							cost -= count;
+							
+						}
 						
 					}
 					
@@ -261,7 +266,18 @@ public class VillagerContainer extends Container {
 		BOWS,
 		FOOT,
 		POTIONS,
-		MISC;
+		MISC,
+		KITS;
+		
+	}
+	
+	public static enum SubPageKit {
+		
+		RUSHER,
+		BASIC,
+		OP_RUSHER,
+		OP,
+		SPAMMER;
 		
 	}
 

@@ -5,8 +5,7 @@ import org.apache.logging.log4j.Logger;
 
 import net.luis.bedwars.base.capability.interfaces.IBedwars;
 import net.luis.bedwars.base.capability.interfaces.IGame;
-import net.luis.bedwars.base.capability.interfaces.ITeam;
-import net.luis.bedwars.common.inventory.screen.TeamScreen;
+import net.luis.bedwars.base.capability.interfaces.IStats;
 import net.luis.bedwars.common.inventory.screen.VillagerScreen;
 import net.luis.bedwars.init.ModBedwarsCapability;
 import net.luis.bedwars.init.ModBlockItems;
@@ -14,7 +13,7 @@ import net.luis.bedwars.init.ModBlocks;
 import net.luis.bedwars.init.ModContainerType;
 import net.luis.bedwars.init.ModGameCapability;
 import net.luis.bedwars.init.ModItems;
-import net.luis.bedwars.init.ModTeamCapability;
+import net.luis.bedwars.init.ModStatsCapability;
 import net.luis.bedwars.init.ModTileEntityType;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.item.ItemGroup;
@@ -60,7 +59,7 @@ public class Bedwars {
 		
 		CapabilityManager.INSTANCE.register(IBedwars.class, new ModBedwarsCapability.BedwarsStorage(), new ModBedwarsCapability.BedwarsFactory());
 		CapabilityManager.INSTANCE.register(IGame.class, new ModGameCapability.GameStorage(), new ModGameCapability.GameFactory());
-		CapabilityManager.INSTANCE.register(ITeam.class, new ModTeamCapability.TeamStorage(), new ModTeamCapability.TeamFactory());
+		CapabilityManager.INSTANCE.register(IStats.class, new ModStatsCapability.StatsStorage(), new ModStatsCapability.StatsFactory());
 		
 	}
 	
@@ -69,7 +68,6 @@ public class Bedwars {
 		event.enqueueWork(() -> {
 			
 			ScreenManager.registerFactory(ModContainerType.VILLAGER.get(), VillagerScreen::new);
-			ScreenManager.registerFactory(ModContainerType.TEAM.get(), TeamScreen::new);
 			
 		});
 		

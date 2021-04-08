@@ -1,7 +1,6 @@
 package net.luis.bedwars.init;
 
 import net.luis.bedwars.Bedwars;
-import net.luis.bedwars.common.inventory.container.TeamContainer;
 import net.luis.bedwars.common.inventory.container.VillagerContainer;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraftforge.common.extensions.IForgeContainerType;
@@ -16,8 +15,5 @@ public class ModContainerType {
 	
 	public static final RegistryObject<ContainerType<VillagerContainer>> VILLAGER = CONTAINERS.register("vilager_container", 
 			() -> IForgeContainerType.create(VillagerContainer::new));
-	
-	public static final RegistryObject<ContainerType<TeamContainer>> TEAM = CONTAINERS.register("team_container", 
-			() -> IForgeContainerType.create(TeamContainer::new));
 	
 }

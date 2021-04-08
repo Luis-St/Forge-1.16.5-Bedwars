@@ -10,6 +10,7 @@ import net.minecraft.block.BedBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.FireBlock;
 import net.minecraft.block.FlowerBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -141,6 +142,10 @@ public class OnBlockBreakEvent {
 			event.setCanceled(false);
 			
 		} else if (block instanceof FlowerBlock) {
+			
+			event.setCanceled(false);
+			
+		} else if (block instanceof FireBlock) {
 			
 			event.setCanceled(false);
 			

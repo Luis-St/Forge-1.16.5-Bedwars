@@ -40,10 +40,6 @@ public class ModGameCapability {
 		private GameHandler gameHandler = new GameHandler();
 		private LazyOptional<GameHandler> gameOptional = LazyOptional.of(() -> gameHandler);
 		
-		public GameProvider() {
-			
-		}
-		
 		@Override
 		@SuppressWarnings({ "unchecked" })
 		public <T> LazyOptional<T> getCapability(Capability<T> cap, Direction side) {

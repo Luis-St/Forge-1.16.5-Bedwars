@@ -2,7 +2,6 @@ package net.luis.bedwars.events.player;
 
 import net.luis.bedwars.Bedwars;
 import net.luis.bedwars.init.ModBedwarsCapability;
-import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
@@ -16,6 +15,8 @@ public class OnPlayerCloneEvent {
 	
 	@SubscribeEvent
 	public static void PlayerClone(PlayerEvent.Clone event) {
+		
+		Bedwars.LOGGER.debug("OnPlayerCloneEvent");
 		
 		PlayerEntity oldPlayer = event.getOriginal();
 		PlayerEntity newPlayer = event.getPlayer();
@@ -36,20 +37,6 @@ public class OnPlayerCloneEvent {
 			
 		}
 		
-		if (oldPlayer instanceof ClientPlayerEntity && newPlayer instanceof ClientPlayerEntity) {
-			
-			oldPlayer.getCapability(ModBedwarsCapability.BEDWARS, null).ifPresent(oldHandler -> {
-				
-				newPlayer.getCapability(ModBedwarsCapability.BEDWARS, null).ifPresent(newHandler -> {
-					
-					newHandler.setTeamColor(oldHandler.getTeamColor());
-					
-				});
-				
-			});
-			
-		}
-		
 	}
-
+	
 }

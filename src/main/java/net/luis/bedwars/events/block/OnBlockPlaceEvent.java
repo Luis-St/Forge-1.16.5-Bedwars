@@ -4,6 +4,7 @@ import net.luis.bedwars.Bedwars;
 import net.luis.bedwars.init.ModGameCapability;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.FireBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
@@ -107,6 +108,10 @@ public class OnBlockPlaceEvent {
 			event.setCanceled(false);
 			
 		} else if (block == Blocks.ENDER_CHEST) {
+			
+			event.setCanceled(false);
+			
+		} else if (block instanceof FireBlock) {
 			
 			event.setCanceled(false);
 			

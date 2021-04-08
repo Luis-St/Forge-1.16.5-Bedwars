@@ -1,33 +1,25 @@
 package net.luis.bedwars.events.block;
 
 import net.luis.bedwars.Bedwars;
-import net.luis.bedwars.base.capability.interfaces.IBedwars;
 import net.luis.bedwars.base.util.BedPos;
 import net.luis.bedwars.base.util.TeamColor;
-import net.luis.bedwars.common.inventory.container.TeamContainer;
 import net.luis.bedwars.init.ModBedwarsCapability;
 import net.minecraft.block.BedBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.CarpetBlock;
-import net.minecraft.block.EnderChestBlock;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.inventory.container.SimpleNamedContainerProvider;
 import net.minecraft.item.DyeColor;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.eventbus.api.Event.Result;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
-import net.minecraftforge.fml.network.NetworkHooks;
 
 @Mod.EventBusSubscriber(modid = Bedwars.MOD_ID, bus = Bus.FORGE)
 public class OnBlockInteractEvent {
@@ -41,51 +33,7 @@ public class OnBlockInteractEvent {
 		BlockState state = world.getBlockState(pos);
 		Block block = world.getBlockState(pos).getBlock();
 		
-		if (block instanceof EnderChestBlock) {
-			
-			if (player instanceof ServerPlayerEntity) {
-				
-				ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
-				
-				if (!serverPlayer.isSneaking()) {
-					
-					event.setUseBlock(Result.DENY);
-					
-					if (!serverPlayer.getHeldItemMainhand().isEmpty()) {
-						
-						event.setUseItem(Result.DENY);
-						
-					}
-					
-					IBedwars bedwarsHandler = serverPlayer.getCapability(ModBedwarsCapability.BEDWARS, null).orElseThrow(() -> new NullPointerException());
-					TeamColor teamColor = bedwarsHandler.getTeamColor();
-					
-					if (teamColor != null) {
-						
-						String teamName = teamColor.getName();
-						ITextComponent textComponent = new StringTextComponent(teamName);
-						
-						NetworkHooks.openGui((ServerPlayerEntity) serverPlayer, new SimpleNamedContainerProvider((id, inventory, playerIn) -> {
-							return new TeamContainer(id, inventory);
-						}, textComponent), pos);
-						
-						double x = pos.getX() + 0.5D;
-						double y = pos.getY() + 0.5D;
-						double z = pos.getZ() + 0.5D;
-						
-						world.playSound(null, x, y, z, SoundEvents.BLOCK_ENDER_CHEST_OPEN, SoundCategory.BLOCKS, 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
-						
-					}
-					
-				} else {
-					
-					event.setCanceled(true);
-					
-				}
-				
-			}
-			
-		} else if (block instanceof BedBlock) {
+		if (block instanceof BedBlock) {
 			
 			BedBlock bedBlock = (BedBlock) block;
 			
@@ -96,9 +44,12 @@ public class OnBlockInteractEvent {
 				
 			}
 			
-			/**
-			 *  TODO : create class with Dist#Client
-			 */
+			try {
+				
+			} catch (Exception e) {
+				
+			}
+			
 			if (player instanceof ClientPlayerEntity) {
 				
 				ClientPlayerEntity clientPlayer = (ClientPlayerEntity) player;
