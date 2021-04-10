@@ -36,26 +36,27 @@ public class GameHandler implements IGame {
 	}
 	
 	@Override
-	public void add(BlockPos pos) {
+	public void addChange(BlockPos pos) {
 		this.changeList.add(pos);
 	}
 
 	@Override
-	public void reset(World world) {
+	public void resetChanges(World world) {
 		for (BlockPos blockPos : this.changeList) {
 			if (!(world.getBlockState(blockPos).getBlock() instanceof AirBlock)) {
 				world.setBlockState(blockPos, Blocks.AIR.getDefaultState(), 3);
 			}
 		}
+		this.changeList.clear();
 	}
 
 	@Override
-	public List<BlockPos> get() {
+	public List<BlockPos> getChanges() {
 		return this.changeList;
 	}
 	
 	@Override
-	public void set(List<BlockPos> changeList) {
+	public void setChanges(List<BlockPos> changeList) {
 		this.changeList = changeList;
 	}
 	

@@ -75,7 +75,7 @@ public class BlazeRodItem extends Item {
 			if (serverWorld.getBlockState(pos).getBlock() instanceof AirBlock) {
 				
 				serverWorld.setBlockState(pos, block.getDefaultState(), 3);
-				gameHandler.add(pos);
+				gameHandler.addChange(pos);
 				Bedwars.LOGGER.info("Add Pos to Block Change List" + pos.toString().replace("BlockPos", " "));
 				
 			} 
@@ -83,7 +83,7 @@ public class BlazeRodItem extends Item {
 			if (serverWorld.getBlockState(pos.north()).getBlock() instanceof AirBlock) {
 				
 				serverWorld.setBlockState(pos.north(), block.getDefaultState(), 3);
-				gameHandler.add(pos.north());
+				gameHandler.addChange(pos.north());
 				Bedwars.LOGGER.info("Add Pos to Block Change List" + pos.north().toString().replace("BlockPos", " "));
 				
 			} 
@@ -91,7 +91,7 @@ public class BlazeRodItem extends Item {
 			if (serverWorld.getBlockState(pos.east()).getBlock() instanceof AirBlock) {
 				
 				serverWorld.setBlockState(pos.east(), block.getDefaultState(), 3);
-				gameHandler.add(pos.east());
+				gameHandler.addChange(pos.east());
 				Bedwars.LOGGER.info("Add Pos to Block Change List" + pos.east().toString().replace("BlockPos", " "));
 				
 			} 
@@ -99,7 +99,7 @@ public class BlazeRodItem extends Item {
 			if (serverWorld.getBlockState(pos.south()).getBlock() instanceof AirBlock) {
 				
 				serverWorld.setBlockState(pos.south(), block.getDefaultState(), 3);
-				gameHandler.add(pos.south());
+				gameHandler.addChange(pos.south());
 				Bedwars.LOGGER.info("Add Pos to Block Change List" + pos.south().toString().replace("BlockPos", " "));
 				
 			}
@@ -107,7 +107,7 @@ public class BlazeRodItem extends Item {
 			if (serverWorld.getBlockState(pos.west()).getBlock() instanceof AirBlock) {
 				
 				serverWorld.setBlockState(pos.west(), block.getDefaultState(), 3);
-				gameHandler.add(pos.west());
+				gameHandler.addChange(pos.west());
 				Bedwars.LOGGER.info("Add Pos to Block Change List" + pos.west().toString().replace("BlockPos", " "));
 				
 			} 
@@ -115,7 +115,7 @@ public class BlazeRodItem extends Item {
 			if (serverWorld.getBlockState(pos.north().east()).getBlock() instanceof AirBlock) {
 				
 				serverWorld.setBlockState(pos.north().east(), block.getDefaultState(), 3);
-				gameHandler.add(pos.north().east());
+				gameHandler.addChange(pos.north().east());
 				Bedwars.LOGGER.info("Add Pos to Block Change List" + pos.north().east().toString().replace("BlockPos", " "));
 				
 			}
@@ -123,7 +123,7 @@ public class BlazeRodItem extends Item {
 			if (serverWorld.getBlockState(pos.east().south()).getBlock() instanceof AirBlock) {
 				
 				serverWorld.setBlockState(pos.east().south(), block.getDefaultState(), 3);
-				gameHandler.add(pos.east().south());
+				gameHandler.addChange(pos.east().south());
 				Bedwars.LOGGER.info("Add Pos to Block Change List" + pos.east().south().toString().replace("BlockPos", " "));
 				
 			}
@@ -131,7 +131,7 @@ public class BlazeRodItem extends Item {
 			if (serverWorld.getBlockState(pos.south().west()).getBlock() instanceof AirBlock) {
 				
 				serverWorld.setBlockState(pos.south().west(), block.getDefaultState(), 3);
-				gameHandler.add(pos.south().west());
+				gameHandler.addChange(pos.south().west());
 				Bedwars.LOGGER.info("Add Pos to Block Change List" + pos.south().west().toString().replace("BlockPos", " "));
 				
 			}
@@ -139,7 +139,7 @@ public class BlazeRodItem extends Item {
 			if (serverWorld.getBlockState(pos.west().north()).getBlock() instanceof AirBlock) {
 				
 				serverWorld.setBlockState(pos.west().north(), block.getDefaultState(), 3);
-				gameHandler.add(pos.west().north());
+				gameHandler.addChange(pos.west().north());
 				Bedwars.LOGGER.info("Add Pos to Block Change List" + pos.west().north().toString().replace("BlockPos", " "));
 				
 			}
@@ -147,7 +147,7 @@ public class BlazeRodItem extends Item {
 			if (serverWorld.getBlockState(pos.north(2)).getBlock() instanceof AirBlock) {
 				
 				serverWorld.setBlockState(pos.north(2), block.getDefaultState(), 3);
-				gameHandler.add(pos.north(2));
+				gameHandler.addChange(pos.north(2));
 				Bedwars.LOGGER.info("Add Pos to Block Change List" + pos.north(2).toString().replace("BlockPos", " "));
 				
 			}  
@@ -155,7 +155,7 @@ public class BlazeRodItem extends Item {
 			if (serverWorld.getBlockState(pos.east(2)).getBlock() instanceof AirBlock) {
 				
 				serverWorld.setBlockState(pos.east(2), block.getDefaultState(), 3);
-				gameHandler.add(pos.east(2));
+				gameHandler.addChange(pos.east(2));
 				Bedwars.LOGGER.info("Add Pos to Block Change List" + pos.east(2).toString().replace("BlockPos", " "));
 				
 			}
@@ -163,7 +163,7 @@ public class BlazeRodItem extends Item {
 			if (serverWorld.getBlockState(pos.south(2)).getBlock() instanceof AirBlock) {
 				
 				serverWorld.setBlockState(pos.south(2), block.getDefaultState(), 3);
-				gameHandler.add(pos.south(2));
+				gameHandler.addChange(pos.south(2));
 				Bedwars.LOGGER.info("Add Pos to Block Change List" + pos.south(2).toString().replace("BlockPos", " "));
 				
 			} 
@@ -171,7 +171,7 @@ public class BlazeRodItem extends Item {
 			if (serverWorld.getBlockState(pos.west(2)).getBlock() instanceof AirBlock) {
 				
 				serverWorld.setBlockState(pos.west(2), block.getDefaultState(), 3);
-				gameHandler.add(pos.west(2));
+				gameHandler.addChange(pos.west(2));
 				Bedwars.LOGGER.info("Add Pos to Block Change List" + pos.west(2).toString().replace("BlockPos", " "));
 				
 			}

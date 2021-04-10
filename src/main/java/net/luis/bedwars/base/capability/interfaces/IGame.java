@@ -13,9 +13,9 @@ public interface IGame extends SerializeNBT {
 	boolean isGameStopped();
 	boolean isGameStarted();
 	
-	void add(BlockPos pos);
-	void reset(World world);
-	List<BlockPos> get();
-	void set(List<BlockPos> changeList);
+	void addChange(BlockPos pos);
+	void resetChanges(World world);
+	List<BlockPos> getChanges();
+	void setChanges(List<BlockPos> changeList);
 	
 }

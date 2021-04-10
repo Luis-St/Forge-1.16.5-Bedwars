@@ -16,7 +16,7 @@ import net.minecraftforge.common.util.LazyOptional;
 public class ModStatsCapability {
 	
 	@CapabilityInject(IStats.class)
-	public static Capability<IStats> BEDWARS = null;
+	public static Capability<IStats> STATS = null;
 	
 	public static class StatsStorage implements IStorage<IStats> {
 		@Override
@@ -44,7 +44,7 @@ public class ModStatsCapability {
 		@SuppressWarnings({ "unchecked" })
 		public <T> LazyOptional<T> getCapability(Capability<T> cap, Direction side) {
 			
-			return cap == BEDWARS ? (LazyOptional<T>) statsOptional : LazyOptional.empty();
+			return cap == STATS ? (LazyOptional<T>) statsOptional : LazyOptional.empty();
 			
 		}
 

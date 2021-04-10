@@ -46,7 +46,7 @@ public class OnBlockPlaceEvent {
 						if (gameHandler.isGameStarted()) {
 							
 							BlockPos pos = event.getPos();
-							gameHandler.add(pos);
+							gameHandler.addChange(pos);
 							Bedwars.LOGGER.info("Add Pos to Block Change List" + pos.toString().replace("BlockPos", " "));
 							
 						}

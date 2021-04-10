@@ -86,7 +86,6 @@ public class VillagerContainer extends Container {
 		case 14: this.containerHelper.creatFoot(); this.page = Page.FOOT; break;
 		case 15: this.containerHelper.creatPotions(); this.page = Page.POTIONS; break;
 		case 16: this.containerHelper.creatMisc(); this.page = Page.MISC; break;
-		case 17: this.containerHelper.creatMisc(); this.page = Page.MISC; break;
 		default: break;
 		}
 		
@@ -255,7 +254,7 @@ public class VillagerContainer extends Container {
 		return ItemStack.EMPTY;
 		
 	}
-	
+
 	public static enum Page {
 		
 		DEFAULT,
@@ -266,19 +265,8 @@ public class VillagerContainer extends Container {
 		BOWS,
 		FOOT,
 		POTIONS,
-		MISC,
-		KITS;
+		MISC;
 		
 	}
 	
-	public static enum SubPageKit {
-		
-		RUSHER,
-		BASIC,
-		OP_RUSHER,
-		OP,
-		SPAMMER;
-		
-	}
-
 }

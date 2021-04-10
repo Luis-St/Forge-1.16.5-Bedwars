@@ -4,6 +4,7 @@ import java.util.List;
 
 import net.luis.bedwars.Bedwars;
 import net.luis.bedwars.base.util.TeamColor;
+import net.luis.bedwars.base.util.stats.StatsHelper;
 import net.luis.bedwars.init.ModGameCapability;
 import net.minecraft.block.AbstractPlantBlock;
 import net.minecraft.block.BedBlock;
@@ -52,6 +53,9 @@ public class OnBlockBreakEvent {
 							
 							TeamColor teamColor = TeamColor.getByBedBlock(bedBlock);
 							sendBedBreakMessage(players, teamColor);
+							
+							StatsHelper statsHelper = new StatsHelper((ServerPlayerEntity) eventPlayer);
+							statsHelper.addBrokenBed();
 							
 						}
 						

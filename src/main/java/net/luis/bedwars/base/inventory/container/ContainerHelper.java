@@ -24,7 +24,7 @@ public class ContainerHelper {
 		
 		for (int i = 0; i < 9; i++) {
 			
-			this.putStackInSlot(i, getFillerItem());
+			this.putStackInSlot(i, this.getFillerItem());
 			
 		}
 		
@@ -32,7 +32,7 @@ public class ContainerHelper {
 		
 		for (int i = 18; i < 27; i++) {
 			
-			this.putStackInSlot(i, getFillerItem());
+			this.putStackInSlot(i, this.getFillerItem());
 			
 		}
 		
@@ -42,7 +42,7 @@ public class ContainerHelper {
 		
 		for (int i = 27; i < 54; i++) {
 			
-			this.putStackInSlot(i, getFillerItem());
+			this.putStackInSlot(i, this.getFillerItem());
 			
 		}
 
@@ -56,7 +56,7 @@ public class ContainerHelper {
 			
 			if (!slot.getHasStack()) {
 				
-				slot.putStack(getFillerItem());
+				slot.putStack(this.getFillerItem());
 				
 			}
 			
@@ -68,7 +68,7 @@ public class ContainerHelper {
 		
 		for (int i = 27; i < 54; i++) {
 			
-			this.putStackInSlot(i, getAirItem());
+			this.putStackInSlot(i, this.getAirItem());
 			
 		}
 		
@@ -92,7 +92,6 @@ public class ContainerHelper {
 		this.putStackInSlot(14, new ItemStack(Items.APPLE));
 		this.putStackInSlot(15, Items.POTION.getDefaultInstance());
 		this.putStackInSlot(16, new ItemStack(Items.ENDER_PEARL));
-		this.putStackInSlot(17, (new ItemStack(Items.LIGHT_GRAY_STAINED_GLASS_PANE)).setDisplayName(new StringTextComponent("")));
 		this.container.detectAndSendChanges();
 		
 	}

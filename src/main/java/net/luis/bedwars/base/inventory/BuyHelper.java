@@ -43,7 +43,6 @@ public class BuyHelper {
 		case FOOT: return this.getFoodBuyingItem(slot);
 		case POTIONS: return this.getPotionsBuyingItem(slot);
 		case MISC: return this.getMiscBuyingItem(slot);
-		case KITS: break;
 		case DEFAULT: return null;
 		}
 		
@@ -220,12 +219,6 @@ public class BuyHelper {
 		case 51: return new BuyingItem(new ItemStack(Items.CHEST), this.creatIron(1));
 		case 52: return new BuyingItem(new ItemStack(Items.ENDER_CHEST), this.creatGold(1));
 		}
-		
-		return null;
-		
-	}
-	
-	public BuyingItem getKitBuyingItem(int slot) {
 		
 		return null;
 		

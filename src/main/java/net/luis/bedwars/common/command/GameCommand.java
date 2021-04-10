@@ -1,20 +1,27 @@
 package net.luis.bedwars.common.command;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.mojang.brigadier.CommandDispatcher;
 
+import net.luis.bedwars.base.capability.interfaces.IBedwars;
 import net.luis.bedwars.base.util.ChatRank;
+import net.luis.bedwars.base.util.TeamColor;
+import net.luis.bedwars.base.util.stats.StatsHelper;
 import net.luis.bedwars.init.ModBedwarsCapability;
 import net.luis.bedwars.init.ModGameCapability;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.command.arguments.EntityArgument;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.GameType;
 import net.minecraft.world.server.ServerWorld;
 
@@ -36,7 +43,7 @@ public class GameCommand {
 		
 		})).then(Commands.literal("stop").executes(context -> {
 			
-			return gameStop(context.getSource(), context.getSource().getWorld());
+			return gameStop(context.getSource().getWorld());
 		
 		}))
 //		.then(Commands.literal("options").executes(context -> {
@@ -88,9 +95,9 @@ public class GameCommand {
 		
 	}
 	
-	private static int gameInfo(CommandSource source, ServerWorld world) {
+	private static int gameInfo(CommandSource source, ServerWorld serverWorld) {
 		
-		world.getCapability(ModGameCapability.GAME, null).ifPresent(gameHandler -> {
+		serverWorld.getCapability(ModGameCapability.GAME, null).ifPresent(gameHandler -> {
 			
 			boolean flag = gameHandler.isGameStarted();
 			source.sendFeedback(new StringTextComponent(flag ? "The game is running" : "The game is paused"), true);
@@ -101,27 +108,38 @@ public class GameCommand {
 		
 	}
 	
-	private static int gameStart(CommandSource source, ServerWorld world) {
+	private static int gameStart(CommandSource source, ServerWorld serverWorld) {
 		
-		world.getCapability(ModGameCapability.GAME, null).ifPresent(gameHandler -> {
+		serverWorld.getCapability(ModGameCapability.GAME, null).ifPresent(gameHandler -> {
 			
-			gameHandler.startGame();
-			List<ServerPlayerEntity> players = world.getPlayers();
-			
-			for (ServerPlayerEntity player : players) {
+			if (gameHandler.isGameStopped()) {
 				
-				player.sendMessage(new StringTextComponent("Start the game"), player.getUniqueID());
-				player.getCapability(ModBedwarsCapability.BEDWARS, null).ifPresent(bedwarsHandler -> {
+				gameHandler.startGame();
+				List<ServerPlayerEntity> players = serverWorld.getPlayers();
+				
+				for (ServerPlayerEntity serverPlayer : players) {
 					
-					player.setGameType(GameType.SURVIVAL);
-					player.setPositionAndUpdate(bedwarsHandler.getRespawnPosX() + 0.5,
-							bedwarsHandler.getRespawnPosY() + 0.5, bedwarsHandler.getRespawnPosZ() + 0.5);
-					player.inventory.clear(); 
-					player.getInventoryEnderChest().clear();
-					player.addPotionEffect(new EffectInstance(Effects.SATURATION, 10, 9));
-					player.addPotionEffect(new EffectInstance(Effects.REGENERATION, 10, 9));
+					serverPlayer.sendMessage(new StringTextComponent("Start the game"), serverPlayer.getUniqueID());
+					serverPlayer.getCapability(ModBedwarsCapability.BEDWARS, null).ifPresent(bedwarsHandler -> {
+						
+						serverPlayer.setGameType(GameType.SURVIVAL);
+						serverPlayer.setPositionAndUpdate(bedwarsHandler.getRespawnPosX() + 0.5,
+								bedwarsHandler.getRespawnPosY() + 0.5, bedwarsHandler.getRespawnPosZ() + 0.5);
+						serverPlayer.inventory.clear(); 
+						serverPlayer.getInventoryEnderChest().clear();
+						serverPlayer.addPotionEffect(new EffectInstance(Effects.SATURATION, 10, 9, false, false));
+						serverPlayer.addPotionEffect(new EffectInstance(Effects.REGENERATION, 10, 9, false, false));
+						
+					});
 					
-				});
+					StatsHelper statsHelper = new StatsHelper(serverPlayer);
+					statsHelper.addRound();				
+				
+				}
+				
+			} else {
+				
+				source.sendFeedback(new StringTextComponent("The game is already running"), true);
 				
 			}
 			
@@ -132,24 +150,25 @@ public class GameCommand {
 		
 	}
 	
-	private static int gameStop(CommandSource source, ServerWorld world) {
+	private static int gameStop(ServerWorld serverWorld) {
 		
-		world.getCapability(ModGameCapability.GAME, null).ifPresent(gameHandler -> {
+		serverWorld.getCapability(ModGameCapability.GAME, null).ifPresent(gameHandler -> {
 			
 			gameHandler.stopGame();
-			List<ServerPlayerEntity> players = world.getPlayers();
+			List<ServerPlayerEntity> players = serverWorld.getPlayers();
+			sendTeamWinMessage(players, serverWorld);
 			
-			for (ServerPlayerEntity player : players) {
+			for (ServerPlayerEntity serverPlayer : players) {
 				
-				player.sendMessage(new StringTextComponent("Stop the game"), player.getUniqueID());
-				player.setGameType(GameType.CREATIVE);
-				player.getInventoryEnderChest().clear();
-				player.getCapability(ModBedwarsCapability.BEDWARS, null).ifPresent(bedwarsHandler -> {
+				serverPlayer.sendMessage(new StringTextComponent("Stop the game"), serverPlayer.getUniqueID());
+				serverPlayer.setGameType(GameType.CREATIVE);
+				serverPlayer.getInventoryEnderChest().clear();
+				serverPlayer.getCapability(ModBedwarsCapability.BEDWARS, null).ifPresent(bedwarsHandler -> {
 					
-					player.setPositionAndUpdate(bedwarsHandler.getRespawnPosX() + 0.5,
+					serverPlayer.setPositionAndUpdate(bedwarsHandler.getRespawnPosX() + 0.5,
 							bedwarsHandler.getRespawnPosY() + 0.5, bedwarsHandler.getRespawnPosZ() + 0.5);
-					player.inventory.clear(); 
-					player.getInventoryEnderChest().clear();
+					serverPlayer.inventory.clear(); 
+					serverPlayer.getInventoryEnderChest().clear();
 					
 				});
 				
@@ -158,6 +177,39 @@ public class GameCommand {
 		});
 		
 		return 1;
+		
+	}
+	
+	private static void sendTeamWinMessage(List<ServerPlayerEntity> players, ServerWorld serverWorld) {
+		
+		List<ServerPlayerEntity> allPlayers = serverWorld.getPlayers();
+		List<ServerPlayerEntity> survivingPlayers = allPlayers;
+		survivingPlayers.removeIf(serverPlayer -> serverPlayer.isSpectator());
+		ServerPlayerEntity player = survivingPlayers.get(0);
+		
+		if (player != null) {
+			
+			IBedwars bedwarsHandler = player.getCapability(ModBedwarsCapability.BEDWARS, null).orElseThrow(NullPointerException::new);
+			TeamColor teamColor = bedwarsHandler.getTeamColor();
+			
+			ITextComponent firstPart = (new StringTextComponent("The team ")).mergeStyle(TextFormatting.RESET);
+			ITextComponent secondPart = (new StringTextComponent(teamColor.getName())).mergeStyle(teamColor.getTextFormatting());
+			ITextComponent thirdPart = (new StringTextComponent(" win the game")).mergeStyle(TextFormatting.RESET);
+			
+			for (ServerPlayerEntity serverPlayer : allPlayers) {
+				
+				serverPlayer.sendMessage(new StringTextComponent("").append(firstPart).append(secondPart).append(thirdPart), player.getUniqueID());
+				
+			}
+			
+			for (ServerPlayerEntity serverPlayer : survivingPlayers) {
+				
+				StatsHelper statsHelper = new StatsHelper(serverPlayer);
+				statsHelper.addWin();
+				
+			}
+			
+		}
 		
 	}
 	
@@ -171,22 +223,33 @@ public class GameCommand {
 //		
 //	}
 	
-	private static int gameReset(CommandSource source, ServerWorld world) {
+	private static int gameReset(CommandSource source, ServerWorld serverWorld) {
 		
-		world.getCapability(ModGameCapability.GAME, null).ifPresent(gameHandler -> {
+		serverWorld.getCapability(ModGameCapability.GAME, null).ifPresent(gameHandler -> {
 			
 			if (gameHandler.isGameStopped()) {
 				
-				int i = gameHandler.get().size();
-				gameHandler.reset(world);
-				List<ServerPlayerEntity> players = world.getPlayers();
+				int i = gameHandler.getChanges().size();
+				gameHandler.resetChanges(serverWorld);
 				
-				for (ServerPlayerEntity player : players) {
+				source.sendFeedback(new StringTextComponent("Reset the game"), true);
+				source.sendFeedback(new StringTextComponent("Removed " + i + " Blocks"), true);
+				
+				List<Entity> entities = serverWorld.getEntities().collect(Collectors.toList());
+				int j = 0;
+				
+				for (Entity entity : entities) {
 					
-					player.sendMessage(new StringTextComponent("Reset the game"), player.getUniqueID());
-					player.sendMessage(new StringTextComponent("Removed " + i + " Blocks"), player.getUniqueID());
+					if (entity instanceof ItemEntity) {
+						
+						entity.remove();
+						j++;
+						
+					}
 					
 				}
+				
+				source.sendFeedback(new StringTextComponent("Removed " + j + " Items"), true);
 				
 			}
 			
