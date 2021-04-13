@@ -12,13 +12,14 @@ import net.minecraft.util.text.TextFormatting;
 
 public class Stats implements SerializeNBT {
 	
-	private double kills = 0;
-	private double deaths = 0;
+	private double kills = 0.0;
+	private double deaths = 0.0;
 	private double kd = 0.0;
-	private double rounds = 0;
-	private double wins = 0;
+	private double rounds = 0.0;
+	private double wins = 0.0;
 	private double winChance = 0.0;
-	private double brokenBeds = 0;
+	private double brokenBeds = 0.0;
+	private double br = 0.0;
 	
 	public Stats() {
 		
@@ -144,16 +145,32 @@ public class Stats implements SerializeNBT {
 		this.brokenBeds += 1;
 	}
 	
+	public double getBr() {
+		this.calcBr();
+		return this.br;
+	}
+	
+	private void calcBr() {
+		double br = this.brokenBeds;
+		if (this.rounds > 0) {
+			br = this.brokenBeds / this.rounds;
+		}
+		br *= 100;
+		br = Math.round(br);
+		this.br = br / 100;
+	}
+	
 	public void print(ServerPlayerEntity serverPlayer) {
 		List<ITextComponent> components = new ArrayList<ITextComponent>();
 		components.add(new StringTextComponent("Stats von " + serverPlayer.getName().getString() + ":").mergeStyle(TextFormatting.GRAY));
 		components.add(this.creatIntComponent("Kills", this.getKills()));
 		components.add(this.creatIntComponent("Deaths", this.getDeaths()));
-		components.add(this.creatDoubleComponent("KD", this.getKd()));
+		components.add(this.creatDoubleComponent("Kd", this.getKd()));
 		components.add(this.creatIntComponent("Rounds", this.getRounds()));
 		components.add(this.creatIntComponent("Wins", this.getWins()));
 		components.add(this.creatDoubleComponent("Win chance", this.getWinChance()));
 		components.add(this.creatIntComponent("Broken beds", this.getBrokenBeds()));
+		components.add(this.creatDoubleComponent("Br", this.getBr()));
 		components.forEach(component -> {
 			serverPlayer.sendMessage(component, serverPlayer.getUniqueID());
 		});
@@ -176,10 +193,8 @@ public class Stats implements SerializeNBT {
 		CompoundNBT nbt = new CompoundNBT();
 		nbt.putDouble("kills", this.getKills());
 		nbt.putDouble("deaths", this.getDeaths());
-		nbt.putDouble("kd", this.getKd());
 		nbt.putDouble("rounds", this.getRounds());
 		nbt.putDouble("wins", this.getWins());
-		nbt.putDouble("winChance", this.getWinChance());
 		nbt.putDouble("brokenBeds", this.getBrokenBeds());
 		return nbt;
 	}
@@ -193,6 +208,7 @@ public class Stats implements SerializeNBT {
 		this.setBrokenBeds(nbt.getDouble("brokenBeds"));
 		this.calcKd();
 		this.calcWinChance();
+		this.calcBr();
 	}
 
 }
