@@ -17,6 +17,12 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 @Mod.EventBusSubscriber(modid = Bedwars.MOD_ID, bus = Bus.FORGE)
 public class OnPlayerTickEvent {
 	
+	public static class ItemStackHolder {
+		
+
+		
+	}
+	
 	@SubscribeEvent
 	public static void PlayerTick(TickEvent.PlayerTickEvent event) {
 		
